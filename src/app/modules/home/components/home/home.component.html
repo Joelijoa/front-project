@@ -38,6 +38,35 @@
                     [style]="{'color': '#FFFFFF','background-color': '#010327', 'border-color': '#010327'}" />
             </div>
         </section>
+
+        <section class="homepage-section-partners">
+            <h2 class="section-title">{{titre_partenaires}}</h2>
+            <p-carousel [value]="partners" [numVisible]="5" [numScroll]="1" [circular]="true" [autoplayInterval]="3000"
+                [responsiveOptions]="carouselResponsiveOptions" [showNavigators]="false">
+                <ng-template let-partner pTemplate="item">
+                    <div class="partner-item">
+                        <img [src]="partner.image" [alt]="partner.name">
+                    </div>
+                </ng-template>
+            </p-carousel>
+            <div class="button-container">
+                <p-button label="Voir toutes nos entreprises" [rounded]="true"
+                    [style]="{'color': '#FFFFFF','background-color': '#E39359', 'border-color': '#E39359'}" />
+            </div>
+        </section>
+
+        <section class="homepage-section-3">
+            <h2 class="section-title">{{titre_3}}</h2>
+            <div class="process-steps">
+                <div class="step" *ngFor="let step of processSteps">
+                    <div class="step-icon">
+                        <i [class]="step.icon"></i>
+                    </div>
+                    <h3 class="step-title">{{step.title}}</h3>
+                    <p class="step-description">{{step.description}}</p>
+                </div>
+            </div>
+        </section>
     </main>
 
     <app-footer></app-footer>
