@@ -1,82 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import url(./app/core/components/header/header.component.scss);
+@import url(./app/core/components/footer/footer.component.scss);
+@import url(./app/modules/home/components/home/home.component.scss);
+// @import url(./app/core/components/header/header.component.ts);
 html {
     font-size: 14px;
     font-family: "Inter var", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     line-height: normal;
+    overflow-y: scroll;
+    margin-right: 0;
 }
   
 body {
     background: var(--surface-ground);
-    color: rgb(173, 36, 36);
+    color: #696969;
     padding: 1rem;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: rgb(248, 247, 247);
-}
-
-.p-menubar {
-    background-color:#010327 !important;
-    position: fixed !important;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    transition: all 0.3s ease;
-    padding: 0.5rem;
-}
-
-.p-menubar.scrolled {
-    backdrop-filter: blur(10px);
-    background-color: rgba(255, 255, 255, 0.8) !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.myMenuBar {
-    background-color: white !important;
-    padding: 20px;
-    position: fixed;
-    width: 100%;
-    transition: all 0.3s ease;
-    box-shadow: none;
-    z-index: 100;
-}
-
-.opaque-navbar {
     margin: 0;
-    top: 0;
-    padding: 20px;
-    position: fixed;
+    padding: 0;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.8) !important;
-    backdrop-filter: blur(8px) !important;
-    transition: all 0.3s ease;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1) !important;
-    z-index: 1000;
+    overflow-x: hidden;
 }
-
-/* Personnalisation des boutons */
-.p-button.p-button-secondary {
-    background-color: #4a5568 !important;
-    border-color: #4a5568 !important;
-    color: white !important;
-}
-
-.p-button.p-button-secondary:hover {
-    background-color: #2d3748 !important;
-    border-color: #2d3748 !important;
-}
-
-.p-button.p-button-success {
-    background-color: #38a169 !important;
-    border-color: #38a169 !important;
-    color: white !important;
-}
-
-.p-button.p-button-success:hover {
-    background-color: #2f855a !important;
-    border-color: #2f855a !important;
-}
-  
-  
