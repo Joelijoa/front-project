@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from "../../../../core/components/header/header.component";
 import { FooterComponent } from "../../../../core/components/footer/footer.component";
 import { RouterModule } from '@angular/router';
@@ -24,7 +24,7 @@ interface Partner {
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
   titre_1!: string;
   Sous_titre_1 !: string 

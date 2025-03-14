@@ -1,0 +1,320 @@
+@use "sass:color";
+
+.page-container {
+    min-height: calc(100vh - 200px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    padding: 2rem;
+    margin-top: 100px;
+
+}
+
+.login-container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.login-content {
+    display: flex;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+// Colonne de gauche
+.left-column {
+    flex: 1;
+    background: linear-gradient(135deg, #010327 0%, #1a237e 100%);
+    padding: 3rem;
+    color: white;
+    display: flex;
+    align-items: center;
+
+    .brand-content {
+        width: 100%;
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .social-login {
+            margin-top: 2rem;
+
+            .google-btn, .linkedin-btn {
+                transition: transform 0.2s;
+
+                &:hover {
+                    transform: translateY(-2px);
+                }
+            }
+
+            .linkedin-btn {
+                &:hover {
+                    background-color: #0077B5 !important;
+                    color: white !important;
+                }
+            }
+        }
+    }
+}
+
+// Colonne de droite
+.right-column {
+    flex: 1;
+    padding: 3rem;
+    background: white;
+
+    .form-header {
+        margin-bottom: 2rem;
+
+        h2 {
+            color: #010327;
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+    }
+}
+
+.login-form {
+    .form-group {
+        margin-bottom: 1.5rem;
+
+        .p-float-label {
+            width: 100%;
+        }
+
+        input, .p-password {
+            width: 100%;
+        }
+    }
+
+    .error-message {
+        color: #dc3545;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        display: block;
+    }
+
+    .form-options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+
+            .checkbox-label {
+                color: #010327;
+                font-size: 0.9rem;
+                cursor: pointer;
+                user-select: none;
+            }
+        }
+
+        .forgot-password {
+            color: #E39359;
+            text-decoration: none;
+            font-size: 0.875rem;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 2rem;
+    color: #6c757d;
+
+    a {
+        color: #E39359;
+        text-decoration: none;
+        font-weight: 500;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+// Styles pour les composants PrimeNG
+:host ::ng-deep {
+    .p-button-outlined {
+        &:hover {
+            background: #f8f9fa;
+        }
+    }
+
+    // Style des champs de saisie
+    .p-float-label {
+        margin-top: 1rem;
+        position: relative;
+
+        label {
+            position: absolute;
+            top: -1.2rem;
+            left: 0;
+            color: #010327;
+            font-size: 0.9rem;
+            font-weight: 500;
+            background: transparent;
+            transition: all 0.2s ease;
+            transform-origin: 0 0;
+        }
+
+        input:focus ~ label,
+        input.p-filled ~ label,
+        .p-password-input:focus ~ label,
+        .p-password-input.p-filled ~ label {
+            transform: translateY(0) scale(1);
+            color: #010327;
+        }
+    }
+
+    .p-inputtext {
+        background: white;
+        border: 2px solid #010327;
+        border-radius: 8px;
+        color: #010327;
+        font-size: 1rem;
+        padding: 0.75rem 1rem;
+        transition: all 0.3s ease;
+        
+        &:enabled:hover {
+            border-color: #010327;
+        }
+        
+        &:enabled:focus {
+            border-color: #010327;
+            box-shadow: 0 0 0 2px rgba(1, 3, 39, 0.1);
+            background: white;
+        }
+
+        &::placeholder {
+            color: rgba(1, 3, 39, 0.5);
+        }
+    }
+
+    // Style du champ mot de passe
+    .p-password {
+        width: 100%;
+
+        input {
+            width: 100%;
+            background: white;
+            border: 2px solid #010327;
+            border-radius: 8px;
+            color: #010327;
+        }
+
+        i {
+            color: #010327;
+        }
+    }
+
+    // Style de la checkbox
+    .p-checkbox {
+        .p-checkbox-box {
+            border: 2px solid #010327;
+            background: white;
+            width: 20px;
+            height: 20px;
+
+            &:hover {
+                border-color: #010327;
+            }
+
+            .p-checkbox-icon {
+                color: white;
+                font-size: 14px;
+                font-weight: bold;
+            }
+
+            &.p-highlight {
+                background: #010327;
+                border-color: #010327;
+
+                .p-checkbox-icon {
+                    visibility: visible !important;
+                    opacity: 1 !important;
+                }
+
+                &:hover {
+                    background: color.adjust(#010327, $lightness: 10%);
+                    border-color: color.adjust(#010327, $lightness: 10%);
+                }
+            }
+        }
+
+        &:not(.p-checkbox-disabled) {
+            .p-checkbox-box {
+                &.p-focus {
+                    border-color: #010327;
+                    box-shadow: 0 0 0 2px rgba(1, 3, 39, 0.2);
+                }
+            }
+        }
+    }
+
+    // Style du label de la checkbox
+    .p-checkbox-label {
+        color: #010327;
+    }
+
+    // Style des labels flottants
+    .p-float-label label {
+        color: #6c757d;
+    }
+
+    // Style du bouton de connexion au hover
+    .p-button {
+        &:enabled:hover {
+            background: color.adjust(#E39359, $lightness: -5%);
+            border-color: color.adjust(#E39359, $lightness: -5%);
+        }
+    }
+}
+
+// Media queries pour la responsivité
+@media (max-width: 768px) {
+    .login-content {
+        flex-direction: column;
+    }
+
+    .left-column, .right-column {
+        padding: 2rem;
+    }
+
+    .left-column {
+        text-align: center;
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        .tagline {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+    }
+}

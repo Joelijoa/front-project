@@ -3,12 +3,15 @@ import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ImportsModule } from './imports'
 import { isPlatformBrowser } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
-  imports: [ButtonModule, ImportsModule],
+  imports: [ButtonModule, ImportsModule, RouterModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
+  standalone: true,
+
 })
 export class HeaderComponent implements OnInit{
   imgLogo ! : string;
@@ -17,8 +20,15 @@ export class HeaderComponent implements OnInit{
   myMenuBar : string = 'myMenuBar';
   isCollapsed = false;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private renderer: Renderer2) {}
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object, 
+    private renderer: Renderer2,
+    private router: Router
+  ) {}
 
+  goToLogin() {
+    this.router.navigate(['/account/login']);
+  }
   ngOnInit() {
     this.imgLogo = "picture/logo.png"
     this.items = [
