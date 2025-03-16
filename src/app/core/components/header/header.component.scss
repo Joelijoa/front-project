@@ -29,6 +29,16 @@
     backdrop-filter: blur(10px);
     background-color: rgba(255, 255, 255, 0.8) !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #010327!important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    padding: 0.5rem;
+    width: 100% !important;
+    box-sizing: border-box;
 }
 
 

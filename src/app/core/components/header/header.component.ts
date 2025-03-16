@@ -26,15 +26,25 @@ export class HeaderComponent implements OnInit{
     private router: Router
   ) {}
 
+  goToHome() {
+    this.router.navigate(['/']);
+  }
+
   goToLogin() {
     this.router.navigate(['/account/login']);
   }
+
+  goToRegister() {
+    this.router.navigate(['/account/register']);
+  }
+
   ngOnInit() {
     this.imgLogo = "picture/logo.png"
     this.items = [
       {
         label: 'Accueil',
         icon: 'pi pi-home',
+        command: () => this.goToHome()
       },
       {
         label: 'Offre d\'emploi',

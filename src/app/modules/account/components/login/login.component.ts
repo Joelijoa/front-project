@@ -7,7 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
 import { CheckboxModule } from 'primeng/checkbox';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { HeaderComponent } from '../../../../core/components/header/header.component';
 import { FooterComponent } from '../../../../core/components/footer/footer.component';
 
@@ -34,7 +34,7 @@ export class LoginComponent {
   loginForm: FormGroup;
   loading: boolean = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -51,5 +51,9 @@ export class LoginComponent {
         this.loading = false;
       }, 1000);
     }
+  }
+
+  goToRegister(type: 'user' | 'company') {
+    this.router.navigate(['/account/register-' + type]);
   }
 }

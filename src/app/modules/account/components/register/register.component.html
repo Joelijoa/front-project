@@ -1,0 +1,83 @@
+<app-header></app-header>
+<div class="register-container">
+    <div class="register-content">
+        <div class="header-section">
+            <h1>Créer un compte</h1>
+            <p class="subtitle">Choisissez votre type de compte et inscrivez-vous !</p>
+            <p class="description">
+                Rejoignez nous et accédez à tous les outils qui 
+                vous permettront de présenter au marché la meilleure version de vous-même,
+                et mettre toutes les chances de votre côté.
+            </p>
+        </div>
+        
+        <div class="choice-cards">
+            <div class="choice-card candidate" (click)="goToRegisterUser()">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="pi pi-user"></i>
+                        </div>
+                        <div class="badge">Gratuit</div>
+                    </div>
+                    <h3>Espace</h3>
+                    <h2>Candidats</h2>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="pi pi-check-circle"></i>
+                            <span>CV personnalisable</span>
+                        </div>
+                        <div class="feature">
+                            <i class="pi pi-check-circle"></i>
+                            <span>Suivi de candidatures</span>
+                        </div>
+                        <div class="feature">
+                            <i class="pi pi-check-circle"></i>
+                            <span>Alertes emploi</span>
+                        </div>
+                    </div>
+                    <div class="cta-section">
+                        <p>Trouvez votre prochain emploi</p>
+                        <div class="arrow-icon">
+                            <i class="pi pi-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="choice-card company" (click)="goToRegisterCompany()">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="pi pi-building"></i>
+                        </div>
+                        <div class="badge premium">Gratuit</div>
+                    </div>
+                    <h3>Espace</h3>
+                    <h2>Sociétés</h2>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="pi pi-check-circle"></i>
+                            <span>Gestion des offres</span>
+                        </div>
+                        <div class="feature">
+                            <i class="pi pi-check-circle"></i>
+                            <span>Matching intelligent</span>
+                        </div>
+                        <div class="feature">
+                            <i class="pi pi-check-circle"></i>
+                            <span>Statistiques détaillées</span>
+                        </div>
+                    </div>
+                    <div class="cta-section">
+                        <p>Recrutez vos talents</p>
+                        <div class="arrow-icon">
+                            <i class="pi pi-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

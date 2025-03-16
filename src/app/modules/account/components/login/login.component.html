@@ -1,6 +1,6 @@
-<app-header></app-header>
-
 <div class="page-container">
+    <app-header></app-header>
+    
     <div class="login-container">
         <div class="login-content">
             <!-- Colonne de gauche -->
@@ -67,12 +67,26 @@
                     </p-button>
 
                     <div class="register-link">
-                        <p>Vous n'avez pas encore de compte ? <a routerLink="/account/register-user">Inscrivez-vous</a></p>
+                        <p>Vous n'avez pas encore de compte ?</p>
+                        <div class="register-buttons">
+                            <p-button 
+                                label="Inscription Candidat" 
+                                (onClick)="goToRegister('user')"
+                                styleClass="p-button-outlined p-button-rounded"
+                                [style]="{'margin-right': '1rem', 'color': '#010327', 'border-color': '#010327'}">
+                            </p-button>
+                            <p-button 
+                                label="Inscription Entreprise" 
+                                (onClick)="goToRegister('company')"
+                                styleClass="p-button-outlined p-button-rounded"
+                                [style]="{'color': '#010327', 'border-color': '#010327'}">
+                            </p-button>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-</div>
 
-<app-footer></app-footer>
+    <app-footer></app-footer>
+</div>
