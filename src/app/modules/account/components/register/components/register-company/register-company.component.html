@@ -1,5 +1,154 @@
 <app-header></app-header>
 <div class="register-company-container">
-    lDVN
+    <div class="register-content">
+        <div class="form-section">
+            <h1>Inscription Entreprise</h1>
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label for="nomSociete">Nom de la société</label>
+                        <input id="nomSociete" type="text" pInputText formControlName="nomSociete" placeholder="Nom de votre société">
+                        <small class="error-message" *ngIf="registerForm.get('nomSociete')?.errors?.['required'] && registerForm.get('nomSociete')?.touched">
+                            Le nom de la société est requis
+                        </small>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="civilite">Civilité</label>
+                        <p-dropdown id="civilite" [options]="civilites" formControlName="civilite" placeholder="Sélectionnez" [style]="{'width':'100%'}"></p-dropdown>
+                        <small class="error-message" *ngIf="registerForm.get('civilite')?.errors?.['required'] && registerForm.get('civilite')?.touched">
+                            La civilité est requise
+                        </small>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="nomRepresentant">Nom du représentant</label>
+                        <input id="nomRepresentant" type="text" pInputText formControlName="nomRepresentant" placeholder="Nom du représentant">
+                        <small class="error-message" *ngIf="registerForm.get('nomRepresentant')?.errors?.['required'] && registerForm.get('nomRepresentant')?.touched">
+                            Le nom du représentant est requis
+                        </small>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="prenomRepresentant">Prénom du représentant</label>
+                        <input id="prenomRepresentant" type="text" pInputText formControlName="prenomRepresentant" placeholder="Prénom du représentant">
+                        <small class="error-message" *ngIf="registerForm.get('prenomRepresentant')?.errors?.['required'] && registerForm.get('prenomRepresentant')?.touched">
+                            Le prénom du représentant est requis
+                        </small>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="dateCreation">Date de création</label>
+                        <p-calendar id="dateCreation" formControlName="dateCreation" [style]="{'width':'100%'}" [showIcon]="true" dateFormat="dd/mm/yy"></p-calendar>
+                        <small class="error-message" *ngIf="registerForm.get('dateCreation')?.errors?.['required'] && registerForm.get('dateCreation')?.touched">
+                            La date de création est requise
+                        </small>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="telephone">Numéro de téléphone</label>
+                        <input id="telephone" type="tel" pInputText formControlName="telephone" placeholder="Numéro de téléphone">
+                        <small class="error-message" *ngIf="registerForm.get('telephone')?.errors?.['required'] && registerForm.get('telephone')?.touched">
+                            Le numéro de téléphone est requis
+                        </small>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="email">Email</label>
+                        <input id="email" type="email" pInputText formControlName="email" placeholder="Email professionnel">
+                        <small class="error-message" *ngIf="registerForm.get('email')?.errors?.['required'] && registerForm.get('email')?.touched">
+                            L'email est requis
+                        </small>
+                        <small class="error-message" *ngIf="registerForm.get('email')?.errors?.['email'] && registerForm.get('email')?.touched">
+                            Format d'email invalide
+                        </small>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="password">Mot de passe</label>
+                        <p-password id="password" formControlName="password" [toggleMask]="true" placeholder="Mot de passe"></p-password>
+                        <small class="error-message" *ngIf="registerForm.get('password')?.errors?.['required'] && registerForm.get('password')?.touched">
+                            Le mot de passe est requis
+                        </small>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="pays">Pays</label>
+                        <p-dropdown id="pays" [options]="pays" formControlName="pays" placeholder="Sélectionnez" [style]="{'width':'100%'}"></p-dropdown>
+                        <small class="error-message" *ngIf="registerForm.get('pays')?.errors?.['required'] && registerForm.get('pays')?.touched">
+                            Le pays est requis
+                        </small>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="ville">Ville</label>
+                        <p-dropdown id="ville" [options]="villes" formControlName="ville" placeholder="Sélectionnez" [style]="{'width':'100%'}"></p-dropdown>
+                        <small class="error-message" *ngIf="registerForm.get('ville')?.errors?.['required'] && registerForm.get('ville')?.touched">
+                            La ville est requise
+                        </small>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="formeJuridique">Forme juridique</label>
+                        <p-dropdown id="formeJuridique" [options]="formesJuridiques" formControlName="formeJuridique" placeholder="Sélectionnez" [style]="{'width':'100%'}"></p-dropdown>
+                        <small class="error-message" *ngIf="registerForm.get('formeJuridique')?.errors?.['required'] && registerForm.get('formeJuridique')?.touched">
+                            La forme juridique est requise
+                        </small>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="typeSociete">Type de société</label>
+                        <p-dropdown id="typeSociete" [options]="typesSociete" formControlName="typeSociete" placeholder="Sélectionnez" [style]="{'width':'100%'}"></p-dropdown>
+                        <small class="error-message" *ngIf="registerForm.get('typeSociete')?.errors?.['required'] && registerForm.get('typeSociete')?.touched">
+                            Le type de société est requis
+                        </small>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="domaineActivite">Domaine d'activité</label>
+                        <p-dropdown id="domaineActivite" [options]="domainesActivite" formControlName="domaineActivite" placeholder="Sélectionnez" [style]="{'width':'100%'}"></p-dropdown>
+                        <small class="error-message" *ngIf="registerForm.get('domaineActivite')?.errors?.['required'] && registerForm.get('domaineActivite')?.touched">
+                            Le domaine d'activité est requis
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-footer">
+                    <div class="terms-checkbox">
+                        <p-checkbox formControlName="acceptConditions" [binary]="true" inputId="acceptConditions"></p-checkbox>
+                        <label for="acceptConditions">J'accepte les Conditions d'utilisation, la Politique de confidentialité et la Politique relative aux cookies de Yobber</label>
+                    </div>
+                    <small class="error-message" *ngIf="registerForm.get('acceptConditions')?.errors?.['required'] && registerForm.get('acceptConditions')?.touched">
+                        Vous devez accepter les conditions pour continuer
+                    </small>
+
+                    <button pButton type="submit" label="S'inscrire" [disabled]="!registerForm.valid" class="register-button"></button>
+                </div>
+            </form>
+        </div>
+
+        <div class="help-section">
+            <div class="help-content">
+                <h2>Besoin d'aide ?</h2>
+                <p>Si vous avez besoin d'assistance pour compléter votre inscription, n'hésitez pas à nous :</p>
+                <ul>
+                    <li>
+                        <i class="pi pi-envelope"></i>
+                        Contacter par email
+                        <a href="mailto:yobbercontact&#64;gmail.com">yobbercontact&#64;gmail.com</a>
+                    </li>
+                    <li>
+                        <i class="pi pi-comments"></i>
+                        Visiter notre page 
+                        <a routerLink="/contact">Nous contacter</a>
+                    </li>
+                </ul>
+                <div class="help-note">
+                    <i class="pi pi-info-circle"></i>
+                    <p>Notre équipe est disponible pour vous aider dans votre démarche d'inscription et répondre à toutes vos questions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <app-footer></app-footer>

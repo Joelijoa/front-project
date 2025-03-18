@@ -1,0 +1,61 @@
+<app-header></app-header>
+<div class="offer-list-container">
+    <!-- Section filtres et recherche -->
+    <div class="filters-search-section">
+        <!-- Filtres latéraux -->
+        <aside class="filters-sidebar">
+            <app-offer-filters
+                (filtersChange)="onFiltersChange($event)">
+            </app-offer-filters>
+        </aside>
+
+        <!-- Section principale -->
+        <main class="main-content">
+            <!-- Barre de recherche -->
+            <section class="search-section">
+                <app-offer-search
+                    (search)="onSearch($event)">
+                </app-offer-search>
+            </section>
+
+            <!-- Liste des offres -->
+            <section class="offers-grid">
+                <ng-container *ngIf="!loading; else loadingTemplate">
+                    <ng-container *ngIf="offers.length > 0; else noOffers">
+                        <app-offer-card
+                            *ngFor="let offer of offers"
+                            [offer]="offer"
+                            (saved)="onOfferSaved($event)">
+                        </app-offer-card>
+                    </ng-container>
+
+                    <!-- Pagination -->
+                    <p-paginator
+                        *ngIf="totalOffers > 0"
+                        [rows]="itemsPerPage"
+                        [totalRecords]="totalOffers"
+                        [first]="(currentPage - 1) * itemsPerPage"
+                        (onPageChange)="onPageChange($event)">
+                    </p-paginator>
+                </ng-container>
+
+                <!-- Template de chargement -->
+                <ng-template #loadingTemplate>
+                    <div class="loading-container">
+                        <p-progressSpinner></p-progressSpinner>
+                    </div>
+                </ng-template>
+
+                <!-- Template aucune offre -->
+                <ng-template #noOffers>
+                    <div class="no-offers">
+                        <i class="pi pi-search"></i>
+                        <h3>Aucune offre ne correspond à vos critères</h3>
+                        <p>Essayez de modifier vos filtres ou votre recherche</p>
+                    </div>
+                </ng-template>
+            </section>
+        </main>
+    </div>
+</div> 
+<app-footer></app-footer>

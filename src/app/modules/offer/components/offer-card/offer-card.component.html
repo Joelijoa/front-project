@@ -1,0 +1,59 @@
+<p-card styleClass="offer-card" [routerLink]="['/offers', offer.id]">
+    <div class="offer-header">
+        <div class="offer-title">
+            <h3>{{ offer.title }}</h3>
+            <p class="company">{{ offer.company }}</p>
+        </div>
+        <button 
+            pButton 
+            type="button" 
+            [class]="offer.isSaved ? 'p-button-primary' : 'p-button-outlined'"
+            icon="pi pi-heart"
+            (click)="toggleSave()"
+            pTooltip="Sauvegarder l'offre"
+        ></button>
+    </div>
+
+    <div class="offer-details">
+        <div class="detail-item">
+            <i class="pi pi-map-marker"></i>
+            <span>{{ offer.location }}</span>
+        </div>
+        <div class="detail-item">
+            <i class="pi pi-briefcase"></i>
+            <span>{{ offer.type }}</span>
+        </div>
+        <div class="detail-item">
+            <i class="pi pi-user"></i>
+            <span>{{ offer.experience }}</span>
+        </div>
+        <div class="detail-item">
+            <i class="pi pi-book"></i>
+            <span>{{ offer.educationLevel }}</span>
+        </div>
+        <div class="detail-item" *ngIf="offer.salary">
+            <i class="pi pi-euro"></i>
+            <span>{{ formatSalary(offer.salary) }}</span>
+        </div>
+    </div>
+
+    <div class="offer-content">
+        <p class="description">{{ truncateText(offer.description, 150) }}</p>
+        
+        <div class="requirements" *ngIf="offer.requirements.length > 0">
+            <h4>Compétences requises :</h4>
+            <ul>
+                <li *ngFor="let req of getRemainingRequirements()">{{ req }}</li>
+            </ul>
+            <span class="more-requirements" *ngIf="offer.requirements.length > 3">
+                +{{ offer.requirements.length - 3 }} autres
+            </span>
+        </div>
+    </div>
+
+    <div class="offer-footer">
+        <span class="date">
+            Publié le {{ offer.createdAt | date:'dd/MM/yyyy' }}
+        </span>
+    </div>
+</p-card> 

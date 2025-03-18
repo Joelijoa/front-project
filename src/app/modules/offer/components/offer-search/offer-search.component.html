@@ -1,0 +1,32 @@
+<div class="search-container">
+    <div class="search-input">
+        <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input 
+                type="text" 
+                pInputText 
+                [(ngModel)]="searchQuery" 
+                (keyup.enter)="onSearch()"
+                placeholder="Rechercher une offre..."
+            />
+        </span>
+    </div>
+    <div class="country-input">
+        <p-dropdown
+            [options]="countries"
+            [(ngModel)]="selectedCountry"
+            optionLabel="name"
+            [filter]="true"
+            filterBy="name"
+            [showClear]="true"
+            placeholder="Sélectionner un pays">
+        </p-dropdown>
+    </div>
+    <div class="search-button">
+        <button 
+            pButton 
+            icon="pi pi-search"
+            (click)="onSearch()">
+        </button>
+    </div>
+</div> 

@@ -6,7 +6,7 @@
             <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                 <div class="form-grid">
                     <div class="form-field">
-                        <label for="civilite">Civilité*</label>
+                        <label for="civilite">Civilité</label>
                         <p-dropdown id="civilite" [options]="civilites" formControlName="civilite" placeholder="Sélectionnez" [style]="{'width':'100%'}"></p-dropdown>
                         <small class="error-message" *ngIf="registerForm.get('civilite')?.errors?.['required'] && registerForm.get('civilite')?.touched">
                             La civilité est requise
@@ -14,7 +14,7 @@
                     </div>
 
                     <div class="form-field">
-                        <label for="nom">Nom*</label>
+                        <label for="nom">Nom</label>
                         <input id="nom" type="text" pInputText formControlName="nom" placeholder="Votre nom">
                         <small class="error-message" *ngIf="registerForm.get('nom')?.errors?.['required'] && registerForm.get('nom')?.touched">
                             Le nom est requis
@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="form-field">
-                        <label for="prenom">Prénom*</label>
+                        <label for="prenom">Prénom</label>
                         <input id="prenom" type="text" pInputText formControlName="prenom" placeholder="Votre prénom">
                         <small class="error-message" *ngIf="registerForm.get('prenom')?.errors?.['required'] && registerForm.get('prenom')?.touched">
                             Le prénom est requis
@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="form-field">
-                        <label for="dateNaissance">Date de Naissance*</label>
+                        <label for="dateNaissance">Date de Naissance</label>
                         <p-calendar id="dateNaissance" formControlName="dateNaissance" [style]="{'width':'100%'}" [showIcon]="true" dateFormat="dd/mm/yy"></p-calendar>
                         <small class="error-message" *ngIf="registerForm.get('dateNaissance')?.errors?.['required'] && registerForm.get('dateNaissance')?.touched">
                             La date de naissance est requise
@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="form-field">
-                        <label for="telephone">Numéro de téléphone*</label>
+                        <label for="telephone">Numéro de téléphone</label>
                         <input id="telephone" type="tel" pInputText formControlName="telephone" placeholder="Votre numéro">
                         <small class="error-message" *ngIf="registerForm.get('telephone')?.errors?.['required'] && registerForm.get('telephone')?.touched">
                             Le numéro de téléphone est requis
@@ -46,7 +46,7 @@
                     </div>
 
                     <div class="form-field">
-                        <label for="email">Email*</label>
+                        <label for="email">Email</label>
                         <input id="email" type="email" pInputText formControlName="email" placeholder="Votre email">
                         <small class="error-message" *ngIf="registerForm.get('email')?.errors?.['required'] && registerForm.get('email')?.touched">
                             L'email est requis
@@ -57,7 +57,7 @@
                     </div>
 
                     <div class="form-field">
-                        <label for="password">Mot de passe*</label>
+                        <label for="password">Mot de passe</label>
                         <p-password id="password" formControlName="password" [toggleMask]="true" placeholder="Votre mot de passe"></p-password>
                         <small class="error-message" *ngIf="registerForm.get('password')?.errors?.['required'] && registerForm.get('password')?.touched">
                             Le mot de passe est requis
@@ -65,7 +65,7 @@
                     </div>
 
                     <div class="form-field">
-                        <label for="pays">Pays*</label>
+                        <label for="pays">Pays</label>
                         <p-dropdown id="pays" [options]="pays" formControlName="pays" placeholder="Sélectionnez" [style]="{'width':'100%'}"></p-dropdown>
                         <small class="error-message" *ngIf="registerForm.get('pays')?.errors?.['required'] && registerForm.get('pays')?.touched">
                             Le pays est requis
@@ -73,7 +73,7 @@
                     </div>
 
                     <div class="form-field">
-                        <label for="ville">Ville*</label>
+                        <label for="ville">Ville</label>
                         <p-dropdown id="ville" [options]="villes" formControlName="ville" placeholder="Sélectionnez" [style]="{'width':'100%'}"></p-dropdown>
                         <small class="error-message" *ngIf="registerForm.get('ville')?.errors?.['required'] && registerForm.get('ville')?.touched">
                             La ville est requise
@@ -81,7 +81,7 @@
                     </div>
 
                     <div class="form-field full-width">
-                        <label for="domaineEtudes">Domaine d'études*</label>
+                        <label for="domaineEtudes">Domaine d'études</label>
                         <p-dropdown id="domaineEtudes" [options]="domainesEtudes" formControlName="domaineEtudes" placeholder="Sélectionnez" [style]="{'width':'100%'}"></p-dropdown>
                         <small class="error-message" *ngIf="registerForm.get('domaineEtudes')?.errors?.['required'] && registerForm.get('domaineEtudes')?.touched">
                             Le domaine d'études est requis
@@ -89,7 +89,7 @@
                     </div>
 
                     <div class="form-field">
-                        <label for="typeFormation">Type de formation*</label>
+                        <label for="typeFormation">Type de formation</label>
                         <p-dropdown id="typeFormation" [options]="typesFormation" formControlName="typeFormation" placeholder="Sélectionnez" [style]="{'width':'100%'}"></p-dropdown>
                         <small class="error-message" *ngIf="registerForm.get('typeFormation')?.errors?.['required'] && registerForm.get('typeFormation')?.touched">
                             Le type de formation est requis
@@ -97,7 +97,7 @@
                     </div>
 
                     <div class="form-field">
-                        <label for="niveauEtudes">Niveau d'études*</label>
+                        <label for="niveauEtudes">Niveau d'études</label>
                         <p-dropdown id="niveauEtudes" [options]="niveauxEtudes" formControlName="niveauEtudes" placeholder="Sélectionnez" [style]="{'width':'100%'}"></p-dropdown>
                         <small class="error-message" *ngIf="registerForm.get('niveauEtudes')?.errors?.['required'] && registerForm.get('niveauEtudes')?.touched">
                             Le niveau d'études est requis

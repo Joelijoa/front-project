@@ -1,0 +1,73 @@
+<p-card styleClass="filter-card">
+    <div class="filters-container">
+        <div class="filter-group">
+            <label class="filter-label">Publication</label>
+            <div class="radio-group">
+                <div *ngFor="let type of offerTypes" class="radio-item">
+                    <p-radioButton
+                        [value]="type.value"
+                        [(ngModel)]="filters.type"
+                        [inputId]="'type_' + type.value"
+                        (onClick)="onFiltersChange()"
+                    ></p-radioButton>
+                    <label [for]="'type_' + type.value">{{ type.label }}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter-group">
+            <label class="filter-label">Formation</label>
+            <div class="radio-group">
+                <div *ngFor="let level of educationLevels" class="radio-item">
+                    <p-radioButton
+                        [value]="level.value"
+                        [(ngModel)]="filters.education"
+                        [inputId]="'edu_' + level.value"
+                        (onClick)="onFiltersChange()"
+                    ></p-radioButton>
+                    <label [for]="'edu_' + level.value">{{ level.label }}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter-group">
+            <label class="filter-label">Expérience</label>
+            <div class="radio-group">
+                <div *ngFor="let level of experienceLevels" class="radio-item">
+                    <p-radioButton
+                        [value]="level.value"
+                        [(ngModel)]="filters.experience"
+                        [inputId]="'exp_' + level.value"
+                        (onClick)="onFiltersChange()"
+                    ></p-radioButton>
+                    <label [for]="'exp_' + level.value">{{ level.label }}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter-group">
+            <label class="filter-label">Date d'ajout</label>
+            <div class="radio-group">
+                <div *ngFor="let option of dateOptions" class="radio-item">
+                    <p-radioButton
+                        [value]="option.value"
+                        [(ngModel)]="filters.datePosted"
+                        [inputId]="'date_' + option.value"
+                        (onClick)="onFiltersChange()"
+                    ></p-radioButton>
+                    <label [for]="'date_' + option.value">{{ option.label }}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter-actions">
+            <button 
+                pButton 
+                type="button" 
+                label="Réinitialiser" 
+                class="p-button-outlined"
+                (click)="resetFilters()"
+            ></button>
+        </div>
+    </div>
+</p-card> 

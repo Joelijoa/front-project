@@ -1,0 +1,131 @@
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
+}
+
+.search-input {
+    flex: 2;
+
+    .p-input-icon-left {
+        width: 100%;
+
+        i {
+            color: #1a237e;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+            background: #ffffff;
+
+            &:hover {
+                border-color: #1a237e;
+            }
+
+            &:focus {
+                border-color: #1a237e;
+                box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.1);
+            }
+
+            &::placeholder {
+                color: #9e9e9e;
+            }
+        }
+    }
+}
+
+.country-input {
+    flex: 1;
+
+    .p-dropdown {
+        width: 100%;
+        background: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+
+        .p-dropdown-label {
+            padding: 0.75rem;
+            font-size: 0.875rem;
+        }
+
+        .p-dropdown-trigger {
+            width: 3rem;
+            color: #1a237e;
+        }
+
+        &:not(.p-disabled) {
+            &:hover {
+                border-color: #1a237e;
+            }
+
+            &.p-focus {
+                border-color: #1a237e;
+                box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.1);
+            }
+        }
+    }
+
+    .p-dropdown-panel {
+        .p-dropdown-items {
+            padding: 0.5rem 0;
+
+            .p-dropdown-item {
+                padding: 0.75rem 1rem;
+                font-size: 0.875rem;
+                color: #424242;
+
+                &:hover {
+                    background: rgba(26, 35, 126, 0.04);
+                    color: #1a237e;
+                }
+
+                &.p-highlight {
+                    background: rgba(26, 35, 126, 0.08);
+                    color: #1a237e;
+                }
+            }
+        }
+    }
+}
+
+.search-button {
+    .p-button {
+        background: #ffffff;
+        border: 1px solid #1a237e;
+        color: #1a237e;
+        width: 3rem;
+        height: 3rem;
+        padding: 0;
+        transition: all 0.2s;
+
+        .p-button-icon {
+            font-size: 1.2rem;
+        }
+
+        &:hover {
+            background: #1a237e;
+            border-color: #1a237e;
+            color: #ffffff;
+        }
+
+        &:focus {
+            box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.1);
+        }
+    }
+
+    @media (max-width: 768px) {
+        button {
+            width: 100%;
+        }
+    }
+} 

@@ -11,7 +11,6 @@ import { Router, RouterModule } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   standalone: true,
-
 })
 export class HeaderComponent implements OnInit{
   imgLogo ! : string;
@@ -38,6 +37,10 @@ export class HeaderComponent implements OnInit{
     this.router.navigate(['/account/register']);
   }
 
+  goToOffers() {
+    this.router.navigate(['/offers']);
+  }
+
   ngOnInit() {
     this.imgLogo = "picture/logo.png"
     this.items = [
@@ -47,33 +50,30 @@ export class HeaderComponent implements OnInit{
         command: () => this.goToHome()
       },
       {
-        label: 'Offre d\'emploi',
-        icon: 'pi pi-home',
+        label: 'Offres d\'emploi',
+        icon: 'pi pi-briefcase',
+        command: () => this.goToOffers()
       },
       {
-        label: 'A propos',
-        icon: 'pi pi-home',
+        label: 'À propos',
+        icon: 'pi pi-info-circle'
       },
       {
         label: 'Français',
-        icon: 'pi pi-search',
+        icon: 'pi pi-globe',
         items: [
           {
             label: 'Anglais',
-            icon: 'pi pi-bolt',
-            
-          },
-          
-          
-        ],
-      },
+            icon: 'pi pi-flag'
+          }
+        ]
+      }
     ];
 
     if (isPlatformBrowser(this.platformId)) {
       console.log('Initialisation du listener de défilement');
       window.addEventListener('scroll', this.onScroll.bind(this));
     }
-
   }
 
   onScroll(): void {
