@@ -1,15 +1,27 @@
-.filter-card {
-    .p-card {
-        background: #ffffff;
-        border-radius: 8px;
-        border: 1px solid #e0e0e0;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+:host {
+    display: block;
+    background-color: #ffffff !important;
 
-        .p-card-body {
-            padding: 1.5rem;
+    ::ng-deep {
+        .p-card {
+            background-color: #ffffff !important;
+            border: 1px solid #e0e0e0 !important;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+            .p-card-body {
+                padding: 1.5rem;
+                background-color: #ffffff !important;
+            }
+
+            .p-card-content {
+                padding: 0;
+                background-color: #ffffff !important;
+            }
         }
     }
+}
 
+.filter-card {
     h3 {
         margin: 0;
         padding: 0 0 1rem 0;
@@ -25,6 +37,7 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    background-color: #ffffff !important;
 }
 
 .filter-group {
