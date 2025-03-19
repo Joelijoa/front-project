@@ -17,9 +17,9 @@
                     pButton 
                     type="button" 
                     [class]="offer.isSaved ? 'p-button-primary' : 'p-button-outlined'"
-                    icon="pi pi-heart"
+                    icon="pi pi-bookmark"
                     (click)="toggleSave()"
-                    pTooltip="Sauvegarder l'offre"
+                    pTooltip="favoris"
                 ></button>
             </div>
 
@@ -35,10 +35,6 @@
                 <div class="detail-item">
                     <i class="pi pi-user"></i>
                     <span>{{ offer.experience }}</span>
-                </div>
-                <div class="detail-item">
-                    <i class="pi pi-book"></i>
-                    <span>{{ offer.educationLevel }}</span>
                 </div>
                 <div class="detail-item" *ngIf="offer.salary">
                     <i class="pi pi-euro"></i>
