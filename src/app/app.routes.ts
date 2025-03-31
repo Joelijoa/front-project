@@ -1,19 +1,25 @@
 import { Routes } from '@angular/router';
+import { HomeComponent } from './modules/home/components/home/home.component';
+import { AboutComponent } from './modules/about/about.component';
 
 export const routes: Routes = [
     {
-        path : '',
-        loadChildren : () =>
-            import ('./modules/home/home.module').then(m =>m.HomeModule)
+        path: '',
+        component: HomeComponent
     },
     {
-        path : 'account',
-        loadChildren : () =>
-            import('./modules/account/account.module').then(m =>m.AccountModule)
+        path: 'about',
+        component: AboutComponent,
+        title: 'À propos - Yobber'
     },
     {
-        path : 'offers',
-        loadChildren : () =>
-            import('./modules/offer/offer.module').then(m =>m.OfferModule)
+        path: 'account',
+        loadChildren: () =>
+            import('./modules/account/account.module').then(m => m.AccountModule)
+    },
+    {
+        path: 'offers',
+        loadChildren: () =>
+            import('./modules/offer/offer.module').then(m => m.OfferModule)
     }
 ];

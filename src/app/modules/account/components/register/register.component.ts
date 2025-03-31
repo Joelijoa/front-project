@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { HeaderComponent } from "../../../../core/components/header/header.component";
 import { FooterComponent } from "../../../../core/components/footer/footer.component";
 
 @Component({
   selector: 'app-register',
-  imports: [HeaderComponent,FooterComponent],
+  imports: [FooterComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })

@@ -1,0 +1,51 @@
+<!-- Bouton flottant -->
+<div class="cookie-button" *ngIf="!showConsent && !hasConsent" (click)="onToggleConsent()">
+    <i class="pi pi-shield"></i>
+</div>
+
+<!-- Popup de consentement -->
+<div class="cookie-consent" *ngIf="showConsent" [@slideIn]>
+    <div class="cookie-content">
+        <div class="cookie-header">
+            <h3>
+                <i class="pi pi-shield"></i>
+                Gestion des cookies
+            </h3>
+            <button class="close-button" (click)="showConsent = false">
+                <i class="pi pi-times"></i>
+            </button>
+        </div>
+
+        <div class="cookie-body">
+            <p>Nous utilisons des cookies pour améliorer votre expérience sur notre site. Veuillez sélectionner les cookies que vous souhaitez accepter.</p>
+
+            <div class="cookie-options">
+                <div class="cookie-option">
+                    <label>
+                        <input type="checkbox" [(ngModel)]="preferences.essential" disabled>
+                        Cookies essentiels
+                    </label>
+                </div>
+
+                <div class="cookie-option">
+                    <label>
+                        <input type="checkbox" [(ngModel)]="preferences.analytics">
+                        Cookies analytiques
+                    </label>
+                </div>
+
+                <div class="cookie-option">
+                    <label>
+                        <input type="checkbox" [(ngModel)]="preferences.marketing">
+                        Cookies marketing
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="cookie-footer">
+            <button class="accept-all" (click)="acceptAll()">Tout accepter</button>
+            <button class="save-preferences" (click)="savePreferences()">Enregistrer les préférences</button>
+        </div>
+    </div>
+</div>

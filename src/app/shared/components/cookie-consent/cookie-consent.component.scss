@@ -1,0 +1,402 @@
+@use "sass:color";
+
+.cookie-consent {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    width: 300px;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cookie-content {
+    padding: 10px;
+
+    .cookie-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 4px;
+
+        h3 {
+            font-size: 12px;
+            font-weight: 600;
+            margin: 0;
+            color: #000;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+
+            i {
+                color: #666;
+                font-size: 12px;
+            }
+        }
+
+        .close-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 2px;
+            color: #666;
+            font-size: 12px;
+        }
+    }
+
+    .cookie-body {
+        p {
+            color: #666;
+            font-size: 11px;
+            margin: 0 0 6px 0;
+        }
+
+        .cookie-options {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 8px;
+
+            .cookie-option {
+                label {
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+                    color: #333;
+                    cursor: pointer;
+                    font-size: 11px;
+
+                    input[type="checkbox"] {
+                        width: 12px;
+                        height: 12px;
+                    }
+                }
+            }
+        }
+    }
+
+    .cookie-footer {
+        display: flex;
+        gap: 6px;
+        justify-content: flex-end;
+
+        button {
+            padding: 4px 8px;
+            border-radius: 2px;
+            border: none;
+            cursor: pointer;
+            font-size: 11px;
+
+            &.accept-all {
+                background-color: #ff4c4c;
+                color: white;
+            }
+
+            &.save-preferences {
+                background-color: #f5f5f5;
+                color: #666;
+            }
+        }
+    }
+}
+
+.cookie-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+
+    i {
+        font-size: 16px;
+        color: #666;
+    }
+}
+
+.cookie-description {
+    margin-bottom: 1.5rem;
+    
+    p {
+        margin: 0;
+        color: var(--text-secondary-color);
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+}
+
+.cookie-privacy {
+    margin-bottom: 1.5rem;
+    
+    a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--primary-color);
+        text-decoration: none;
+        font-size: 0.9rem;
+        
+        &:hover {
+            text-decoration: underline;
+            color: var(--primary-600);
+        }
+
+        i {
+            font-size: 0.8rem;
+        }
+    }
+}
+
+.cookie-actions {
+    display: flex;
+    gap: 1rem;
+
+    :host ::ng-deep {
+        .p-button {
+            flex: 1;
+            
+            &.p-button-raised {
+                box-shadow: var(--card-shadow);
+            }
+
+            &.p-button-secondary {
+                background: var(--surface-200);
+                border-color: var(--surface-200);
+                color: var(--text-color);
+
+                &:hover {
+                    background: var(--surface-300);
+                    border-color: var(--surface-300);
+                }
+
+                &:focus {
+                    box-shadow: 0 0 0 2px var(--surface-ground), 0 0 0 4px var(--surface-400);
+                }
+            }
+        }
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Overlay
+.cookie-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+// Popup principal
+.cookie-popup {
+    width: 90%;
+    max-width: 600px;
+    background: var(--surface-card);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+// En-tête
+.cookie-header {
+    padding: 1.5rem;
+    background: var(--primary-color);
+    color: var(--primary-color-text);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .header-content {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        i {
+            font-size: 1.5rem;
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+    }
+
+    .close-button {
+        background: none;
+        border: none;
+        color: var(--primary-color-text);
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        &:hover {
+            background: var(--primary-600);
+        }
+
+        i {
+            font-size: 1rem;
+        }
+    }
+}
+
+// Corps du popup
+.cookie-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+
+    .description {
+        color: var(--text-color);
+        font-size: 1rem;
+        line-height: 1.5;
+        margin: 0 0 2rem;
+    }
+}
+
+// Options de cookies
+.cookie-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+
+    .cookie-option {
+        background: var(--surface-ground);
+        border-radius: var(--border-radius);
+        padding: 1.25rem;
+
+        .option-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+
+            .option-title {
+                h3 {
+                    margin: 0 0 0.25rem;
+                    font-size: 1.1rem;
+                    color: var(--text-color);
+                    font-weight: 600;
+                }
+
+                .badge {
+                    display: inline-block;
+                    background: var(--primary-color);
+                    color: var(--primary-color-text);
+                    padding: 0.25rem 0.5rem;
+                    border-radius: var(--border-radius);
+                    font-size: 0.75rem;
+                    font-weight: 600;
+                }
+            }
+        }
+
+        .option-description {
+            margin: 0;
+            color: var(--text-secondary-color);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+    }
+}
+
+// Lien vers la politique de confidentialité
+.privacy-link {
+    margin-bottom: 1rem;
+    text-align: center;
+    
+    a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-size: 0.9rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        
+        &:hover {
+            text-decoration: underline;
+        }
+
+        i {
+            font-size: 0.8rem;
+        }
+    }
+}
+
+// Actions
+.cookie-actions {
+    padding: 1.5rem;
+    border-top: 1px solid var(--surface-border);
+    display: flex;
+    gap: 1rem;
+    background: var(--surface-section);
+
+    :host ::ng-deep {
+        .p-button {
+            flex: 1;
+
+            &.p-button-secondary {
+                background: var(--surface-card);
+                border-color: var(--surface-border);
+                color: var(--text-color);
+
+                &:hover {
+                    background: var(--surface-hover);
+                }
+            }
+        }
+    }
+}
+
+// Animations
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

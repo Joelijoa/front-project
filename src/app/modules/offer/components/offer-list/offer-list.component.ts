@@ -16,7 +16,6 @@ import { OfferType, ExperienceLevel, EducationLevel } from '../../models/offer.m
 import { OfferSearchComponent } from '../offer-search/offer-search.component';
 import { OfferFiltersComponent } from '../offer-filters/offer-filters.component';
 import { OfferCardComponent } from '../offer-card/offer-card.component';
-import { HeaderComponent } from "../../../../core/components/header/header.component";
 import { FooterComponent } from "../../../../core/components/footer/footer.component";
 
 interface SearchCriteria {
@@ -38,7 +37,6 @@ interface SearchCriteria {
         OfferSearchComponent,
         OfferFiltersComponent,
         OfferCardComponent,
-        HeaderComponent,
         FooterComponent
     ]
 })

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HeaderComponent } from "../../../../core/components/header/header.component";
 import { FooterComponent } from "../../../../core/components/footer/footer.component";
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -20,9 +19,15 @@ interface Partner {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, RouterModule, CommonModule, ButtonModule, CarouselModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FooterComponent,
+    ButtonModule,
+    CarouselModule
+  ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 
@@ -65,7 +70,7 @@ export class HomeComponent implements OnInit {
   ];
 
   // Section 3
-  titre_3: string = "Comment ça marche";
+  titre_3: string = "Je suis un Candidat, comment ça marche ?";
   processSteps: ProcessStep[] = [
     {
       icon: 'pi pi-user',
@@ -74,7 +79,7 @@ export class HomeComponent implements OnInit {
     },
     {
       icon: 'pi pi-check-square',
-      title: 'Je passe gratuitement le test personnalité',
+      title: 'Je complète mon profil',
       description: 'J\'identifie mes capacités innées et mes valeurs phares.'
     },
     {
@@ -83,7 +88,7 @@ export class HomeComponent implements OnInit {
       description: 'Je joins mon CV à mon profil et je remplis tous les champs du cv Yobber.'
     },
     {
-      icon: 'pi pi-list',
+      icon: 'pi pi-list-check',
       title: 'Je choisis l\'offre d\'emploi qui me correspond',
       description: 'Je postule et j\'envoie ma candidature.'
     }

@@ -1,0 +1,89 @@
+<div class="about-container">
+  <!-- Éléments décoratifs -->
+  <div class="decorative-element"></div>
+  <div class="decorative-dots"></div>
+
+  <!-- En-tête -->
+  <header class="about-header">
+    <h1>À Propos de Yobber</h1>
+    <p class="lead">{{ companyInfo.mission.description }}</p>
+  </header>
+
+  <!-- Nos valeurs -->
+  <section class="values-section">
+    <h2>Nos Valeurs</h2>
+    <div class="values-grid">
+      <div class="value-card" *ngFor="let value of companyInfo.mission.values">
+        <i [class]="value.icon"></i>
+        <h3>{{ value.title }}</h3>
+        <p>{{ value.description }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notre histoire -->
+  <section class="story-section">
+    <h2>{{ companyInfo.story.title }}</h2>
+    <div class="timeline">
+      <div class="timeline-item" *ngFor="let milestone of companyInfo.story.milestones">
+        <div class="year">{{ milestone.year }}</div>
+        <div class="content">
+          <h3>{{ milestone.title }}</h3>
+          <p>{{ milestone.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Nos fonctionnalités -->
+  <section class="features-section">
+    <h2>Pourquoi Choisir Yobber ?</h2>
+    <div class="features-grid">
+      <div class="feature-card" *ngFor="let feature of companyInfo.features">
+        <i [class]="feature.icon"></i>
+        <h3>{{ feature.title }}</h3>
+        <p>{{ feature.description }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notre équipe -->
+  <section class="team-section">
+    <div class="decorative-blocks">
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+    </div>
+    <h2>Notre Équipe</h2>
+    <p class="team-description">Une équipe diverse de passionnés qui travaillent chaque jour pour révolutionner le recrutement tech.</p>
+    <div class="team-stats">
+      <div class="stat-card">
+        <div class="number">30</div>
+        <div class="label">Experts</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">8</div>
+        <div class="label">Pays</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">24/7</div>
+        <div class="label">Support</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact-section">
+    <div class="contact-info">
+      <h2>On met le nez dans les détails ?</h2>
+      <p>Nos experts sont là pour vous répondre sous 24h ! Si vous êtes du genre à vouloir des réponses avant même d'avoir posé la question, essayez notre Chat Agent IA pour vous répondre plus vite que la lumière !</p>
+      <a href="#" class="contact-button">Prendre contact</a>
+    </div>
+    <div class="contact-image">
+      <img src="picture/contact.png" alt="Contact illustration">
+    </div>
+  </section>
+
+  
+</div> 
+<app-footer></app-footer>

@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 import { TooltipModule } from 'primeng/tooltip';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { PaginatorModule } from 'primeng/paginator';
@@ -20,6 +20,7 @@ import { OfferListComponent } from './components/offer-list/offer-list.component
 import { OfferSearchComponent } from './components/offer-search/offer-search.component';
 import { OfferFiltersComponent } from './components/offer-filters/offer-filters.component';
 import { OfferCardComponent } from './components/offer-card/offer-card.component';
+import { OfferDetailsComponent } from '../offer-details/offer-details.component';
 
 // Services
 import { OfferService } from './services/offer.service';
@@ -35,7 +36,7 @@ import { OfferService } from './services/offer.service';
         ButtonModule,
         CardModule,
         InputTextModule,
-        DropdownModule,
+        SelectModule,
         TooltipModule,
         ProgressSpinnerModule,
         PaginatorModule,
@@ -44,7 +45,8 @@ import { OfferService } from './services/offer.service';
         OfferListComponent,
         OfferSearchComponent,
         OfferFiltersComponent,
-        OfferCardComponent
+        OfferCardComponent,
+        OfferDetailsComponent
     ],
     providers: [
         OfferService

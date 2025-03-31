@@ -15,14 +15,24 @@
         </a>
     </ng-template>
     <ng-template #end>
-        <div class="flex items-center gap-2">
-            <p-button label="Se connecter" (onClick)="goToLogin()" [rounded]="true"
-                [style]="{'background-color': 'white', 'border-color': '#4a5568', 'color': 'black', 'margin-right': '20px'}" />
-            <p-button label="S'inscrire" (onClick)="goToRegister()" [rounded]="true"
-                [style]="{'background-color': 'white', 'border-color': '#4a5568', 'color': 'black', 'margin-right': '20px'}" />
-
-            <p-button label="Nous contacter" [rounded]="true"
-                [style]="{'background-color': '#f4f6f8','color': '010327', 'border-color': 'grey'}" />
+        <div class="flex items-center ">
+            <div class="expandable-button">
+                <p-button [label]="isLoginHovered ? 'Se connecter' : ''" icon="pi pi-user" (onClick)="goToLogin()" [rounded]="true"
+                    [style]="{'background-color': 'white', 'border-color': '#4a5568', 'color': 'black', 'margin-right': '5px', 'transition': 'all 0.3s ease'}"
+                    (mouseenter)="isLoginHovered = true" (mouseleave)="isLoginHovered = false" />
+            </div>
+            
+            <div class="expandable-button">
+                <p-button [label]="isRegisterHovered ? 'S\'inscrire' : ''" icon="pi pi-user-plus" (onClick)="goToRegister()" [rounded]="true"
+                    [style]="{'background-color': 'white', 'border-color': '#4a5568', 'color': 'black', 'margin-right': '5px', 'transition': 'all 0.3s ease'}"
+                    (mouseenter)="isRegisterHovered = true" (mouseleave)="isRegisterHovered = false" />
+            </div>
+            
+            <div class="expandable-button">
+                <p-button [label]="isContactHovered ? 'Nous contacter' : ''" icon="pi pi-envelope" [rounded]="true"
+                    [style]="{'background-color': '#f4f6f8','color': '010327', 'border-color': 'grey', 'transition': 'all 0.3s ease'}"
+                    (mouseenter)="isContactHovered = true" (mouseleave)="isContactHovered = false" />
+            </div>
         </div>
     </ng-template>
 </p-menubar>

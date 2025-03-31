@@ -22,6 +22,7 @@
     transition: all 0.3s ease;
     padding: 0.5rem;
     width: 100% !important;
+    height: 80px !important;
     box-sizing: border-box;
 }
 
@@ -86,6 +87,73 @@
 .p-button.p-button-success:hover {
     background-color: #2f855a !important;
     border-color: #2f855a !important;
+}
+
+.flex.items-center{
+    display: flex;
+    align-items: center;
+}
+
+.expandable-button {
+    display: inline-flex;
+    align-items: center;
+    // margin-right: 0.5rem;
+
+    .p-button {
+        min-width: 40px;
+        height: 40px;
+        overflow: hidden;
+        white-space: nowrap;
+        transition: all 0.3s ease-in-out;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        // padding: 0 0.75rem;
+        
+        &:hover {
+            min-width: 150px;
+            background-color: #f8f9fa !important;
+        }
+
+        .p-button-icon {
+            margin-right: 0;
+            transition: margin-right 0.3s ease-in-out;
+        }
+
+        &:hover .p-button-icon {
+            margin-right: 0.5rem;
+        }
+
+        .p-button-label {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.3s ease-in-out;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        &:hover .p-button-label {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+}
+
+// Styles spécifiques pour chaque bouton
+.expandable-button:nth-child(1) .p-button:hover {
+    background-color: #ffffff !important;
+    border-color: #4a5568 !important;
+}
+
+.expandable-button:nth-child(2) .p-button:hover {
+    background-color: #ffffff !important;
+    border-color: #4a5568 !important;
+}
+
+.expandable-button:nth-child(3) .p-button:hover {
+    background-color: #f4f6f8 !important;
+    border-color: grey !important;
 }
   
   

@@ -4,9 +4,8 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeng/themes/aura';
 import Lara from '@primeng/themes/lara';
 
 export const appConfig: ApplicationConfig = {
@@ -14,13 +13,22 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes), 
     provideClientHydration(),
-    provideAnimationsAsync(),
+    provideAnimations(),
     providePrimeNG({
-        theme: {
-            preset: Lara
+      ripple: true,
+      zIndex: {
+        modal: 1100,
+        overlay: 1000,
+        menu: 1000,
+        tooltip: 1100
+      },
+      theme: {
+        preset: Lara,
+        options: {
+          mode: 'light',
+          colorScheme: 'blue'
         }
+      }
     })
   ]
-    
-
 };

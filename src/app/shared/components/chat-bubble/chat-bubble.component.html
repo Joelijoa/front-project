@@ -1,0 +1,55 @@
+<div class="chat-container">
+    <!-- Bulle de chat -->
+    <div class="chat-bubble" (click)="onToggleChat()" *ngIf="!showChat">
+        <i class="pi pi-comments"></i>
+    </div>
+
+    <!-- Fenêtre de chat -->
+    <div class="chat-window" *ngIf="showChat" [@slideIn]>
+        <div class="chat-header">
+            <div class="avatar">
+                <i class="pi pi-user"></i>
+            </div>
+            <div class="header-text">
+                <h3>Service client</h3>
+                <p>En ligne</p>
+            </div>
+            <button class="close-button" (click)="onToggleChat()">
+                <i class="pi pi-times"></i>
+            </button>
+        </div>
+
+        <div class="chat-messages" #scrollContainer>
+            <div class="message" *ngFor="let message of messages" [ngClass]="message.sender">
+                <div class="message-content">
+                    {{ message.content }}
+                </div>
+                <div class="message-time">
+                    {{ message.timestamp | date:'HH:mm' }}
+                </div>
+            </div>
+
+            <!-- Indicateur de frappe -->
+            <div class="typing-indicator" *ngIf="isTyping">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <div class="chat-input">
+            <textarea 
+                [(ngModel)]="currentMessage"
+                placeholder="Écrivez votre message..."
+                (keydown.enter)="onSendMessage($event)"
+                rows="1"
+                #messageInput>
+            </textarea>
+            <button 
+                (click)="onSendMessage($event)" 
+                [disabled]="!currentMessage.trim()">
+                <i class="pi pi-send"></i>
+            </button>
+        </div>
+    </div>
+</div> 

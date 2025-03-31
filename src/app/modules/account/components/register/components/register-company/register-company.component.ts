@@ -12,7 +12,6 @@ import { PasswordModule } from 'primeng/password';
 import { CheckboxModule } from 'primeng/checkbox';
 
 // Components
-import { HeaderComponent } from '../../../../../../core/components/header/header.component';
 import { FooterComponent } from '../../../../../../core/components/footer/footer.component';
 
 @Component({
@@ -30,7 +29,6 @@ import { FooterComponent } from '../../../../../../core/components/footer/footer
         CalendarModule,
         PasswordModule,
         CheckboxModule,
-        HeaderComponent,
         FooterComponent
     ]
 })

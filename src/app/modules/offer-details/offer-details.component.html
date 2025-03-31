@@ -1,0 +1,160 @@
+<div class="offer-details-container">
+  <!-- Éléments décoratifs -->
+  <div class="decorative-element"></div>
+  <div class="decorative-dots"></div>
+
+  <!-- En-tête de l'offre -->
+  <header class="offer-header">
+    <div class="offer-title-section">
+      <h1>{{ offer.title }}</h1>
+      <div class="offer-meta">
+        <span class="company"><i class="fas fa-building"></i> {{ offer.company }}</span>
+        <span class="location"><i class="fas fa-map-marker-alt"></i> {{ offer.location }}</span>
+        <span class="type"><i class="fas fa-file-contract"></i> {{ offer.type }}</span>
+        <span class="salary"><i class="fas fa-euro-sign"></i> {{ offer.salary }}</span>
+        <span class="experience"><i class="fas fa-briefcase"></i> {{ offer.experience }}</span>
+      </div>
+      <div class="offer-date">
+        <i class="far fa-calendar-alt"></i> Publié le {{ offer.postedDate | date:'dd/MM/yyyy' }}
+      </div>
+    </div>
+    <div class="offer-actions">
+      <button class="btn-apply"><i class="fas fa-paper-plane"></i> Postuler</button>
+      <button class="btn-save"><i class="far fa-bookmark"></i> Sauvegarder</button>
+    </div>
+  </header>
+
+  <!-- Informations clés -->
+  <div class="key-info">
+    <div class="info-card deadline">
+      <i class="pi pi-calendar-clock"></i>
+      <div class="info-content">
+        <h3>Date limite</h3>
+        <p>{{ offer.applicationProcess.deadline | date:'dd/MM/yyyy' }}</p>
+      </div>
+    </div>
+    <div class="info-card salary-info">
+      <i class="pi pi-dollar"></i>
+      <div class="info-content">
+        <h3>Rémunération</h3>
+        <p>{{ offer.salary }}</p>
+      </div>
+    </div>
+    <div class="info-card contract">
+      <i class="pi pi-file-edit"></i>
+      <div class="info-content">
+        <h3>Type de contrat</h3>
+        <p>{{ offer.type }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenu principal -->
+  <div class="main-content">
+    <div class="two-columns-layout">
+      <!-- Colonne gauche -->
+      <div class="left-column">
+        <!-- Description du poste -->
+        <section class="content-section">
+          <div class="section-header">
+            <h2><i class="fas fa-align-left"></i> Description du poste</h2>
+          </div>
+          <div class="section-content">
+            <div [innerHTML]="offer.description"></div>
+          </div>
+        </section>
+
+        <!-- À propos de l'entreprise -->
+        <section class="content-section">
+          <div class="section-header">
+            <h2><i class="fas fa-building"></i> À propos de {{ offer.companyInfo.name }}</h2>
+          </div>
+          <div class="section-content">
+            <p>{{ offer.companyInfo.description }}</p>
+            <div class="company-meta">
+              <span><i class="fas fa-users"></i> {{ offer.companyInfo.size }}</span>
+              <span><i class="fas fa-industry"></i> {{ offer.companyInfo.industry }}</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Contacter l'entreprise -->
+        <section class="content-section contact-form-section">
+            <div class="section-header">
+              <h2><i class="fas fa-envelope"></i> Contacter l'entreprise</h2>
+            </div>
+            <div class="section-content">
+              <form class="contact-form">
+                <div class="form-group">
+                  <label for="name">Nom complet</label>
+                  <input type="text" id="name" placeholder="Votre nom">
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" placeholder="Votre email">
+                </div>
+                <div class="form-group">
+                  <label for="subject">Sujet</label>
+                  <input type="text" id="subject" placeholder="Sujet de votre message">
+                </div>
+                <div class="form-group">
+                  <label for="message">Message</label>
+                  <textarea id="message" rows="5" placeholder="Votre message"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">
+                  <i class="fas fa-paper-plane"></i>
+                  Envoyer le message
+                </button>
+              </form>
+              <div class="decorative-elements">
+                <div class="decorative-square"></div>
+                <div class="decorative-circle"></div>
+                <div class="decorative-dots"></div>
+              </div>
+            </div>
+          </section>
+      </div>
+
+      <!-- Colonne droite -->
+      <div class="right-column">
+        <!-- Prérequis -->
+        <section class="content-section">
+          <div class="section-header">
+            <h2><i class="fas fa-check-circle"></i> Prérequis</h2>
+          </div>
+          <div class="section-content">
+            <ul>
+              <li *ngFor="let requirement of offer.requirements">{{ requirement }}</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Avantages -->
+        <section class="content-section">
+          <div class="section-header">
+            <h2><i class="fas fa-gift"></i> Avantages</h2>
+          </div>
+          <div class="section-content">
+            <ul>
+              <li *ngFor="let benefit of offer.benefits">{{ benefit }}</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Processus de recrutement -->
+        <section class="content-section">
+          <div class="section-header">
+            <h2><i class="fas fa-tasks"></i> Processus de recrutement</h2>
+          </div>
+          <div class="section-content">
+            <ul>
+              <li *ngFor="let step of offer.applicationProcess.steps">{{ step }}</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+</div> 
+<app-footer></app-footer>

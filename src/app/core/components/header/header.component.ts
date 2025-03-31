@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, PLATFORM_ID, Renderer2 } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID, Renderer2, ViewEncapsulation } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ImportsModule } from './imports'
@@ -11,6 +11,7 @@ import { Router, RouterModule } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   standalone: true,
+  encapsulation: ViewEncapsulation.None
 })
 export class HeaderComponent implements OnInit{
   imgLogo ! : string;
@@ -18,6 +19,10 @@ export class HeaderComponent implements OnInit{
 
   myMenuBar : string = 'myMenuBar';
   isCollapsed = false;
+
+  isLoginHovered: boolean = false;
+  isRegisterHovered: boolean = false;
+  isContactHovered: boolean = false;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object, 
@@ -41,6 +46,10 @@ export class HeaderComponent implements OnInit{
     this.router.navigate(['/offers']);
   }
 
+  goToAbout() {
+    this.router.navigate(['/about']);
+  }
+
   ngOnInit() {
     this.imgLogo = "picture/logo.png"
     this.items = [
@@ -56,7 +65,8 @@ export class HeaderComponent implements OnInit{
       },
       {
         label: 'À propos',
-        icon: 'pi pi-info-circle'
+        icon: 'pi pi-info-circle',
+        command: () => this.goToAbout()
       },
       {
         label: 'Français',

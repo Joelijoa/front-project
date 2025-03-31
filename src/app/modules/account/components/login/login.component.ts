@@ -1,34 +1,29 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Router } from '@angular/router';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+// PrimeNG
+import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
-import { DividerModule } from 'primeng/divider';
 import { CheckboxModule } from 'primeng/checkbox';
-import { Router, RouterModule } from '@angular/router';
-import { HeaderComponent } from '../../../../core/components/header/header.component';
-import { FooterComponent } from '../../../../core/components/footer/footer.component';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    InputTextModule,
-    PasswordModule,
-    ButtonModule,
-    CardModule,
-    DividerModule,
-    CheckboxModule,
-    RouterModule,
-    HeaderComponent,
-    FooterComponent
-  ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+    selector: 'app-login',
+    standalone: true,
+    imports: [
+        CommonModule,
+        RouterModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ButtonModule,
+        InputTextModule,
+        PasswordModule,
+        CheckboxModule
+    ],
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
   loginForm: FormGroup;
