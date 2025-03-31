@@ -5,7 +5,8 @@ import { AboutComponent } from './modules/about/about.component';
 export const routes: Routes = [
     {
         path: '',
-        component: HomeComponent
+        component: HomeComponent,
+        title: 'Accueil - Yobber'
     },
     {
         path: 'about',
@@ -15,11 +16,13 @@ export const routes: Routes = [
     {
         path: 'account',
         loadChildren: () =>
-            import('./modules/account/account.module').then(m => m.AccountModule)
+            import('./modules/account/account.module').then(m => m.AccountModule),
+        title: 'Compte - Yobber'
     },
     {
         path: 'offers',
         loadChildren: () =>
-            import('./modules/offer/offer.module').then(m => m.OfferModule)
+            import('./modules/offer/offer.module').then(m => m.OfferModule),
+        title: 'Offres d\'emploi - Yobber'
     }
 ];

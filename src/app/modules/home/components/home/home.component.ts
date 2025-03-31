@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import { FooterComponent } from "../../../../core/components/footer/footer.component";
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
+import { HeaderCandidatComponent } from '../../../../core/components/header-candidat/header-candidat.component';
+import { HeaderComponent } from '../../../../core/components/header/header.component';
 
 interface ProcessStep {
   icon: string;
@@ -24,12 +26,14 @@ interface Partner {
     RouterModule,
     FooterComponent,
     ButtonModule,
-    CarouselModule
+    CarouselModule,
+    HeaderCandidatComponent,
+    HeaderComponent
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   titre_1!: string;
   Sous_titre_1 !: string 
@@ -100,6 +104,8 @@ export class HomeComponent implements OnInit {
     entreprises: '+400'
   };
 
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   ngOnInit(): void {
     this.titre_1 = "La puissance de la connexion client";
     this.Sous_titre_1 = "Chaque interaction, une opportunité.";
@@ -108,5 +114,15 @@ export class HomeComponent implements OnInit {
     this.titre_2 = "Notre impact";
     this.Sous_titre_2 = "Interaction entreprise et candidat efficace";
     this.img_illustration_2 = "picture/yobber-photo-2.png";
+  }
+
+  ngOnDestroy() {
+    if (isPlatformBrowser(this.platformId)) {
+      // Nettoyer le carousel lors de la destruction du composant
+      const carouselElement = document.querySelector('.p-carousel');
+      if (carouselElement) {
+        carouselElement.remove();
+      }
+    }
   }
 }

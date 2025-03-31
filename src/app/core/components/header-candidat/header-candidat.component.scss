@@ -1,0 +1,151 @@
+.candidate-header {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 0.5rem 1rem;
+  color: #010327 !important;
+
+  .p-menubar {
+    background-color: #010327 !important;
+    border: none !important;
+    padding: 0.5rem 1rem;
+    // color: #1a237e !important;
+  }
+
+  .p-menubar-button {
+    color: #1a237e !important;
+    background-color: transparent !important;
+    border: none !important;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: rgba(26, 35, 126, 0.1) !important;
+    }
+  }
+
+  .p-menubar-root-list {
+    > .p-menuitem {
+      > .p-menuitem-link {
+        color: #1a237e !important;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: background-color 0.2s;
+
+        &:hover {
+          background-color: rgba(26, 35, 126, 0.1) !important;
+        }
+
+        .p-menuitem-icon {
+          color: #1a237e !important;
+        }
+      }
+
+      &.p-menuitem-active {
+        > .p-menuitem-link {
+          background-color: rgba(26, 35, 126, 0.1) !important;
+        }
+      }
+    }
+  }
+
+  .p-submenu-list {
+    background-color: #ffffff !important;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+    border-radius: 4px;
+
+    .p-menuitem-link {
+      color: #1a237e !important;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: rgba(26, 35, 126, 0.1) !important;
+      }
+
+      .p-menuitem-icon {
+        color: #1a237e !important;
+      }
+    }
+  }
+
+  .navbar-brand {
+    .logo {
+      height: 40px;
+      width: auto;
+    }
+  }
+
+  // Styles pour les boutons expandables
+  .expandable-button {
+    .p-button {
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        width: auto;
+        padding: 0 1rem;
+      }
+
+      .p-button-icon {
+        font-size: 1.2rem;
+      }
+
+      .p-button-label {
+        margin-left: 0.5rem;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  // Styles pour les boutons
+  ::ng-deep .p-button {
+    &.p-button-outlined {
+      &:hover {
+        background: rgba(26, 35, 126, 0.1) !important;
+        color: #1a237e !important;
+        border-color: #1a237e !important;
+      }
+    }
+  }
+
+  // Styles pour le menu déroulant
+  ::ng-deep .p-menu {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+    min-width: 200px;
+
+    .p-menuitem-link {
+      color: #1a237e;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: rgba(26, 35, 126, 0.1);
+      }
+
+      .p-menuitem-icon {
+        color: #1a237e;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}
+
+// Style pour le header transparent lors du défilement
+.opaque-navbar {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

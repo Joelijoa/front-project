@@ -1,31 +1,33 @@
 import { Component, Inject, OnInit, OnDestroy, PLATFORM_ID, Renderer2, ViewEncapsulation } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { ImportsModule } from './imports'
+import { ImportsModule } from '../header/imports';
 import { isPlatformBrowser } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { MenuModule } from 'primeng/menu';
 
 @Component({
-  selector: 'app-header',
-  imports: [ButtonModule, ImportsModule, RouterModule, CommonModule],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
+  selector: 'app-header-candidat',
+  imports: [ButtonModule, ImportsModule, RouterModule, CommonModule, MenuModule],
+  templateUrl: './header-candidat.component.html',
+  styleUrl: './header-candidat.component.scss',
   standalone: true,
   encapsulation: ViewEncapsulation.None
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderCandidatComponent implements OnInit, OnDestroy {
   imgLogo ! : string;
   items: MenuItem[] | undefined;
   isLoggedIn: boolean = false;
-
-  myMenuBar : string = 'myMenuBar';
-  isCollapsed = false;
-
+  isTestMode: boolean = true; // Pour le test
   isLoginHovered: boolean = false;
   isRegisterHovered: boolean = false;
   isContactHovered: boolean = false;
+  menuItems: MenuItem[] = [];
+
+  myMenuBar : string = 'myMenuBar';
+  isCollapsed = false;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object, 
@@ -38,14 +40,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(['/']);
   }
 
-  goToLogin() {
-    this.router.navigate(['/account/login']);
-  }
-
-  goToRegister() {
-    this.router.navigate(['/account/register']);
-  }
-
   goToOffers() {
     this.router.navigate(['/offers']);
   }
@@ -54,13 +48,38 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(['/about']);
   }
 
+  goToContact() {
+    this.router.navigate(['/contact']);
+  }
+
+  goToLogin() {
+    this.router.navigate(['/account/login']);
+  }
+
+  goToRegister() {
+    this.router.navigate(['/account/register']);
+  }
+
   goToProfile() {
     this.router.navigate(['/account/profile']);
+  }
+
+  goToMyApplications() {
+    this.router.navigate(['/account/applications']);
+  }
+
+  goToMyFavorites() {
+    this.router.navigate(['/account/favorites']);
   }
 
   logout() {
     this.authService.logout();
     this.router.navigate(['/']);
+  }
+
+  // Méthode de test pour simuler la connexion
+  simulateLogin() {
+    this.authService.simulateLogin();
   }
 
   ngOnInit() {
@@ -70,10 +89,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authService.isLoggedIn$.subscribe(isLoggedIn => {
       this.isLoggedIn = isLoggedIn;
       this.updateMenuItems();
+      this.updateMenuButtons();
     });
 
     if (isPlatformBrowser(this.platformId)) {
-      console.log('Initialisation du listener de défilement');
       window.addEventListener('scroll', this.onScroll.bind(this));
     }
   }
@@ -98,7 +117,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     ];
 
     if (this.isLoggedIn) {
-      // Ajouter les onglets pour l'utilisateur connecté
       this.items = [
         ...baseItems,
         {
@@ -107,15 +125,36 @@ export class HeaderComponent implements OnInit, OnDestroy {
           command: () => this.goToProfile()
         },
         {
+          label: 'Mes Candidatures',
+          icon: 'pi pi-file',
+          command: () => this.goToMyApplications()
+        },
+        {
+          label: 'Mes Favoris',
+          icon: 'pi pi-heart',
+          command: () => this.goToMyFavorites()
+        },
+        {
           label: 'Déconnexion',
           icon: 'pi pi-sign-out',
           command: () => this.logout()
         }
       ];
-    } else {
-      // Ajouter les onglets pour l'utilisateur non connecté
+    } else if (this.isTestMode) {
       this.items = [
         ...baseItems,
+        {
+          label: 'Test: Se connecter',
+          icon: 'pi pi-sign-in',
+          command: () => this.simulateLogin()
+        }
+      ];
+    }
+  }
+
+  private updateMenuButtons() {
+    if (!this.isLoggedIn) {
+      this.menuItems = [
         {
           label: 'Connexion',
           icon: 'pi pi-sign-in',
@@ -134,13 +173,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (!isPlatformBrowser(this.platformId)) return;
     
     const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-    console.log('Position de défilement:', scrollPosition);
-
     if (scrollPosition > 50) {
-      console.log('Changement de classe à opaque-navbar');
       this.myMenuBar = 'opaque-navbar';
     } else {
-      console.log('Retour à menuBar');
       this.myMenuBar = 'myMenuBar';
     }
   }
@@ -152,7 +187,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (isPlatformBrowser(this.platformId)) {
       window.removeEventListener('scroll', this.onScroll.bind(this));
-      // Nettoyer le header lors de la destruction du composant
       const headerElement = document.querySelector('.p-menubar');
       if (headerElement) {
         headerElement.remove();

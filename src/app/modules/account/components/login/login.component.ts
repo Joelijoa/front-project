@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../../../core/services/auth.service';
 
 // PrimeNG
 import { ButtonModule } from 'primeng/button';
@@ -28,8 +29,14 @@ import { CheckboxModule } from 'primeng/checkbox';
 export class LoginComponent {
   loginForm: FormGroup;
   loading: boolean = false;
+  email: string = '';
+  password: string = '';
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private authService: AuthService
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -40,11 +47,12 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       this.loading = true;
-      // Simuler une requête API
-      setTimeout(() => {
-        console.log('Formulaire soumis:', this.loginForm.value);
-        this.loading = false;
-      }, 1000);
+      // Simuler une connexion réussie (à remplacer par votre logique d'authentification)
+      if (this.email && this.password) {
+        this.authService.login();
+        this.router.navigate(['/']);
+      }
+      this.loading = false;
     }
   }
 

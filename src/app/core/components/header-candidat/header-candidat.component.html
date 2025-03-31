@@ -1,0 +1,40 @@
+<p-menubar [ngClass]="myMenuBar" [model]="items" class="candidate-header">
+    <ng-template #start>
+        <a class="navbar-brand" href="#">
+            <img [src]="imgLogo" alt="logo-Yobber" class="logo">
+        </a>
+    </ng-template>
+    <ng-template #item let-item let-root="root">
+        <a pRipple class="flex items-center p-menubar-item-link">
+            <span>{{ item.label }}</span>
+            <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
+            <span *ngIf="item.shortcut"
+                class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{
+                item.shortcut }}</span>
+            <i *ngIf="item.items" [ngClass]="['ml-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"></i>
+        </a>
+    </ng-template>
+    <ng-template #end>
+        <div class="flex items-center">
+            <ng-container *ngIf="!isLoggedIn">
+                <div class="expandable-button">
+                    <p-button [label]="isLoginHovered ? 'Se connecter' : ''" icon="pi pi-user" (onClick)="goToLogin()" [rounded]="true"
+                        [style]="{'background-color': 'white', 'border-color': '#4a5568', 'color': 'black', 'margin-right': '5px', 'transition': 'all 0.3s ease'}"
+                        (mouseenter)="isLoginHovered = true" (mouseleave)="isLoginHovered = false" />
+                </div>
+                
+                <div class="expandable-button">
+                    <p-button [label]="isRegisterHovered ? 'S\'inscrire' : ''" icon="pi pi-user-plus" (onClick)="goToRegister()" [rounded]="true"
+                        [style]="{'background-color': 'white', 'border-color': '#4a5568', 'color': 'black', 'margin-right': '5px', 'transition': 'all 0.3s ease'}"
+                        (mouseenter)="isRegisterHovered = true" (mouseleave)="isRegisterHovered = false" />
+                </div>
+            </ng-container>
+            
+            <div class="expandable-button">
+                <p-button [label]="isContactHovered ? 'Nous contacter' : ''" icon="pi pi-envelope" (onClick)="goToContact()" [rounded]="true"
+                    [style]="{'background-color': '#f4f6f8','color': '010327', 'border-color': 'grey', 'transition': 'all 0.3s ease'}"
+                    (mouseenter)="isContactHovered = true" (mouseleave)="isContactHovered = false" />
+            </div>
+        </div>
+    </ng-template>
+</p-menubar>
