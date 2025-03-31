@@ -26,9 +26,7 @@ interface Partner {
     RouterModule,
     FooterComponent,
     ButtonModule,
-    CarouselModule,
-    HeaderCandidatComponent,
-    HeaderComponent
+    CarouselModule
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']

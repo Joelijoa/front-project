@@ -9,7 +9,7 @@ import { HeaderCandidatComponent } from "./core/components/header-candidat/heade
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [RouterOutlet, CookieConsentComponent, ChatBubbleComponent, HeaderComponent, HeaderCandidatComponent],
+    imports: [RouterOutlet, CookieConsentComponent, ChatBubbleComponent, HeaderCandidatComponent],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })

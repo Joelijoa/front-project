@@ -1,12 +1,12 @@
 :host {
     display: block;
 
-    ::ng-deep {
+    
         .p-inputtext,
-        .p-dropdown {
+        .p-select {
             background-color: #ffffff !important;
         }
-    }
+    
 }
 
 .search-container {
@@ -60,18 +60,18 @@
 .country-input {
     flex: 1;
 
-    .p-dropdown {
+    .p-select {
         width: 100%;
         background: #ffffff;
         border: 1px solid #e0e0e0;
         border-radius: 6px;
 
-        .p-dropdown-label {
+        .p-select-label {
             padding: 0.75rem;
             font-size: 0.875rem;
         }
 
-        .p-dropdown-trigger {
+        .p-select-trigger {
             width: 3rem;
             color: #1a237e;
         }
@@ -88,11 +88,11 @@
         }
     }
 
-    .p-dropdown-panel {
-        .p-dropdown-items {
+    .p-select-panel {
+        .p-select-items {
             padding: 0.5rem 0;
 
-            .p-dropdown-item {
+            .p-select-item {
                 padding: 0.75rem 1rem;
                 font-size: 0.875rem;
                 color: #424242;

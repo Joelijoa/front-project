@@ -31,5 +31,27 @@ body {
     width: 100%;
     // font-size: 160px;
     overflow-x: hidden;
+    --p-radiobutton-background: transparent;
+    --p-radiobutton-icon-checked-color: transparent;
+    --p-radiobutton-icon-checked-hover-color: transparent;
+    --p-paginator-background: transparent;
+    --p-paginator-nav-button-selected-background: #f70505;
+    --p-paginator-nav-button-color: #090000;
+    --p-inputtext-color: #000000;
+    
+    
+    p-dropdown {
+      --p-select-option-color: #000000;
+      --p-select-color: #000000;
+    }
+  
+    .p-select-overlay {
+      --p-text-color:#000000;
+      --p-inputtext-background: transparent;
+      --p-text-color: #000000;
+      --p-list-option-color: #000000;
+      --p-list-option-selected-color: #000000;
+      
+      background-color: #fff;
+    }
 }
-

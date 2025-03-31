@@ -311,28 +311,31 @@
   }
 
   .main-content {
-    padding: 2rem;
+    // padding: 2rem;
+    padding-top: 2rem;
 
     .two-columns-layout {
       display: grid;
-      grid-template-columns: minmax(900px, 1fr) 400px;
-      gap: 3rem;
+      gap: 2rem;
+      grid-template-columns: 2fr 1fr;
       margin-top: -4rem;
       position: relative;
       z-index: 2;
       max-width: 1800px;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 0 2rem;
+      margin-left: 0;
+      margin-right: 0;
+      // padding: 0 2rem;
 
       .left-column, .right-column {
         display: flex;
         flex-direction: column;
-        gap: 1.5rem;
+        padding: 0;
+        // gap: 1.5rem;
         background: none;
       }
 
       .left-column {
+        // padding: 0;
         .content-section {
           min-height: 400px;
         }
@@ -345,6 +348,7 @@
         padding: 2.5rem;
         box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
         margin: 0;
+        margin-bottom: 2rem;
 
         .section-header {
           margin-bottom: 1.5rem;
@@ -577,7 +581,7 @@
   .offer-details-container {
     .main-content {
       .two-columns-layout {
-        grid-template-columns: minmax(600px, 1fr) 350px;
+        grid-template-columns: 2fr 1fr;
       }
     }
   }
