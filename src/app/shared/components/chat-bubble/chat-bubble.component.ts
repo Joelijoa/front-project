@@ -73,7 +73,7 @@ export class ChatBubbleComponent implements AfterViewChecked {
             setTimeout(() => {
                 this.isTyping = false;
                 this.messages.push({
-                    content: 'Je suis désolé, je suis momentanément indisponible. Je vous recontacterai dès que possible.',
+                    content: 'Bonjour, un agent prendra contact avec vous dans quelques minutes...',
                     timestamp: new Date(),
                     sender: 'bot'
                 });

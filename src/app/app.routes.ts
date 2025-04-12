@@ -24,5 +24,11 @@ export const routes: Routes = [
         loadChildren: () =>
             import('./modules/offer/offer.module').then(m => m.OfferModule),
         title: 'Offres d\'emploi - Yobber'
+    },
+    {
+        path: 'profil',
+        loadChildren: () => 
+            import('./modules/profil/profil.module').then(m => m.ProfilModule),
+        title: 'Mon Profil'
     }
 ];

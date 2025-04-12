@@ -20,6 +20,11 @@ const routes: Routes = [
   {
     path : 'register-company',
     component : RegisterCompanyComponent
+  },
+  {
+    path: 'profile',
+    redirectTo: '/profil',
+    pathMatch: 'full'
   }
 ];
 

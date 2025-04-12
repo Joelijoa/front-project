@@ -61,7 +61,7 @@ export class HeaderCandidatComponent implements OnInit, OnDestroy {
   }
 
   goToProfile() {
-    this.router.navigate(['/account/profile']);
+    this.router.navigate(['/profil']);
   }
 
   goToMyApplications() {
@@ -120,7 +120,7 @@ export class HeaderCandidatComponent implements OnInit, OnDestroy {
       this.items = [
         ...baseItems,
         {
-          label: 'Mon Profil',
+          label: 'Profil',
           icon: 'pi pi-user',
           command: () => this.goToProfile()
         },
@@ -130,9 +130,14 @@ export class HeaderCandidatComponent implements OnInit, OnDestroy {
           command: () => this.goToMyApplications()
         },
         {
-          label: 'Mes Favoris',
+          label: 'Favoris',
           icon: 'pi pi-heart',
           command: () => this.goToMyFavorites()
+        },
+        {
+          label: 'Notifications',
+          icon: 'pi pi-bell'
+          // command: () => this.()
         },
         {
           label: 'Déconnexion',

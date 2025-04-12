@@ -1,0 +1,281 @@
+<!-- Page container -->
+<div class="profile-container">
+  <!-- Colonne de gauche - Photo et informations de base -->
+  <div class="profile-left-column">
+    <!-- Photo de profil et nom -->
+    <div class="profile-card user-card">
+      <div class="profile-photo-container">
+        <p-avatar [image]="photoUrl" class="profile-photo" shape="circle" size="xlarge"></p-avatar>
+        <button pButton icon="pi pi-camera" class="photo-edit-button p-button-rounded" (click)="updatePhoto()"></button>
+      </div>
+      <h2 class="user-name">{{profile.firstName}} {{profile.lastName}}</h2>
+      <p class="user-bio">{{profile.summary}}</p>
+      <div class="profile-actions">
+        <button pButton label="Follow" class="p-button-primary"></button>
+        <button pButton label="Message" class="p-button-outlined"></button>
+      </div>
+    </div>
+
+    <!-- Réseaux sociaux -->
+    <div class="profile-card social-links">
+      <div class="social-link">
+        <i class="pi pi-globe"></i> <span>Website</span>
+        <span class="social-id">{{profile.website || 'Website'}}</span>
+      </div>
+      <div class="social-link">
+        <i class="pi pi-twitter"></i> <span>Twitter</span>
+        <span class="social-id">{{profile.twitter || 'Twitter id'}}</span>
+      </div>
+      <div class="social-link">
+        <i class="pi pi-facebook"></i> <span>Facebook</span>
+        <span class="social-id">{{profile.facebook || 'Facebook id'}}</span>
+      </div>
+      <div class="social-link">
+        <i class="pi pi-instagram"></i> <span>Instagram</span>
+        <span class="social-id">{{profile.instagram || 'Instagram id'}}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Colonne de droite - Informations détaillées -->
+  <div class="profile-right-column">
+    <!-- Informations personnelles -->
+    <div class="profile-card info-card">
+      <div class="info-header">
+        <h3>Informations personnelles</h3>
+        <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text" (click)="editSection('personal')"></button>
+      </div>
+      <div class="info-content">
+        <div class="info-row">
+          <div class="info-label">Full Name</div>
+          <div class="info-value">{{profile.firstName}} {{profile.lastName}}</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Email</div>
+          <div class="info-value">{{profile.email}}</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Phone</div>
+          <div class="info-value">{{profile.phoneNumber}}</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Mobile</div>
+          <div class="info-value">{{profile.mobile || 'Non renseigné'}}</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Address</div>
+          <div class="info-value">{{profile.location}}, {{profile.country}}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Expériences et Formations -->
+    <div class="info-columns">
+      <!-- Expériences -->
+      <div class="profile-card detail-column">
+        <div class="card-header">
+          <h3><i class="pi pi-briefcase"></i>Expériences</h3>
+          <button pButton icon="pi pi-plus" class="p-button-rounded p-button-text" (click)="showExperienceDialog()"></button>
+        </div>
+        <div class="card-content">
+          <div *ngIf="experiences.length === 0" class="empty-state">
+            <p>Aucune expérience professionnelle enregistrée</p>
+            <button pButton label="Ajouter une expérience" icon="pi pi-plus" (click)="showExperienceDialog()"></button>
+          </div>
+
+          <div *ngFor="let experience of experiences" class="experience-item">
+            <div class="item-icon">
+              <i class="pi pi-building"></i>
+            </div>
+            <div class="item-content">
+              <div class="item-title">{{experience.position}}</div>
+              <div class="item-subtitle">{{experience.company}}</div>
+              <div class="item-date">{{experience.startDate}} - {{experience.endDate}}</div>
+              <div class="item-description">{{experience.description}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formations -->
+      <div class="profile-card detail-column">
+        <div class="card-header">
+          <h3><i class="pi pi-book"></i>Formation</h3>
+          <button pButton icon="pi pi-plus" class="p-button-rounded p-button-text" (click)="showEducationDialog()"></button>
+        </div>
+        <div class="card-content">
+          <div *ngIf="educations.length === 0" class="empty-state">
+            <p>Aucune formation enregistrée</p>
+            <button pButton label="Ajouter une formation" icon="pi pi-plus" (click)="showEducationDialog()"></button>
+          </div>
+
+          <div *ngFor="let education of educations" class="experience-item">
+            <div class="item-icon">
+              <i class="pi pi-home"></i>
+            </div>
+            <div class="item-content">
+              <div class="item-title">{{education.degree}}</div>
+              <div class="item-subtitle">{{education.school}}</div>
+              <div class="item-date">{{education.year}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Compétences -->
+    <div class="profile-card">
+      <div class="card-header">
+        <h3><i class="pi pi-star"></i>Compétences</h3>
+        <button pButton icon="pi pi-plus" class="p-button-rounded p-button-text" (click)="openSkillDialog()"></button>
+      </div>
+      <div class="card-content">
+        <div class="skill-list">
+          <div *ngFor="let skill of mainSkills; let i = index" class="skill-item">
+            <div class="skill-name">{{skill.name}}</div>
+            <p-rating [ngModel]="skill.rating" [readonly]="true" [cancel]="false"></p-rating>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <h4 class="mb-2">Autres compétences</h4>
+          <span *ngFor="let skill of skills; let i = index" class="skill-tag">
+            {{skill}}
+            <i class="pi pi-times remove-tag" (click)="removeSkill(i)"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Conserver les dialogues existants -->
+<!-- Dialog pour modifier le mot de passe -->
+<p-dialog header="Modifier le mot de passe" [(visible)]="showPasswordModal" [style]="{width: '400px'}" [modal]="true">
+  <div class="p-fluid">
+    <div class="form-group">
+      <label for="currentPassword">Mot de passe actuel <span class="required">*</span></label>
+      <p-password id="currentPassword" [(ngModel)]="currentPassword" [feedback]="false" [toggleMask]="true"></p-password>
+    </div>
+    <div class="form-group">
+      <label for="newPassword">Nouveau mot de passe <span class="required">*</span></label>
+      <p-password id="newPassword" [(ngModel)]="newPassword" [toggleMask]="true" [feedback]="true"></p-password>
+    </div>
+    <div class="form-group">
+      <label for="confirmPassword">Confirmer le nouveau mot de passe <span class="required">*</span></label>
+      <p-password id="confirmPassword" [(ngModel)]="confirmPassword" [feedback]="false" [toggleMask]="true"></p-password>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton label="Annuler" icon="pi pi-times" class="p-button-text" (click)="showPasswordModal = false"></button>
+    <button pButton label="Enregistrer" icon="pi pi-check" class="p-button-success" (click)="updatePassword()"></button>
+  </ng-template>
+</p-dialog>
+
+<!-- Dialog pour ajouter/modifier une expérience -->
+<p-dialog header="Expérience professionnelle" [(visible)]="showExperienceModal" [style]="{width: '600px'}" [modal]="true">
+  <div class="p-fluid">
+    <div class="form-group">
+      <label for="position">Poste <span class="required">*</span></label>
+      <input id="position" type="text" pInputText [(ngModel)]="currentExperience.position" placeholder="Développeur Full Stack">
+    </div>
+    <div class="form-group">
+      <label for="company">Entreprise <span class="required">*</span></label>
+      <input id="company" type="text" pInputText [(ngModel)]="currentExperience.company" placeholder="Nom de l'entreprise">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="startDate">Date de début <span class="required">*</span></label>
+        <input id="startDate" type="text" pInputText [(ngModel)]="currentExperience.startDate" placeholder="Jan 2020">
+      </div>
+      <div class="form-group">
+        <label for="endDate">Date de fin</label>
+        <input id="endDate" type="text" pInputText [(ngModel)]="currentExperience.endDate" placeholder="Actuel">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" pInputTextarea [(ngModel)]="currentExperience.description" rows="5" placeholder="Décrivez vos responsabilités et réalisations"></textarea>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton label="Annuler" icon="pi pi-times" class="p-button-text" (click)="showExperienceModal = false"></button>
+    <button pButton label="Enregistrer" icon="pi pi-check" class="p-button-success" (click)="saveExperience()"></button>
+  </ng-template>
+</p-dialog>
+
+<!-- Dialogue pour ajouter/modifier une formation -->
+<p-dialog [(visible)]="showEducationModal" [style]="{width: '450px'}" header="Modifier la formation" [modal]="true">
+  <div class="flex flex-column gap-3">
+    <div class="flex flex-column gap-2">
+      <label for="schoolInput">École / Université *</label>
+      <input id="schoolInput" pInputText [(ngModel)]="currentEducation.school" />
+    </div>
+    <div class="flex flex-column gap-2">
+      <label for="degreeInput">Diplôme / Formation *</label>
+      <input id="degreeInput" pInputText [(ngModel)]="currentEducation.degree" />
+    </div>
+    <div class="flex flex-column gap-2">
+      <label for="yearInput">Année d'obtention *</label>
+      <input id="yearInput" pInputText [(ngModel)]="currentEducation.year" />
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple type="button" label="Annuler" icon="pi pi-times" class="p-button-text" (click)="showEducationModal = false"></button>
+    <button pButton pRipple type="button" label="Enregistrer" icon="pi pi-check" class="p-button-primary" (click)="saveEducation()"></button>
+  </ng-template>
+</p-dialog>
+
+<!-- Dialogue pour ajouter une compétence -->
+<p-dialog [(visible)]="showSkillModal" [style]="{width: '400px'}" header="Ajouter une compétence" [modal]="true">
+  <div class="flex flex-column gap-3">
+    <div class="flex flex-column gap-2">
+      <label for="skillInput">Compétence *</label>
+      <input id="skillInput" pInputText [(ngModel)]="newSkill" placeholder="Ex: Angular, Java, Management..." />
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple type="button" label="Annuler" icon="pi pi-times" class="p-button-text" (click)="showSkillModal = false"></button>
+    <button pButton pRipple type="button" label="Ajouter" icon="pi pi-plus" class="p-button-primary" (click)="addSkillFromModal()"></button>
+  </ng-template>
+</p-dialog>
+
+<!-- Dialog pour éditer d'autres sections -->
+<p-dialog header="Éditer les informations" [(visible)]="showEditModal" [style]="{width: '800px'}" [modal]="true">
+  <div class="p-fluid">
+    <div *ngIf="currentEditSection === 'about'">
+      <div class="form-group">
+        <label for="summary">À propos de moi</label>
+        <textarea id="summary" pInputTextarea [(ngModel)]="summaryControl.value" rows="8" placeholder="Décrivez votre parcours et vos objectifs professionnels"></textarea>
+      </div>
+    </div>
+    
+    <div *ngIf="currentEditSection === 'personal'">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="civility">Civilité <span class="required">*</span></label>
+          <p-dropdown id="civility" [options]="civilities" [(ngModel)]="civilityControl.value" placeholder="Sélectionnez"></p-dropdown>
+        </div>
+        <div class="form-group">
+          <label for="firstName">Prénom <span class="required">*</span></label>
+          <input id="firstName" type="text" pInputText [(ngModel)]="firstNameControl.value" placeholder="Prénom">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="lastName">Nom <span class="required">*</span></label>
+          <input id="lastName" type="text" pInputText [(ngModel)]="lastNameControl.value" placeholder="Nom">
+        </div>
+        <div class="form-group">
+          <label for="birthDate">Date de naissance <span class="required">*</span></label>
+          <p-calendar id="birthDate" [(ngModel)]="birthDateControl.value" [showIcon]="true" dateFormat="dd/mm/yy"></p-calendar>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton label="Annuler" icon="pi pi-times" class="p-button-text" (click)="showEditModal = false"></button>
+    <button pButton label="Enregistrer" icon="pi pi-check" class="p-button-success" (click)="saveSection()"></button>
+  </ng-template>
+</p-dialog>
+
