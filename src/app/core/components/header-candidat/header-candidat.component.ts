@@ -65,11 +65,11 @@ export class HeaderCandidatComponent implements OnInit, OnDestroy {
   }
 
   goToMyApplications() {
-    this.router.navigate(['/account/applications']);
+    this.router.navigate(['/candidature']);
   }
 
   goToMyFavorites() {
-    this.router.navigate(['/account/favorites']);
+    this.router.navigate(['/favorite']);
   }
 
   logout() {

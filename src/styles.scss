@@ -35,15 +35,20 @@ body {
     --p-radiobutton-icon-checked-color: transparent;
     --p-radiobutton-icon-checked-hover-color: transparent;
     --p-paginator-background: transparent;
-    --p-paginator-nav-button-selected-background: #f70505;
+    --p-paginator-nav-button-selected-background: var(--p-primary-color);
     --p-paginator-nav-button-color: #090000;
     --p-inputtext-color: #000000;
-    
-    
-    p-dropdown {
-      --p-select-option-color: #000000;
-      --p-select-color: #000000;
-    }
+    --p-dialog-background: #ffffff;
+    --p-select-background: #ffffff;
+    --p-inputtext-background: #ffffff;
+    --p-textarea-background: #ffffff;
+    --p-dialog-color: #000000;
+    --p-select-option-color: #000000;
+    --p-select-color: #000000;
+    --p-content-background: #ffffff;
+    --p-datatable-row-color: #ffffff;
+    --p-datatable-row-color: #000000;
+    --p-datatable-header-cell-background: #010327 ;
   
     .p-select-overlay {
       --p-text-color:#000000;
@@ -53,5 +58,22 @@ body {
       --p-list-option-selected-color: #000000;
       
       background-color: #fff;
+    }
+    .p-button {
+      padding: 0.5rem 1rem !important;
+    }
+    .p-dialog-close-button {
+      background-color: #f70505 !important;
+    }
+
+    .p-datatable-tbody > tr {
+      background-color: #ffffff !important;
+    }
+    .p-textarea {
+      // background-color: #ffffff !important;
+      width: 100% !important;
+    }
+    .p-datatable-table {
+      border-radius: 8px !important;
     }
 }

@@ -1,1 +1,64 @@
-<p>favorite works!</p>
+<div class="favorites-container p-4">
+    <div class="header-container">
+        <h2>Mes Favoris</h2>
+        <div class="search-container">
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input type="text" pInputText [(ngModel)]="searchText" 
+                       (input)="filterOffers()" 
+                       placeholder="Rechercher dans mes favoris..." />
+            </span>
+        </div>
+    </div>
+
+    <div class="offers-grid">
+        <p-card *ngFor="let offer of filteredOffers" class="offer-card">
+            <ng-template pTemplate="header">
+                <div class="card-header">
+                    <h3>{{offer.title}}</h3>
+                </div>
+            </ng-template>
+            
+            <div class="card-content">
+                <div class="company-info">
+                    <i class="pi pi-building"></i>
+                    <span>{{offer.company}}</span>
+                </div>
+                <div class="location-info">
+                    <i class="pi pi-map-marker"></i>
+                    <span>{{offer.location}}</span>
+                </div>
+                <div class="contract-info">
+                    <i class="pi pi-briefcase"></i>
+                    <span>{{offer.type}}</span>
+                </div>
+                <p class="description">{{offer.description | slice:0:200}}...</p>
+            </div>
+
+            <ng-template pTemplate="footer">
+                <div class="card-footer">
+                    <div class="footer-left">
+                        <span class="date">Publiée le {{offer.publicationDate | date:'dd/MM/yyyy'}}</span>
+                    </div>
+                    <div class="footer-right">
+                        <button pButton icon="pi pi-heart-fill" 
+                                (click)="removeFromFavorites(offer)"
+                                class="p-button-rounded p-button-text p-button-danger"
+                                pTooltip="Retirer des favoris">
+                        </button>
+                        <button pButton label="Voir l'offre" 
+                                class="p-button-outlined"
+                                [routerLink]="['/offers', offer.id]">
+                        </button>
+                    </div>
+                </div>
+            </ng-template>
+        </p-card>
+    </div>
+
+    <div *ngIf="filteredOffers.length === 0" class="empty-state">
+        <i class="pi pi-heart" style="font-size: 3rem"></i>
+        <p>Aucune offre en favoris</p>
+        <p class="subtext">Ajoutez des offres à vos favoris pour les retrouver facilement</p>
+    </div>
+</div>

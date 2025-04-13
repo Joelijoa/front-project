@@ -1,5 +1,5 @@
 <!-- Page container -->
-<div class="profile-container">
+<div class="profile-container" [style]="{paddingTop: '99px'}">
   <!-- Colonne de gauche - Photo et informations de base -->
   <div class="profile-left-column">
     <!-- Photo de profil et nom -->
@@ -10,29 +10,50 @@
       </div>
       <h2 class="user-name">{{profile.firstName}} {{profile.lastName}}</h2>
       <p class="user-bio">{{profile.summary}}</p>
-      <div class="profile-actions">
-        <button pButton label="Follow" class="p-button-primary"></button>
-        <button pButton label="Message" class="p-button-outlined"></button>
-      </div>
+      
     </div>
 
     <!-- Réseaux sociaux -->
     <div class="profile-card social-links">
-      <div class="social-link">
-        <i class="pi pi-globe"></i> <span>Website</span>
-        <span class="social-id">{{profile.website || 'Website'}}</span>
+      <div class="card-header">
+        <h3><i class="pi pi-globe"></i>Réseaux sociaux</h3>
+        <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text" (click)="openSocialDialog()"></button>
       </div>
-      <div class="social-link">
-        <i class="pi pi-twitter"></i> <span>Twitter</span>
-        <span class="social-id">{{profile.twitter || 'Twitter id'}}</span>
+      <div class="card-content">
+        <div class="social-link">
+          <i class="pi pi-globe"></i> <span>Website</span>
+          <span class="social-id">{{profile.website || 'Non renseigné'}}</span>
+        </div>
+        <div class="social-link">
+          <i class="pi pi-twitter"></i> <span>Twitter</span>
+          <span class="social-id">{{profile.twitter || 'Non renseigné'}}</span>
+        </div>
+        <div class="social-link">
+          <i class="pi pi-facebook"></i> <span>Facebook</span>
+          <span class="social-id">{{profile.facebook || 'Non renseigné'}}</span>
+        </div>
+        <div class="social-link">
+          <i class="pi pi-instagram"></i> <span>Instagram</span>
+          <span class="social-id">{{profile.instagram || 'Non renseigné'}}</span>
+        </div>
       </div>
-      <div class="social-link">
-        <i class="pi pi-facebook"></i> <span>Facebook</span>
-        <span class="social-id">{{profile.facebook || 'Facebook id'}}</span>
+    </div>
+    
+    <div class="profile-card social-links">
+      <div class="card-header">
+        <h3><i class="pi pi-list"></i>Divers</h3>
+        <button pButton icon="pi pi-plus" class="p-button-rounded p-button-text" (click)="openDiversDialog()"></button>
       </div>
-      <div class="social-link">
-        <i class="pi pi-instagram"></i> <span>Instagram</span>
-        <span class="social-id">{{profile.instagram || 'Instagram id'}}</span>
+      <div class="card-content">
+        <div *ngFor="let item of divers; let i = index" class="social-link">
+          <i class="pi pi-circle-fill"></i>
+          <span>{{item.title}}</span>
+          <span class="social-id">{{item.description}}</span>
+          <button pButton icon="pi pi-times" class="p-button-rounded p-button-text p-button-sm" (click)="removeDivers(i)"></button>
+        </div>
+        <div *ngIf="divers.length === 0" class="empty-state">
+          <p>Aucun élément divers</p>
+        </div>
       </div>
     </div>
   </div>
@@ -131,14 +152,14 @@
       </div>
       <div class="card-content">
         <div class="skill-list">
-          <div *ngFor="let skill of mainSkills; let i = index" class="skill-item">
+          <!-- <div *ngFor="let skill of mainSkills; let i = index" class="skill-item">
             <div class="skill-name">{{skill.name}}</div>
             <p-rating [ngModel]="skill.rating" [readonly]="true" [cancel]="false"></p-rating>
-          </div>
+          </div> -->
         </div>
 
         <div class="mt-4">
-          <h4 class="mb-2">Autres compétences</h4>
+          <!-- <h4 class="mb-2">Autres compétences</h4> -->
           <span *ngFor="let skill of skills; let i = index" class="skill-tag">
             {{skill}}
             <i class="pi pi-times remove-tag" (click)="removeSkill(i)"></i>
@@ -173,7 +194,7 @@
 </p-dialog>
 
 <!-- Dialog pour ajouter/modifier une expérience -->
-<p-dialog header="Expérience professionnelle" [(visible)]="showExperienceModal" [style]="{width: '600px'}" [modal]="true">
+<p-dialog header="Expérience professionnelle" [(visible)]="showExperienceModal" [style]="{width: '600px', background: 'white' }" [modal]="true">
   <div class="p-fluid">
     <div class="form-group">
       <label for="position">Poste <span class="required">*</span></label>
@@ -195,7 +216,7 @@
     </div>
     <div class="form-group">
       <label for="description">Description</label>
-      <textarea id="description" pInputTextarea [(ngModel)]="currentExperience.description" rows="5" placeholder="Décrivez vos responsabilités et réalisations"></textarea>
+      <textarea id="description" pTextarea [(ngModel)]="currentExperience.description" rows="5" placeholder="Décrivez vos responsabilités et réalisations"></textarea>
     </div>
   </div>
   <ng-template pTemplate="footer">
@@ -205,7 +226,7 @@
 </p-dialog>
 
 <!-- Dialogue pour ajouter/modifier une formation -->
-<p-dialog [(visible)]="showEducationModal" [style]="{width: '450px'}" header="Modifier la formation" [modal]="true">
+<p-dialog [(visible)]="showEducationModal" [style]="{width: '450px', background: 'white'}" header="Modifier la formation" [modal]="true">
   <div class="flex flex-column gap-3">
     <div class="flex flex-column gap-2">
       <label for="schoolInput">École / Université *</label>
@@ -227,7 +248,7 @@
 </p-dialog>
 
 <!-- Dialogue pour ajouter une compétence -->
-<p-dialog [(visible)]="showSkillModal" [style]="{width: '400px'}" header="Ajouter une compétence" [modal]="true">
+<p-dialog [(visible)]="showSkillModal" [style]="{width: '400px',}" header="Ajouter une compétence" [modal]="true">
   <div class="flex flex-column gap-3">
     <div class="flex flex-column gap-2">
       <label for="skillInput">Compétence *</label>
@@ -276,6 +297,50 @@
   <ng-template pTemplate="footer">
     <button pButton label="Annuler" icon="pi pi-times" class="p-button-text" (click)="showEditModal = false"></button>
     <button pButton label="Enregistrer" icon="pi pi-check" class="p-button-success" (click)="saveSection()"></button>
+  </ng-template>
+</p-dialog>
+
+<!-- Dialogue pour ajouter un élément divers -->
+<p-dialog [(visible)]="showDiversModal" [style]="{width: '400px'}" header="Ajouter un élément" [modal]="true">
+  <div class="flex flex-column gap-3">
+    <div class="flex flex-column gap-2">
+      <label for="diversTitleInput">Titre *</label>
+      <input id="diversTitleInput" pInputText [(ngModel)]="currentDivers.title" placeholder="Ex: Permis de conduire..." />
+    </div>
+    <div class="flex flex-column gap-2">
+      <label for="diversDescriptionInput">Description</label>
+      <input id="diversDescriptionInput" pInputText [(ngModel)]="currentDivers.description" placeholder="Ex: Permis B..." />
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple type="button" label="Annuler" icon="pi pi-times" class="p-button-text" (click)="showDiversModal = false"></button>
+    <button pButton pRipple type="button" label="Ajouter" icon="pi pi-plus" class="p-button-primary" (click)="addDivers()"></button>
+  </ng-template>
+</p-dialog>
+
+<!-- Dialogue pour modifier les réseaux sociaux -->
+<p-dialog [(visible)]="showSocialModal" [style]="{width: '450px'}" header="Modifier les réseaux sociaux" [modal]="true">
+  <div class="flex flex-column gap-3">
+    <div class="flex flex-column gap-2">
+      <label for="websiteInput">Site web</label>
+      <input id="websiteInput" pInputText [(ngModel)]="profile.website" placeholder="https://monsite.com" />
+    </div>
+    <div class="flex flex-column gap-2">
+      <label for="twitterInput">Twitter</label>
+      <input id="twitterInput" pInputText [(ngModel)]="profile.twitter" placeholder="@username" />
+    </div>
+    <div class="flex flex-column gap-2">
+      <label for="facebookInput">Facebook</label>
+      <input id="facebookInput" pInputText [(ngModel)]="profile.facebook" placeholder="username" />
+    </div>
+    <div class="flex flex-column gap-2">
+      <label for="instagramInput">Instagram</label>
+      <input id="instagramInput" pInputText [(ngModel)]="profile.instagram" placeholder="@username" />
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple type="button" label="Annuler" icon="pi pi-times" class="p-button-text" (click)="showSocialModal = false"></button>
+    <button pButton pRipple type="button" label="Enregistrer" icon="pi pi-check" class="p-button-primary" (click)="saveSocialLinks()"></button>
   </ng-template>
 </p-dialog>
 

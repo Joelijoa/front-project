@@ -1,19 +1,40 @@
-import { Injectable } from '@angular/core';
+import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
 import { Offer, OfferSearchCriteria, PaginatedOffers } from '../models/offer.model';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
     providedIn: 'root'
 })
 export class OfferService {
     private apiUrl = `${environment.apiUrl}/offers`;
-    private savedOffersSubject = new BehaviorSubject<Set<string>>(new Set());
+    private favoriteOffersSubject = new BehaviorSubject<Offer[]>([]);
+    private isBrowser: boolean;
 
-    constructor(private http: HttpClient) {
-        this.loadSavedOffers();
+    constructor(
+        private http: HttpClient,
+        @Inject(PLATFORM_ID) platformId: Object
+    ) {
+        this.isBrowser = isPlatformBrowser(platformId);
+        this.loadFavorites();
+    }
+
+    private loadFavorites(): void {
+        if (this.isBrowser) {
+            const favorites = localStorage.getItem('favoriteOffers');
+            if (favorites) {
+                this.favoriteOffersSubject.next(JSON.parse(favorites));
+            }
+        }
+    }
+
+    private saveFavorites(): void {
+        if (this.isBrowser) {
+            localStorage.setItem('favoriteOffers', JSON.stringify(this.favoriteOffersSubject.value));
+        }
     }
 
     // Récupère la liste des offres avec pagination et filtres
@@ -44,7 +65,7 @@ export class OfferService {
                 ...response,
                 items: response.items.map(offer => ({
                     ...offer,
-                    isSaved: this.savedOffersSubject.value.has(offer.id)
+                    isFavorite: this.isOfferInFavorites(offer.id)
                 }))
             }))
         );
@@ -55,41 +76,42 @@ export class OfferService {
         return this.http.get<Offer>(`${this.apiUrl}/${id}`).pipe(
             map(offer => ({
                 ...offer,
-                isSaved: this.savedOffersSubject.value.has(offer.id)
+                isFavorite: this.isOfferInFavorites(offer.id)
             }))
         );
     }
 
-    // Sauvegarde/retire une offre des favoris
-    toggleSaveOffer(offerId: string): void {
-        const savedOffers = this.savedOffersSubject.value;
-        if (savedOffers.has(offerId)) {
-            savedOffers.delete(offerId);
+    // Vérifie si une offre est dans les favoris
+    private isOfferInFavorites(offerId: string): boolean {
+        return this.favoriteOffersSubject.value.some(offer => offer.id === offerId);
+    }
+
+    // Récupère la liste des offres en favoris
+    getFavoriteOffers(): Offer[] {
+        return this.favoriteOffersSubject.value;
+    }
+
+    // Observable pour suivre les changements dans les favoris
+    getFavoriteOffersObservable(): Observable<Offer[]> {
+        return this.favoriteOffersSubject.asObservable();
+    }
+
+    // Ajoute ou retire une offre des favoris
+    toggleFavorite(offer: Offer): void {
+        const currentFavorites = this.favoriteOffersSubject.value;
+        const index = currentFavorites.findIndex(o => o.id === offer.id);
+
+        if (index === -1) {
+            // Ajouter aux favoris
+            const updatedOffer = { ...offer, isFavorite: true };
+            this.favoriteOffersSubject.next([...currentFavorites, updatedOffer]);
         } else {
-            savedOffers.add(offerId);
+            // Retirer des favoris
+            this.favoriteOffersSubject.next(
+                currentFavorites.filter(o => o.id !== offer.id)
+            );
         }
-        this.savedOffersSubject.next(new Set(savedOffers));
-        this.saveSavedOffers();
-    }
 
-    // Récupère la liste des offres sauvegardées
-    getSavedOffers(): Observable<Set<string>> {
-        return this.savedOffersSubject.asObservable();
-    }
-
-    // Charge les offres sauvegardées depuis le localStorage
-    private loadSavedOffers(): void {
-        const saved = localStorage.getItem('savedOffers');
-        if (saved) {
-            this.savedOffersSubject.next(new Set(JSON.parse(saved)));
-        }
-    }
-
-    // Sauvegarde les offres dans le localStorage
-    private saveSavedOffers(): void {
-        localStorage.setItem(
-            'savedOffers',
-            JSON.stringify(Array.from(this.savedOffersSubject.value))
-        );
+        this.saveFavorites();
     }
 } 

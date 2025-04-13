@@ -35,7 +35,7 @@ export interface Offer {
     requirements: string[];
     experience: ExperienceLevel;
     educationLevel: EducationLevel;
-    salary?: {
+    salary: {
         min: number;
         max: number;
         currency: string;
@@ -43,6 +43,11 @@ export interface Offer {
     isSaved: boolean;
     createdAt: Date;
     updatedAt: Date;
+    contractType: string;
+    publicationDate: Date;
+    isFavorite: boolean;
+    skills: string[];
+    benefits: string[];
 }
 
 // Interface pour les filtres de recherche

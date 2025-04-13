@@ -19,41 +19,41 @@
     }
 }
 
-.p-radiobutton {
-    .p-radiobutton-box {
-        background: #ffffff !important;
-        border: 1px solid #e0e0e0 !important;
-        width: 18px !important;
-        height: 18px !important;
-        border-radius: 50% !important;
+// .p-radiobutton {
+//     .p-radiobutton-box {
+//         background: #ffffff !important;
+//         border: 1px solid #e0e0e0 !important;
+//         width: 18px !important;
+//         height: 18px !important;
+//         border-radius: 50% !important;
 
-        &:not(.p-disabled):hover {
-            border-color: #ff5722 !important;
-        }
+//         &:not(.p-disabled):hover {
+//             border-color: #ff5722 !important;
+//         }
 
-        &.p-highlight {
-            border-color: #ff5722 !important;
-            background: #ffffff !important;
+//         &.p-highlight {
+//             border-color: #ff5722 !important;
+//             background: #ffffff !important;
 
-            &:after {
-                content: '' !important;
-                width: 8px !important;
-                height: 8px !important;
-                background: #ff5722 !important;
-                border-radius: 50% !important;
-                position: absolute !important;
-                top: 50% !important;
-                left: 50% !important;
-                transform: translate(-50%, -50%) !important;
-            }
-        }
+//             &:after {
+//                 content: '' !important;
+//                 width: 8px !important;
+//                 height: 8px !important;
+//                 background: #ff5722 !important;
+//                 border-radius: 50% !important;
+//                 position: absolute !important;
+//                 top: 50% !important;
+//                 left: 50% !important;
+//                 transform: translate(-50%, -50%) !important;
+//             }
+//         }
 
-        .p-radiobutton-icon {
-            background: transparent !important;
-            display: none !important;
-        }
-    }
-}
+//         .p-radiobutton-icon {
+//             background: transparent !important;
+//             display: none !important;
+//         }
+//     }
+// }
 
 .filter-card {
     background: #ffffff !important;

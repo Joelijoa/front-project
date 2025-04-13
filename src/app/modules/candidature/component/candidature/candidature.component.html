@@ -1,0 +1,143 @@
+<div class="candidature-container p-4">
+    <div class="header-container">
+        <h2>Mes Candidatures</h2>
+        <div class="search-container">
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input type="text" pInputText [(ngModel)]="searchText" 
+                       (input)="filterCandidatures()" 
+                       placeholder="Rechercher une candidature..." />
+            </span>
+        </div>
+        <p-select [options]="statutOptions" [(ngModel)]="selectedStatut" 
+                   optionLabel="label" placeholder="Filtrer par statut"
+                   (onChange)="filterCandidatures()">
+        </p-select>
+        <p-select [options]="dateOptions" [(ngModel)]="selectedDate" 
+                   optionLabel="label" placeholder="Filtrer par date"
+                   (onChange)="filterCandidatures()">
+        </p-select>
+        <button pButton icon="pi pi-filter-slash" label="Réinitialiser" 
+                class="p-button-text" (click)="resetFilters()">
+        </button>
+    </div>
+    
+    <p-table [value]="filteredCandidatures" [paginator]="true" [rows]="10" 
+             [showCurrentPageReport]="true" 
+             currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} candidatures"
+             [rowsPerPageOptions]="[10,25,50]"
+             [loading]="loading"
+             [globalFilterFields]="['intitulePoste', 'nomEntreprise', 'statut']">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="dateSoumission">Date de soumission
+                    <p-sortIcon field="dateSoumission"></p-sortIcon>
+                </th>
+                <th pSortableColumn="intitulePoste">Intitulé du poste
+                    <p-sortIcon field="intitulePoste"></p-sortIcon>
+                </th>
+                <th pSortableColumn="nomEntreprise">Entreprise
+                    <p-sortIcon field="nomEntreprise"></p-sortIcon>
+                </th>
+                <th pSortableColumn="statut">Statut
+                    <p-sortIcon field="statut"></p-sortIcon>
+                </th>
+                <th>Actions</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-candidature>
+            <tr>
+                <td>{{candidature.dateSoumission | date:'dd/MM/yyyy'}}</td>
+                <td>{{candidature.intitulePoste}}</td>
+                <td>{{candidature.nomEntreprise}}</td>
+                <td>
+                    <span [ngClass]="{
+                        'status-badge': true,
+                        'status-en-cours': candidature.statut === 'En cours',
+                        'status-acceptee': candidature.statut === 'Acceptée',
+                        'status-refusee': candidature.statut === 'Refusée'
+                    }">
+                        {{candidature.statut}}
+                    </span>
+                </td>
+                <td>
+                    <div class="flex gap-2">
+                        <button pButton icon="pi pi-eye" 
+                                (click)="afficherDetails(candidature)"
+                                class="p-button-rounded p-button-text"
+                                pTooltip="Voir les détails" tooltipPosition="top">
+                        </button>
+                        
+                        <button pButton icon="pi pi-trash" 
+                                (click)="supprimerCandidature(candidature)"
+                                class="p-button-rounded p-button-text p-button-danger"
+                                pTooltip="Supprimer" tooltipPosition="top">
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="5" class="text-center">
+                    <div class="empty-state">
+                        <i class="pi pi-search" style="font-size: 2rem"></i>
+                        <p>Aucune candidature trouvée</p>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <p-dialog header="Détails de la candidature" 
+              [(visible)]="displayDialog" 
+              [style]="{width: '50vw'}"
+              [modal]="true"
+              [draggable]="false"
+              [resizable]="false">
+        <div *ngIf="candidatureSelectionnee" class="dialog-content">
+            <div class="grid">
+                <div class="col-12">
+                    <h3>{{candidatureSelectionnee.intitulePoste}}</h3>
+                    <p class="entreprise">{{candidatureSelectionnee.nomEntreprise}}</p>
+                    <p class="date">Soumis le {{candidatureSelectionnee.dateSoumission | date:'dd/MM/yyyy'}}</p>
+                </div>
+                
+                <div class="col-12">
+                    <h4>Description du poste</h4>
+                    <p>{{candidatureSelectionnee.details.description}}</p>
+                </div>
+
+                <div class="col-12">
+                    <h4>Compétences requises</h4>
+                    <div class="competences">
+                        <span *ngFor="let competence of candidatureSelectionnee.details.competences" 
+                              class="competence-badge">
+                            {{competence}}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <h4>Expérience requise</h4>
+                    <p>{{candidatureSelectionnee.details.experience}}</p>
+                </div>
+
+                <div class="col-6">
+                    <h4>Diplôme requis</h4>
+                    <p>{{candidatureSelectionnee.details.diplome}}</p>
+                </div>
+
+                <div class="col-12">
+                    <h4>Lettre de motivation</h4>
+                    <p class="lettre-motivation">{{candidatureSelectionnee.details.lettreMotivation}}</p>
+                </div>
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <button pButton icon="pi pi-times" label="Fermer" 
+                    (click)="displayDialog = false" class="p-button-text">
+            </button>
+        </ng-template>
+    </p-dialog>
+</div>

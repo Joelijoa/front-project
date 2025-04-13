@@ -1,61 +1,68 @@
 @use "sass:color";
 
 /* Variables */
-:root {
-  --primary-color: #2773c3;
-  --primary-dark: #1b5799;
-  --primary-light: #eef5fd;
-  --accent-color: #2773c3;
-  --text-color: #333333;
-  --text-secondary: #666666;
-  --text-light: #888888;
-  --background-color: #f9f9f9;
-  --card-background: #ffffff;
-  --border-color: #e1e1e1;
-  --divider-color: #eeeeee;
-  --success-color: #28a745;
-  --danger-color: #dc3545;
-  --warning-color: #ffc107;
-  --info-color: #17a2b8;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
-  --shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 2px 10px rgba(0, 0, 0, 0.1);
-  --radius-sm: 4px;
-  --radius: 8px;
-  --radius-lg: 12px;
-  --font-size-xs: 0.75rem;
-  --font-size-sm: 0.875rem;
-  --font-size-md: 1rem;
-  --font-size-lg: 1.125rem;
-  --font-size-xl: 1.25rem;
-  --font-size-2xl: 1.5rem;
-  --font-size-3xl: 1.875rem;
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
-  --transition-fast: 0.2s ease;
-  --transition: 0.3s ease;
-}
+$primary-color: #2773c3;
+$primary-dark: #1b5799;
+$primary-light: #eef5fd;
+$accent-color: #2773c3;
+$text-color: #333333;
+$text-secondary: #666666;
+$text-light: #888888;
+$background-color: #f9f9f9;
+$card-background: #ffffff;
+$border-color: #e1e1e1;
+$divider-color: #eeeeee;
+$success-color: #28a745;
+$danger-color: #dc3545;
+$warning-color: #ffc107;
+$info-color: #17a2b8;
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+$shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+$shadow-lg: 0 2px 10px rgba(0, 0, 0, 0.1);
+$radius-sm: 4px;
+$radius: 8px;
+$radius-lg: 12px;
+$font-size-xs: 0.75rem;
+$font-size-sm: 0.875rem;
+$font-size-md: 1rem;
+$font-size-lg: 1.125rem;
+$font-size-xl: 1.25rem;
+$font-size-2xl: 1.5rem;
+$font-size-3xl: 1.875rem;
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+$transition-fast: 0.2s ease;
+$transition: 0.3s ease;
 
 /* Base Styles */
 * {
+  padding-top: 80px;
+
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 body {
+  padding-top: 80px;
+
   font-family: 'Segoe UI', 'Roboto', sans-serif;
-  color: var(--text-color);
-  background-color: var(--background-color);
+  color: $text-color;
+  background-color: $background-color;
   line-height: 1.5;
+
+  .profile-container{
+    padding-top: 80px;
+  
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
-  color: var(--text-color);
+  color: $text-color;
   margin: 0;
 }
 
@@ -67,17 +74,17 @@ p {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: var(--spacing-md);
+  padding: $spacing-md;
 }
 
 /* Profile Header */
 .profile-header {
   margin-top: 60px;
-  margin-bottom: var(--spacing-lg);
-  border-radius: var(--radius);
+  margin-bottom: $spacing-lg;
+  border-radius: $radius;
   overflow: hidden;
-  background-color: var(--card-background);
-  box-shadow: var(--shadow);
+  background-color: $card-background;
+  box-shadow: $shadow;
   max-width: 1140px;
   margin-left: auto;
   margin-right: auto;
@@ -85,12 +92,12 @@ p {
 
 .cover-photo {
   height: 180px;
-  background-color: var(--primary-color);
+  background-color: $primary-color;
   position: relative;
 }
 
 .profile-header-content {
-  padding: var(--spacing-lg);
+  padding: $spacing-lg;
   display: flex;
   position: relative;
   
@@ -101,15 +108,17 @@ p {
   }
 }
 
+
 .profile-photo-container {
+  padding-top: 80px;
   margin-top: -70px;
-  margin-right: var(--spacing-lg);
+  margin-right: $spacing-lg;
   
   .profile-photo {
     width: 130px;
     height: 130px;
-    border: 4px solid var(--card-background);
-    box-shadow: var(--shadow);
+    border: 4px solid $card-background;
+    box-shadow: $shadow;
     border-radius: 50%;
     overflow: hidden;
   }
@@ -121,19 +130,19 @@ p {
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background-color: var(--card-background);
-    color: var(--text-secondary);
-    border: 1px solid var(--border-color);
+    background-color: $card-background;
+    color: $text-secondary;
+    border: 1px solid $border-color;
     font-size: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: var(--transition-fast);
+    transition: $transition-fast;
     
     &:hover {
-      background-color: var(--primary-light);
-      color: var(--primary-color);
+      background-color: $primary-light;
+      color: $primary-color;
     }
   }
 }
@@ -145,31 +154,31 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: var(--spacing-xs);
+    margin-bottom: $spacing-xs;
     
     h1 {
-      font-size: var(--font-size-2xl);
+      font-size: $font-size-2xl;
       font-weight: 600;
-      color: var(--text-color);
+      color: $text-color;
     }
   }
   
   .headline {
-    color: var(--text-secondary);
-    font-size: var(--font-size-lg);
-    margin-bottom: var(--spacing-md);
+    color: $text-secondary;
+    font-size: $font-size-lg;
+    margin-bottom: $spacing-md;
   }
   
   .location, .contact-info {
-    font-size: var(--font-size-sm);
-    color: var(--text-secondary);
+    font-size: $font-size-sm;
+    color: $text-secondary;
     display: flex;
     align-items: center;
-    margin-bottom: var(--spacing-xs);
+    margin-bottom: $spacing-xs;
     
     i {
-      margin-right: var(--spacing-sm);
-      color: var(--text-light);
+      margin-right: $spacing-sm;
+      color: $text-light;
     }
   }
 }
@@ -179,18 +188,18 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--spacing-md);
+  margin-bottom: $spacing-md;
   
   h2 {
-    font-size: var(--font-size-xl);
+    font-size: $font-size-xl;
     font-weight: 600;
-    color: var(--text-color);
+    color: $text-color;
     display: flex;
     align-items: center;
     
     i {
-      margin-right: var(--spacing-sm);
-      color: var(--text-secondary);
+      margin-right: $spacing-sm;
+      color: $text-secondary;
     }
   }
   
@@ -202,14 +211,14 @@ p {
     align-items: center;
     justify-content: center;
     background-color: transparent;
-    color: var(--text-secondary);
+    color: $text-secondary;
     border: none;
     cursor: pointer;
-    transition: var(--transition-fast);
+    transition: $transition-fast;
     
     &:hover {
-      background-color: var(--primary-light);
-      color: var(--primary-color);
+      background-color: $primary-light;
+      color: $primary-color;
     }
   }
 }
@@ -218,14 +227,14 @@ p {
 .profile-content {
   max-width: 1140px;
   margin: 0 auto;
-  padding-bottom: var(--spacing-xl);
+  padding-bottom: $spacing-xl;
 }
 
 .profile-card {
-  background-color: var(--card-background);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  margin-bottom: var(--spacing-lg);
+  background-color: $card-background;
+  border-radius: $radius;
+  box-shadow: $shadow;
+  margin-bottom: $spacing-lg;
   overflow: hidden;
 }
 
@@ -233,33 +242,33 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--spacing-md) var(--spacing-lg);
-  border-bottom: 1px solid var(--divider-color);
+  padding: $spacing-md $spacing-lg;
+  border-bottom: 1px solid $divider-color;
   
   h3 {
     margin: 0;
-    font-size: var(--font-size-lg);
+    font-size: $font-size-lg;
     font-weight: 600;
-    color: var(--text-color);
+    color: $text-color;
     display: flex;
     align-items: center;
     
     i {
-      margin-right: var(--spacing-sm);
-      color: var(--primary-color);
+      margin-right: $spacing-sm;
+      color: $primary-color;
     }
   }
 }
 
 .card-content {
-  padding: var(--spacing-lg);
+  padding: $spacing-lg;
 }
 
 /* Experience Items */
 .experience-item, .education-item {
   display: flex;
-  padding: var(--spacing-md) 0;
-  border-bottom: 1px solid var(--divider-color);
+  padding: $spacing-md 0;
+  border-bottom: 1px solid $divider-color;
   
   &:last-child {
     border-bottom: none;
@@ -271,15 +280,15 @@ p {
   min-width: 40px;
   height: 40px;
   border-radius: 4px;
-  margin-right: var(--spacing-md);
-  background-color: var(--primary-light);
-  color: var(--primary-color);
+  margin-right: $spacing-md;
+  background-color: $primary-light;
+  color: $primary-color;
   display: flex;
   align-items: center;
   justify-content: center;
   
   i {
-    font-size: var(--font-size-lg);
+    font-size: $font-size-lg;
   }
 }
 
@@ -287,47 +296,47 @@ p {
   flex: 1;
   
   .item-title {
-    font-size: var(--font-size-lg);
+    font-size: $font-size-lg;
     font-weight: 600;
-    margin-bottom: var(--spacing-xs);
+    margin-bottom: $spacing-xs;
   }
   
   .item-subtitle {
-    font-size: var(--font-size-md);
-    color: var(--primary-color);
-    margin-bottom: var(--spacing-xs);
+    font-size: $font-size-md;
+    color: $primary-color;
+    margin-bottom: $spacing-xs;
   }
   
   .item-date {
-    font-size: var(--font-size-sm);
-    color: var(--text-light);
-    margin-bottom: var(--spacing-sm);
+    font-size: $font-size-sm;
+    color: $text-light;
+    margin-bottom: $spacing-sm;
   }
   
   .item-description {
-    font-size: var(--font-size-md);
-    color: var(--text-secondary);
+    font-size: $font-size-md;
+    color: $text-secondary;
     line-height: 1.5;
   }
 }
 
 /* Skills Section */
 .skills-section {
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: $spacing-lg;
 }
 
 .skill-list {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-md);
+  gap: $spacing-md;
 }
 
 .skill-item {
-  background-color: var(--card-background);
-  border-radius: var(--radius);
-  padding: var(--spacing-md);
-  box-shadow: var(--shadow-sm);
-  width: calc(33.333% - var(--spacing-md));
+  background-color: $card-background;
+  border-radius: $radius;
+  padding: $spacing-md;
+  box-shadow: $shadow-sm;
+  width: calc(33.333% - $spacing-md);
   min-width: 200px;
   
   @media (max-width: 768px) {
@@ -336,52 +345,52 @@ p {
   
   .skill-name {
     font-weight: 500;
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: $spacing-sm;
   }
 }
 
 .skill-tag {
   display: inline-block;
-  background-color: var(--primary-light);
-  color: var(--primary-color);
-  font-size: var(--font-size-sm);
+  background-color: $primary-light;
+  color: $primary-color;
+  font-size: $font-size-sm;
   padding: 4px 10px;
   border-radius: 20px;
-  margin-right: var(--spacing-xs);
-  margin-bottom: var(--spacing-xs);
+  margin-right: $spacing-xs;
+  margin-bottom: $spacing-xs;
   
   .remove-tag {
-    margin-left: var(--spacing-xs);
+    margin-left: $spacing-xs;
     cursor: pointer;
     
     &:hover {
-      color: var(--danger-color);
+      color: $danger-color;
     }
   }
 }
 
 .add-skill-form {
   display: flex;
-  margin-top: var(--spacing-md);
+  margin-top: $spacing-md;
   
   input {
     flex: 1;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
+    border: 1px solid $border-color;
+    border-radius: $radius-sm;
     padding: 8px 12px;
-    margin-right: var(--spacing-sm);
+    margin-right: $spacing-sm;
   }
   
   button {
-    background-color: var(--primary-color);
+    background-color: $primary-color;
     color: white;
     border: none;
-    border-radius: var(--radius-sm);
+    border-radius: $radius-sm;
     padding: 8px 16px;
     cursor: pointer;
     
     &:hover {
-      background-color: var(--primary-dark);
+      background-color: $primary-dark;
     }
   }
 }
@@ -390,8 +399,8 @@ p {
 .document-item {
   display: flex;
   align-items: center;
-  padding: var(--spacing-md);
-  border-bottom: 1px solid var(--divider-color);
+  padding: $spacing-md;
+  border-bottom: 1px solid $divider-color;
   
   &:last-child {
     border-bottom: none;
@@ -401,15 +410,15 @@ p {
     width: 40px;
     height: 40px;
     border-radius: 4px;
-    background-color: var(--primary-light);
+    background-color: $primary-light;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: var(--spacing-md);
+    margin-right: $spacing-md;
     
     i {
-      color: var(--primary-color);
-      font-size: var(--font-size-lg);
+      color: $primary-color;
+      font-size: $font-size-lg;
     }
   }
   
@@ -417,32 +426,32 @@ p {
     flex: 1;
     
     h4 {
-      font-size: var(--font-size-md);
-      margin-bottom: var(--spacing-xs);
+      font-size: $font-size-md;
+      margin-bottom: $spacing-xs;
     }
   }
 }
 
 /* Empty States */
 .empty-state {
-  padding: var(--spacing-lg);
+  padding: $spacing-lg;
   text-align: center;
-  color: var(--text-light);
+  color: $text-light;
   
   p {
-    margin-bottom: var(--spacing-md);
+    margin-bottom: $spacing-md;
   }
   
   button {
-    background-color: var(--primary-light);
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
-    border-radius: var(--radius-sm);
+    background-color: $primary-light;
+    color: $primary-color;
+    border: 1px solid $primary-color;
+    border-radius: $radius-sm;
     padding: 8px 16px;
     cursor: pointer;
     
     &:hover {
-      background-color: var(--primary-color);
+      background-color: $primary-color;
       color: white;
     }
   }
@@ -451,233 +460,233 @@ p {
 /* Floating Save Button */
 .floating-save-button {
   position: fixed;
-  bottom: var(--spacing-lg);
-  right: var(--spacing-lg);
+  bottom: $spacing-lg;
+  right: $spacing-lg;
   z-index: 1000;
   
   button {
-    background-color: var(--success-color);
+    background-color: $success-color;
     color: white;
     border: none;
     border-radius: 30px;
     padding: 12px 24px;
-    box-shadow: var(--shadow-lg);
+    box-shadow: $shadow-lg;
     cursor: pointer;
     display: flex;
     align-items: center;
     
     i {
-      margin-right: var(--spacing-sm);
+      margin-right: $spacing-sm;
     }
     
     &:hover {
-      background-color: color.adjust(#28a745, $lightness: -5%);
+      background-color: color.adjust($success-color, $lightness: -5%);
     }
   }
 }
 
 /* Dialogs */
-:host ::ng-deep {
-  .p-dialog {
-    .p-dialog-header {
-      background-color: var(--card-background);
-      color: var(--text-color);
-      padding: var(--spacing-md) var(--spacing-lg);
-      border-bottom: 1px solid var(--divider-color);
+.p-dialog {
+  background: $card-background !important;
+  border-radius: $radius;
+  box-shadow: $shadow-lg;
+
+  .p-dialog-header {
+    background: $card-background !important;
+    color: $text-color;
+    font-weight: 600;
+    border-bottom: 1px solid $border-color;
+    padding: 1.5rem;
+    border-radius: $radius $radius 0 0;
+
+    .p-dialog-title {
+      font-size: 1.25rem;
+      color: $text-color;
+    }
+
+    .p-dialog-header-icon {
+      color: $text-secondary;
       
-      .p-dialog-title {
-        font-size: var(--font-size-lg);
-        font-weight: 600;
+      &:hover {
+        background: $primary-light;
+        color: $primary-color;
       }
+    }
+  }
+
+  .p-dialog-content {
+    background: $card-background !important;
+    padding: 1.5rem;
+    border-radius: 0;
+
+    label {
+      color: $text-color;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    input, textarea {
+      background: $card-background;
+      border: 1px solid $border-color;
+      border-radius: $radius-sm;
+      padding: 0.5rem;
+      width: 100%;
       
-      .p-dialog-header-icon {
-        color: var(--text-secondary);
+      &:focus {
+        border-color: $primary-color;
+        box-shadow: 0 0 0 2px rgba($primary-color, 0.1);
+        outline: none;
+      }
+    }
+
+    .required {
+      color: $danger-color;
+      margin-left: 4px;
+    }
+  }
+
+  .p-dialog-footer {
+    background: $card-background !important;
+    border-top: 1px solid $border-color;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    border-radius: 0 0 $radius $radius;
+
+    .p-button {
+      transition: all 0.2s ease;
+      border-radius: $radius-sm;
+
+      &.p-button-text {
+        color: $text-color;
         
         &:hover {
-          background-color: var(--primary-light);
-          color: var(--primary-color);
+          background: $primary-light;
         }
       }
-    }
-    
-    .p-dialog-content {
-      background-color: var(--card-background);
-      padding: var(--spacing-lg);
-    }
-    
-    .p-dialog-footer {
-      background-color: var(--card-background);
-      padding: var(--spacing-md) var(--spacing-lg);
-      border-top: 1px solid var(--divider-color);
-      display: flex;
-      justify-content: flex-end;
-    }
-  }
-  
-  /* Form Controls */
-  .form-group {
-    margin-bottom: var(--spacing-md);
-    
-    label {
-      display: block;
-      font-size: var(--font-size-sm);
-      color: var(--text-secondary);
-      margin-bottom: var(--spacing-xs);
-    }
-    
-    .required {
-      color: var(--danger-color);
-    }
-  }
-  
-  .form-row {
-    display: flex;
-    gap: var(--spacing-md);
-    margin-bottom: var(--spacing-md);
-    
-    @media (max-width: 768px) {
-      flex-direction: column;
-    }
-    
-    .form-group {
-      flex: 1;
-      margin-bottom: 0;
-    }
-  }
-  
-  /* PrimeNG Overrides */
-  .p-button {
-    border-radius: var(--radius-sm);
-    padding: 8px 16px;
-    
-    &.p-button-sm {
-      padding: 6px 12px;
-      font-size: var(--font-size-sm);
-    }
-    
-    &.p-button-text {
-      background-color: transparent;
-      color: var(--primary-color);
-      border: none;
-      
-      &:hover {
-        background-color: var(--primary-light);
+
+      &.p-button-primary {
+        background: $primary-color;
+        border-color: $primary-color;
+        color: white;
+        
+        &:hover {
+          background: color.adjust($primary-color, $lightness: -10%);
+          border-color: color.adjust($primary-color, $lightness: -10%);
+        }
       }
-    }
-    
-    &.p-button-secondary {
-      background-color: #6c757d;
-      border-color: #6c757d;
-      
-      &:hover {
-        background-color: #5a6268;
-        border-color: #5a6268;
-      }
-    }
-    
-    &.p-button-success {
-      background-color: var(--success-color);
-      border-color: var(--success-color);
-      
-      &:hover {
-        background-color: color.adjust(#28a745, $lightness: -5%);
-        border-color: color.adjust(#28a745, $lightness: -5%);
-      }
-    }
-    
-    &.p-button-danger {
-      background-color: var(--danger-color);
-      border-color: var(--danger-color);
-      
-      &:hover {
-        background-color: color.adjust(#dc3545, $lightness: -5%);
-        border-color: color.adjust(#dc3545, $lightness: -5%);
-      }
-    }
-  }
-  
-  .p-input-icon-right > i:last-of-type {
-    color: var(--text-light);
-  }
-  
-  .p-inputtext {
-    width: 100%;
-    padding: 8px 12px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    color: var(--text-color);
-    
-    &:focus {
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 2px color.adjust(#2773c3, $alpha: -0.8);
-    }
-    
-    &::placeholder {
-      color: var(--text-light);
-    }
-  }
-  
-  .p-dropdown {
-    width: 100%;
-    
-    .p-dropdown-label {
-      padding: 8px 12px;
-    }
-    
-    .p-dropdown-trigger {
-      color: var(--text-light);
-    }
-    
-    &.p-focus {
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 2px color.adjust(#2773c3, $alpha: -0.8);
-    }
-  }
-  
-  .p-calendar {
-    width: 100%;
-    
-    .p-inputtext {
-      width: 100%;
-    }
-  }
-  
-  .p-password {
-    width: 100%;
-    
-    .p-inputtext {
-      width: 100%;
-    }
-  }
-  
-  .p-toast {
-    .p-toast-message {
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      
-      &.p-toast-message-success {
-        background-color: color.adjust(#28a745, $lightness: 45%);
-        border-left: 4px solid var(--success-color);
-        color: color.adjust(#28a745, $lightness: -20%);
-      }
-      
-      &.p-toast-message-error {
-        background-color: color.adjust(#dc3545, $lightness: 45%);
-        border-left: 4px solid var(--danger-color);
-        color: color.adjust(#dc3545, $lightness: -20%);
+
+      &.p-button-success {
+        background: $success-color;
+        border-color: $success-color;
+        color: white;
+        
+        &:hover {
+          background: color.adjust($success-color, $lightness: -10%);
+          border-color: color.adjust($success-color, $lightness: -10%);
+        }
       }
     }
   }
 }
 
+/* Style pour les champs de formulaire */
+.form-group {
+  margin-bottom: 1.5rem;
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: $text-color;
+    font-weight: 500;
+  }
+}
+
+/* Style pour les inputs */
+.p-inputtext {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid $border-color;
+  border-radius: 0.375rem;
+  
+  &::placeholder {
+    color: $text-light;
+  }
+
+  &:focus {
+    border-color: $primary-color;
+    box-shadow: 0 0 0 2px rgba($primary-color, 0.1);
+    outline: none;
+  }
+}
+
+/* Style pour les dropdowns et calendriers */
+.p-dropdown, 
+.p-calendar {
+  width: 100%;
+
+  .p-inputtext {
+    width: 100%;
+  }
+
+  &:focus {
+    border-color: $primary-color;
+    box-shadow: 0 0 0 2px rgba($primary-color, 0.1);
+    outline: none;
+  }
+}
+
+/* Style pour les boutons */
+.p-button {
+  transition: all 0.2s ease;
+  border-radius: 0.375rem;
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &.p-button-sm {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Style pour les messages toast */
+.p-toast {
+  .p-toast-message {
+    border-radius: 0.5rem;
+    box-shadow: $shadow;
+
+    &.p-toast-message-success {
+      background: color.adjust($success-color, $lightness: 45%);
+      border-left: 6px solid $success-color;
+      color: color.adjust($success-color, $lightness: -20%);
+    }
+
+    &.p-toast-message-error {
+      background: color.adjust($danger-color, $lightness: 45%);
+      border-left: 6px solid $danger-color;
+      color: color.adjust($danger-color, $lightness: -20%);
+    }
+
+    &.p-toast-message-warn {
+      background: color.adjust($warning-color, $lightness: 45%);
+      border-left: 6px solid $warning-color;
+      color: color.adjust($warning-color, $lightness: -20%);
+    }
+
+    &.p-toast-message-info {
+      background: color.adjust($info-color, $lightness: 45%);
+      border-left: 6px solid $info-color;
+      color: color.adjust($info-color, $lightness: -20%);
+    }
+  }
+}
+
 /* New Variables */
-$primary-color: #4045ee;
 $secondary-color: #2f3c7e;
-$text-color: #293241;
-$border-color: #e5e7eb;
-$background-color: #f9fafb;
 $white: #ffffff;
-$shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 
 /* Container principal */
 .profile-container {

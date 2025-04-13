@@ -17,10 +17,10 @@
                 <button 
                     pButton 
                     type="button" 
-                    [class]="offer.isSaved ? 'p-button-primary' : 'p-button-outlined'"
-                    icon="pi pi-bookmark"
-                    (click)="toggleSave()"
-                    pTooltip="favoris"
+                    [class]="offer.isFavorite ? 'p-button-danger' : 'p-button-outlined'"
+                    icon="pi pi-heart"
+                    (click)="toggleSave($event)"
+                    pTooltip="Ajouter aux favoris"
                 ></button>
             </div>
 

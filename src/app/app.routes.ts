@@ -30,5 +30,17 @@ export const routes: Routes = [
         loadChildren: () => 
             import('./modules/profil/profil.module').then(m => m.ProfilModule),
         title: 'Mon Profil'
+    },
+    {
+        path: 'candidature',
+        loadChildren: () =>
+            import('./modules/candidature/candidature.module').then(m => m.CandidatureModule),
+        title: 'Mes candidatures'
+    },
+    {
+        path: 'favorite',
+        loadChildren: () =>
+            import('./modules/favorite/favorite.module').then(m => m.FavoriteModule),
+        title: 'Mes favoris'
     }
 ];

@@ -21,6 +21,7 @@ import { DialogModule } from 'primeng/dialog';
 import { PasswordModule } from 'primeng/password';
 import { MenuModule } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
+import { TextareaModule } from 'primeng/textarea';
 
 interface Profile {
   civility: string;
@@ -63,6 +64,11 @@ interface Skill {
   rating: number;
 }
 
+interface DiversItem {
+  title: string;
+  description: string;
+}
+
 @Component({
   selector: 'app-profil',
   templateUrl: './profil.component.html',
@@ -86,7 +92,8 @@ interface Skill {
     ToastModule,
     DialogModule,
     PasswordModule,
-    MenuModule
+    MenuModule,
+    TextareaModule
   ],
   providers: [MessageService, ConfirmationService]
 })
@@ -196,6 +203,12 @@ export class ProfilComponent implements OnInit {
 
   newSkill: string = '';
 
+  showDiversModal = false;
+  currentDivers: DiversItem = { title: '', description: '' };
+  divers: DiversItem[] = [];
+
+  showSocialModal = false;
+
   constructor(
     private router: Router,
     private messageService: MessageService,
@@ -290,7 +303,7 @@ export class ProfilComponent implements OnInit {
     this.educationLevelControl.setValue(this.profile.educationLevel);
     this.summaryControl.setValue(this.profile.summary);
     
-    this.skillRatings = this.mainSkills.map(skill => new FormControl(skill.rating));
+    // this.skillRatings = this.mainSkills.map(skill => new FormControl(skill.rating));
   }
 
   showPasswordDialog(): void {
@@ -580,5 +593,51 @@ export class ProfilComponent implements OnInit {
   openSkillDialog(): void {
     this.newSkill = '';
     this.showSkillModal = true;
+  }
+
+  openDiversDialog(): void {
+    this.currentDivers = { title: '', description: '' };
+    this.showDiversModal = true;
+  }
+
+  addDivers(): void {
+    if (this.currentDivers.title.trim()) {
+      this.divers.push({ ...this.currentDivers });
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Succès',
+        detail: 'Élément ajouté avec succès'
+      });
+      this.showDiversModal = false;
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erreur',
+        detail: 'Veuillez saisir un titre'
+      });
+    }
+  }
+
+  removeDivers(index: number): void {
+    this.divers.splice(index, 1);
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Info',
+      detail: 'Élément supprimé'
+    });
+  }
+
+  openSocialDialog(): void {
+    this.showSocialModal = true;
+  }
+
+  saveSocialLinks(): void {
+    // TODO: Implémenter la sauvegarde vers l'API
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Succès',
+      detail: 'Réseaux sociaux mis à jour avec succès'
+    });
+    this.showSocialModal = false;
   }
 }

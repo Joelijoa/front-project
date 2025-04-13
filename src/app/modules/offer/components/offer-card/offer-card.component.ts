@@ -9,6 +9,7 @@ import { TooltipModule } from 'primeng/tooltip';
 
 // Models
 import { Offer } from '../../models/offer.model';
+import { OfferService } from '../../services/offer.service';
 
 @Component({
     selector: 'app-offer-card',
@@ -25,9 +26,10 @@ import { Offer } from '../../models/offer.model';
     ]
 })
 export class OfferCardComponent {
-[x: string]: any;
     @Input() offer!: Offer;
     @Output() saved = new EventEmitter<string>();
+
+    constructor(private offerService: OfferService) {}
 
     truncateDescription(description: string): string {
         return description.length > 200 
@@ -50,7 +52,10 @@ export class OfferCardComponent {
         return this.offer.requirements.slice(0, 3);
     }
 
-    toggleSave(): void {
+    toggleSave(event: Event): void {
+        event.preventDefault();
+        event.stopPropagation();
+        this.offerService.toggleFavorite(this.offer);
         this.saved.emit(this.offer.id);
     }
 } 

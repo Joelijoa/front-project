@@ -1,0 +1,186 @@
+// Variables
+$primary-color: #2196F3;
+$danger-color: #F44336;
+$text-color: #333;
+$text-light: #666;
+$text-lighter: #999;
+$border-color: #e0e0e0;
+$hover-color: #f8f9fa;
+$white: #ffffff;
+
+// Styles généraux
+.p-4 {
+  padding: 1.5rem;
+  padding-top: 99px;
+}
+
+// Styles pour l'en-tête
+.header-container {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: $white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
+
+  h2 {
+    margin: 0;
+    color: $text-color;
+    font-size: 1.5rem;
+  }
+
+  .search-container {
+    flex: 1;
+    max-width: 400px;
+  }
+}
+
+// Styles pour la grille d'offres
+.offers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+// Styles pour les cartes d'offres
+.offer-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid $border-color;
+
+    h3 {
+      margin: 0;
+      color: $primary-color;
+      font-size: 1.2rem;
+    }
+  }
+
+  .card-content {
+    padding: 1rem;
+
+    .company-info,
+    .location-info,
+    .contract-info {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      color: $text-light;
+
+      i {
+        color: $primary-color;
+      }
+    }
+
+    .description {
+      margin-top: 1rem;
+      color: $text-color;
+      line-height: 1.5;
+    }
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-top: 1px solid $border-color;
+
+    .footer-left {
+      .date {
+        color: $text-lighter;
+        font-size: 0.875rem;
+      }
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      .p-button.p-button-text.p-button-danger {
+        width: 2.5rem;
+        height: 2.5rem;
+        
+        &:hover {
+          background: rgba($danger-color, 0.1);
+        }
+      }
+
+      .p-button.p-button-outlined {
+        min-width: 120px;
+      }
+    }
+  }
+}
+
+// Styles pour l'état vide
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: $text-lighter;
+
+  i {
+    margin-bottom: 1rem;
+    color: $border-color;
+  }
+
+  p {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtext {
+    font-size: 0.9rem;
+    color: $text-light;
+  }
+}
+
+// Styles pour la recherche
+.search-container {
+  .p-input-icon-left {
+    position: relative;
+    width: 100%;
+
+    i {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $text-lighter;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.75rem 1rem 0.75rem 2.5rem;
+      border: 1px solid $border-color;
+      border-radius: 4px;
+      background: $white;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      
+      &:focus {
+        border-color: $primary-color;
+        box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+        outline: none;
+      }
+
+      &::placeholder {
+        color: $text-lighter;
+      }
+    }
+  }
+}

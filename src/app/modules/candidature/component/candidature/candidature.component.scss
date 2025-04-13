@@ -1,0 +1,339 @@
+// Variables
+$primary-color: #2196F3;
+$success-color: #4CAF50;
+$danger-color: #F44336;
+$warning-color: #FFC107;
+$text-color: #333;
+$text-light: #666;
+$text-lighter: #999;
+$border-color: #e0e0e0;
+$hover-color: #f8f9fa;
+$white: #ffffff;
+
+// Couleurs des badges
+$status-en-cours-bg: rgba(255, 193, 7, 0.1);
+$status-en-cours-text: #B78105;
+$status-acceptee-bg: rgba(76, 175, 80, 0.1);
+$status-acceptee-text: #2E7D32;
+$status-refusee-bg: rgba(244, 67, 54, 0.1);
+$status-refusee-text: #C62828;
+
+// Styles généraux
+.p-4 {
+  padding: 1.5rem;
+  padding-top: 99px;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+// Styles pour l'en-tête
+.header-container {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: #ffffff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+
+  h2 {
+    margin: 0;
+    color: #333;
+    font-size: 1.5rem;
+    white-space: nowrap;
+  }
+
+  .search-container {
+    flex: 1;
+    min-width: 200px;
+    max-width: 400px;
+  }
+
+  .p-select {
+    min-width: 200px;
+    max-width: 200px;
+
+    .p-select-trigger {
+      border: 1px solid $border-color;
+      border-radius: 4px;
+      padding: 0.5rem;
+      background: $white;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        border-color: $primary-color;
+      }
+
+      &:focus {
+        border-color: $primary-color;
+        box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+      }
+    }
+
+    .p-select-label {
+      color: $text-color;
+      font-size: 0.95rem;
+    }
+
+    .p-select-trigger-icon {
+      color: $text-lighter;
+    }
+  }
+
+  .p-button {
+    white-space: nowrap;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba($primary-color, 0.1);
+      color: $primary-color;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+
+    .search-container,
+    .p-select {
+      max-width: 100%;
+      min-width: 100%;
+    }
+  }
+}
+
+// Styles pour les filtres et la recherche
+.filters-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: $white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
+
+  .p-select {
+    min-width: 200px;
+    
+    .p-select-trigger {
+      border: 1px solid $border-color;
+      border-radius: 4px;
+      padding: 0.5rem;
+      background: $white;
+      
+      &:hover {
+        border-color: $primary-color;
+      }
+    }
+  }
+}
+
+// Styles pour la recherche
+.search-container {
+  flex: 1;
+  max-width: 400px;
+
+  .p-input-icon-left {
+    position: relative;
+    width: 100%;
+
+    i {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $text-lighter;
+      font-size: 1rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.75rem 1rem 0.75rem 2.5rem;
+      border: 1px solid $border-color;
+      border-radius: 4px;
+      background: $white;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      
+      &:focus {
+        border-color: $primary-color;
+        box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+        outline: none;
+      }
+
+      &::placeholder {
+        color: $text-lighter;
+      }
+    }
+  }
+}
+
+// Styles pour la table
+.p-table {
+  background: $white;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+  .p-datatable-wrapper {
+    border: 1px solid $border-color;
+    border-radius: 8px;
+  }
+
+  th {
+    background-color: $hover-color;
+    color: $text-color;
+    font-weight: 600;
+    padding: 1rem;
+    border-bottom: 2px solid $border-color;
+  }
+
+  td {
+    padding: 1rem;
+    border-bottom: 1px solid $border-color;
+    color: $text-color;
+  }
+
+  tr {
+    &:hover {
+      background-color: $hover-color;
+      transition: background-color 0.2s ease;
+    }
+  }
+}
+
+// Styles pour les badges de statut
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  &.status-en-cours {
+    background-color: $status-en-cours-bg;
+    color: $status-en-cours-text;
+  }
+
+  &.status-acceptee {
+    background-color: $status-acceptee-bg;
+    color: $status-acceptee-text;
+  }
+
+  &.status-refusee {
+    background-color: $status-refusee-bg;
+    color: $status-refusee-text;
+  }
+}
+
+// Styles pour les boutons d'action
+.p-button {
+  &.p-button-text {
+    color: $primary-color;
+    
+    &:hover {
+      background-color: rgba($primary-color, 0.1);
+    }
+  }
+
+  &.p-button-danger {
+    color: $danger-color;
+    
+    &:hover {
+      background-color: rgba($danger-color, 0.1);
+    }
+  }
+}
+
+// Styles pour la boîte de dialogue
+.p-dialog {
+  .p-dialog-header {
+    background-color: $white;
+    border-bottom: 1px solid $border-color;
+    padding: 1rem;
+  }
+
+  .dialog-content {
+    padding: 1.5rem;
+
+    h3 {
+      color: $primary-color;
+      margin-bottom: 0.5rem;
+      font-size: 1.5rem;
+    }
+
+    .entreprise {
+      color: $text-color;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .date {
+      color: $text-lighter;
+      font-size: 0.875rem;
+    }
+
+    h4 {
+      color: $text-color;
+      margin: 1rem 0 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .competences {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.5rem 0;
+
+      .competence-badge {
+        background-color: rgba($primary-color, 0.1);
+        color: $primary-color;
+        padding: 0.25rem 0.75rem;
+        border-radius: 4px;
+        font-size: 0.875rem;
+      }
+    }
+
+    .lettre-motivation {
+      white-space: pre-line;
+      line-height: 1.6;
+      color: $text-color;
+      background-color: $hover-color;
+      padding: 1rem;
+      border-radius: 4px;
+    }
+  }
+}
+
+// Styles pour l'état vide
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: $text-lighter;
+
+  i {
+    margin-bottom: 1rem;
+    color: $border-color;
+  }
+
+  p {
+    font-size: 1.1rem;
+  }
+}
