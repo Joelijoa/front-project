@@ -2,7 +2,6 @@ import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { CookieConsentComponent } from './shared/components/cookie-consent/cookie-consent.component';
 import { ChatBubbleComponent } from './shared/components/chat-bubble/chat-bubble.component';
-import { HeaderComponent } from './core/components/header/header.component';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { HeaderCandidatComponent } from "./core/components/header-candidat/header-candidat.component";
 

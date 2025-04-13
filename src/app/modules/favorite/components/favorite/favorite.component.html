@@ -4,15 +4,16 @@
         <div class="search-container">
             <span class="p-input-icon-left">
                 <i class="pi pi-search"></i>
-                <input type="text" pInputText [(ngModel)]="searchText" 
-                       (input)="filterOffers()" 
+                <input type="text" pInputText [ngModel]="searchText" 
+                       (input)="onSearchInput($event)" 
                        placeholder="Rechercher dans mes favoris..." />
             </span>
         </div>
+        
     </div>
 
     <div class="offers-grid">
-        <p-card *ngFor="let offer of filteredOffers" class="offer-card">
+        <p-card *ngFor="let offer of filteredOffers; trackBy: trackByOfferId" class="offer-card">
             <ng-template pTemplate="header">
                 <div class="card-header">
                     <h3>{{offer.title}}</h3>

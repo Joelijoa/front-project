@@ -47,6 +47,8 @@ export class OfferListComponent implements OnInit {
     currentPage: number = 1;
     itemsPerPage: number = 12;
 
+    constructor(private offerService: OfferService) {}
+
     private allOffers: any[] = [
         {
             id: '1',
@@ -64,7 +66,8 @@ export class OfferListComponent implements OnInit {
                 currency: 'EUR'
             },
             createdAt: new Date(),
-            updatedAt: new Date()
+            updatedAt: new Date(),
+            isFavorite: false
         },
         {
             id: '2',
@@ -82,7 +85,8 @@ export class OfferListComponent implements OnInit {
                 currency: 'EUR'
             },
             createdAt: new Date(),
-            updatedAt: new Date()
+            updatedAt: new Date(),
+            isFavorite: false
         },
         {
             id: '3',
@@ -100,7 +104,8 @@ export class OfferListComponent implements OnInit {
                 currency: 'EUR'
             },
             createdAt: new Date(),
-            updatedAt: new Date()
+            updatedAt: new Date(),
+            isFavorite: false
         },
         {
             id: '4',
@@ -118,7 +123,8 @@ export class OfferListComponent implements OnInit {
                 currency: 'EUR'
             },
             createdAt: new Date(),
-            updatedAt: new Date()
+            updatedAt: new Date(),
+            isFavorite: false
         }
     ];
 
@@ -143,6 +149,8 @@ export class OfferListComponent implements OnInit {
 
     onOfferSaved(offerId: string): void {
         console.log('Offre sauvegardée:', offerId);
+        // Forcer un rafraîchissement des offres pour mettre à jour l'UI
+        this.applyFilters();
     }
 
     private loadOffers(): void {
@@ -154,8 +162,16 @@ export class OfferListComponent implements OnInit {
     }
 
     private applyFilters(): void {
-        // Pour l'instant, on affiche toutes les offres sans filtrage
-        this.offers = this.allOffers;
+        // Vérifier les favoris pour chaque offre
+        const favoriteOffers = this.offerService.getFavoriteOffers();
+        const favoriteIds = favoriteOffers.map(offer => offer.id);
+        
+        this.offers = this.allOffers.map(offer => {
+            // Vérifier si l'offre est en favoris
+            offer.isFavorite = favoriteIds.includes(offer.id);
+            return offer;
+        });
+        
         this.totalOffers = this.offers.length;
     }
 } 

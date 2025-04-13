@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
 import { Offer, OfferSearchCriteria, PaginatedOffers } from '../models/offer.model';
+import { OfferType, ExperienceLevel, EducationLevel } from '../models/offer.model';
 import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
@@ -26,14 +27,42 @@ export class OfferService {
         if (this.isBrowser) {
             const favorites = localStorage.getItem('favoriteOffers');
             if (favorites) {
-                this.favoriteOffersSubject.next(JSON.parse(favorites));
+                try {
+                    const parsedFavorites = JSON.parse(favorites);
+                    console.log('Favoris chargés depuis localStorage:', parsedFavorites);
+                    
+                    // Convertir les dates qui sont des chaînes en objets Date
+                    const processedFavorites = parsedFavorites.map((offer: Offer) => {
+                        if (offer.createdAt && typeof offer.createdAt === 'string') {
+                            offer.createdAt = new Date(offer.createdAt);
+                        }
+                        if (offer.updatedAt && typeof offer.updatedAt === 'string') {
+                            offer.updatedAt = new Date(offer.updatedAt);
+                        }
+                        if (offer.publicationDate && typeof offer.publicationDate === 'string') {
+                            offer.publicationDate = new Date(offer.publicationDate);
+                        }
+                        return offer;
+                    });
+                    
+                    this.favoriteOffersSubject.next(processedFavorites);
+                } catch (error) {
+                    console.error('Erreur lors du parsing des favoris:', error);
+                    this.favoriteOffersSubject.next([]);
+                }
+            } else {
+                console.log('Aucun favori trouvé dans localStorage');
+                this.favoriteOffersSubject.next([]);
             }
         }
     }
 
     private saveFavorites(): void {
         if (this.isBrowser) {
-            localStorage.setItem('favoriteOffers', JSON.stringify(this.favoriteOffersSubject.value));
+            const favorites = this.favoriteOffersSubject.value;
+            localStorage.setItem('favoriteOffers', JSON.stringify(favorites));
+            // Émettre une nouvelle valeur pour forcer la mise à jour
+            this.favoriteOffersSubject.next([...favorites]);
         }
     }
 
@@ -98,20 +127,65 @@ export class OfferService {
 
     // Ajoute ou retire une offre des favoris
     toggleFavorite(offer: Offer): void {
-        const currentFavorites = this.favoriteOffersSubject.value;
-        const index = currentFavorites.findIndex(o => o.id === offer.id);
-
-        if (index === -1) {
-            // Ajouter aux favoris
-            const updatedOffer = { ...offer, isFavorite: true };
-            this.favoriteOffersSubject.next([...currentFavorites, updatedOffer]);
-        } else {
-            // Retirer des favoris
-            this.favoriteOffersSubject.next(
-                currentFavorites.filter(o => o.id !== offer.id)
-            );
+        console.log('toggleFavorite appelé avec:', offer);
+        
+        if (!offer || !offer.id) {
+            console.error('Offre invalide:', offer);
+            return;
         }
+        
+        try {
+            const currentFavorites = this.favoriteOffersSubject.value;
+            const index = currentFavorites.findIndex(o => o.id === offer.id);
 
-        this.saveFavorites();
+            let newFavorites: Offer[];
+
+            if (index === -1) {
+                // Ajouter aux favoris avec les valeurs par défaut si nécessaire
+                const updatedOffer = {
+                    ...offer,
+                    isFavorite: true,
+                    createdAt: offer.createdAt || new Date(),
+                    updatedAt: offer.updatedAt || new Date(),
+                    publicationDate: offer.publicationDate || new Date(),
+                    requirements: offer.requirements || [],
+                    skills: offer.skills || [],
+                    benefits: offer.benefits || [],
+                    type: offer.type || OfferType.CDI,
+                    experience: offer.experience || ExperienceLevel.JUNIOR,
+                    educationLevel: offer.educationLevel || EducationLevel.BAC3,
+                    salary: offer.salary || { min: 0, max: 0, currency: 'EUR' },
+                    contractType: offer.contractType || 'CDI',
+                    title: offer.title || 'Sans titre',
+                    company: offer.company || 'Entreprise inconnue',
+                    description: offer.description || 'Aucune description disponible'
+                };
+                
+                newFavorites = [...currentFavorites, updatedOffer];
+                console.log('Offre ajoutée aux favoris:', updatedOffer);
+            } else {
+                // Retirer des favoris
+                newFavorites = currentFavorites.filter(o => o.id !== offer.id);
+                console.log('Offre retirée des favoris:', offer.id);
+            }
+
+            // Mettre à jour le BehaviorSubject et localStorage
+            this.favoriteOffersSubject.next(newFavorites);
+            this.saveToLocalStorage(newFavorites);
+            
+            console.log('Favoris mis à jour, nouvelle taille:', newFavorites.length);
+        } catch (error) {
+            console.error('Erreur lors de la mise à jour des favoris:', error);
+        }
+    }
+    
+    private saveToLocalStorage(favorites: Offer[]): void {
+        if (this.isBrowser) {
+            try {
+                localStorage.setItem('favoriteOffers', JSON.stringify(favorites));
+            } catch (error) {
+                console.error('Erreur lors de la sauvegarde dans localStorage:', error);
+            }
+        }
     }
 } 

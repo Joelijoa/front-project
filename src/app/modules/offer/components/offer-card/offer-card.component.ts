@@ -55,7 +55,26 @@ export class OfferCardComponent {
     toggleSave(event: Event): void {
         event.preventDefault();
         event.stopPropagation();
-        this.offerService.toggleFavorite(this.offer);
+        
+        // Assurons-nous que toutes les propriétés requises sont présentes
+        const favoriteOffer: Offer = {
+            ...this.offer,
+            isFavorite: !this.offer.isFavorite,
+            // Assurons-nous que les dates sont des objets Date
+            createdAt: this.offer.createdAt instanceof Date ? this.offer.createdAt : new Date(),
+            updatedAt: this.offer.updatedAt instanceof Date ? this.offer.updatedAt : new Date(),
+            publicationDate: this.offer.publicationDate instanceof Date ? this.offer.publicationDate : new Date()
+        };
+        
+        // Mise à jour locale pour un retour visuel immédiat
+        this.offer.isFavorite = !this.offer.isFavorite;
+        
+        // Appel au service pour mettre à jour les favoris avec l'offre complète
+        this.offerService.toggleFavorite(favoriteOffer);
+        
+        // Émission de l'événement avec l'ID de l'offre
         this.saved.emit(this.offer.id);
+        
+        console.log('Offre en favori:', favoriteOffer);
     }
 } 

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { CardModule } from 'primeng/card';
@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TooltipModule } from 'primeng/tooltip';
 import { OfferService } from '../../../offer/services/offer.service';
 import { Offer } from '../../../offer/models/offer.model';
-import { Subscription } from 'rxjs';
+import { Subscription, debounceTime, distinctUntilChanged, of } from 'rxjs';
 
 @Component({
   selector: 'app-favorite',
@@ -25,54 +25,97 @@ import { Subscription } from 'rxjs';
     TooltipModule
   ],
   templateUrl: './favorite.component.html',
-  styleUrl: './favorite.component.scss'
+  styleUrl: './favorite.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FavoriteComponent implements OnInit, OnDestroy {
   searchText: string = '';
   favoriteOffers: Offer[] = [];
   filteredOffers: Offer[] = [];
-  private subscription: Subscription;
+  private subscription = new Subscription();
+  private searchDebounce = new Subscription();
 
-  constructor(private offerService: OfferService) {
-    this.subscription = new Subscription();
-  }
+  constructor(
+    private offerService: OfferService, 
+    private cdr: ChangeDetectorRef,
+    private ngZone: NgZone
+  ) {}
 
   ngOnInit(): void {
     // Chargement initial des favoris
-    this.favoriteOffers = this.offerService.getFavoriteOffers();
-    this.filteredOffers = [...this.favoriteOffers];
+    this.loadFavoriteOffers();
 
-    // Souscription aux changements
+    // Souscription aux changements des favoris
     this.subscription.add(
-      this.offerService.getFavoriteOffersObservable().subscribe(offers => {
-        console.log('Offres en favoris reçues:', offers);
-        this.favoriteOffers = offers;
-        this.filterOffers();
+      this.offerService.getFavoriteOffersObservable().pipe(
+        distinctUntilChanged((prev, curr) => 
+          JSON.stringify(prev) === JSON.stringify(curr)
+        )
+      ).subscribe(offers => {
+        this.ngZone.run(() => {
+          this.favoriteOffers = [...offers];
+          this.filterOffers();
+          this.cdr.markForCheck();
+        });
       })
     );
   }
 
+  private loadFavoriteOffers(): void {
+    const offers = this.offerService.getFavoriteOffers();
+    this.favoriteOffers = [...offers];
+    this.filterOffers();
+    this.cdr.markForCheck();
+  }
+
   ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this.subscription.unsubscribe();
+    this.searchDebounce.unsubscribe();
   }
 
   filterOffers(): void {
     if (!this.searchText) {
       this.filteredOffers = [...this.favoriteOffers];
-      return;
+    } else {
+      const searchLower = this.searchText.toLowerCase();
+      this.filteredOffers = this.favoriteOffers.filter(offer => 
+        offer.title?.toLowerCase().includes(searchLower) ||
+        offer.company?.toLowerCase().includes(searchLower) ||
+        offer.description?.toLowerCase().includes(searchLower)
+      );
     }
+  }
 
-    const searchLower = this.searchText.toLowerCase();
-    this.filteredOffers = this.favoriteOffers.filter(offer => 
-      offer.title.toLowerCase().includes(searchLower) ||
-      offer.company.toLowerCase().includes(searchLower) ||
-      offer.description.toLowerCase().includes(searchLower)
+  onSearchInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.searchText = input.value;
+    
+    // Annuler le debounce précédent
+    this.searchDebounce.unsubscribe();
+    this.searchDebounce = new Subscription();
+    
+    // Créer un nouveau debounce
+    this.searchDebounce.add(
+      of(this.searchText).pipe(
+        debounceTime(300)
+      ).subscribe(() => {
+        this.ngZone.run(() => {
+          this.filterOffers();
+          this.cdr.markForCheck();
+        });
+      })
     );
   }
 
   removeFromFavorites(offer: Offer): void {
     this.offerService.toggleFavorite(offer);
+  }
+
+  refreshFavorites(): void {
+    this.loadFavoriteOffers();
+  }
+
+  trackByOfferId(index: number, offer: Offer): string {
+    return offer.id;
   }
 }
