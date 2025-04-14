@@ -133,7 +133,7 @@ export class ProfilComponent implements OnInit {
   currentExperience: any = {};
   currentEducation: any = {};
 
-  photoUrl: string = '/public/picture/pdp.jpg';
+  photoUrl: string = '';
   
   profile: Profile = {
     civility: '',
@@ -149,7 +149,7 @@ export class ProfilComponent implements OnInit {
     educationType: '',
     educationLevel: '',
     summary: '',
-    photoUrl: '/public/picture/pdp.jpg'
+    photoUrl: ''
   };
 
   experiences: Experience[] = [];

@@ -29,7 +29,7 @@
             </div>
             
             <div class="expandable-button">
-                <p-button [label]="isContactHovered ? 'Nous contacter' : ''" icon="pi pi-envelope" [rounded]="true"
+                <p-button [label]="isContactHovered ? 'Nous contacter' : ''" icon="pi pi-envelope" [rounded]="true" (onClick)="goToContact()"
                     [style]="{'background-color': '#f4f6f8','color': '010327', 'border-color': 'grey', 'transition': 'all 0.3s ease'}"
                     (mouseenter)="isContactHovered = true" (mouseleave)="isContactHovered = false" />
             </div>

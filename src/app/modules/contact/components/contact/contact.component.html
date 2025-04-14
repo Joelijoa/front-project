@@ -1,0 +1,100 @@
+<!-- Section principale -->
+<div class="contact-container">
+    <!-- Carte des informations de contact -->
+    <div class="contact-info-card">
+        <h2>Prenez Contact Avec Nous !</h2>
+        
+        <!-- Téléphone -->
+        <div class="contact-item">
+            <div class="icon-container">
+                <i class="pi pi-phone"></i>
+            </div>
+            <div class="info-content">
+                <h3>Téléphone</h3>
+                <p>+212 6 12 34 56 78</p>
+            </div>
+        </div>
+
+        <!-- Email -->
+        <div class="contact-item">
+            <div class="icon-container">
+                <i class="pi pi-envelope"></i>
+            </div>
+            <div class="info-content">
+                <h3>Email</h3>
+                <p>contact&#64;yobber.com</p>
+                <p>support&#64;yobber.com</p>
+            </div>
+        </div>
+
+        <!-- Adresse -->
+        <div class="contact-item">
+            <div class="icon-container">
+                <i class="pi pi-map-marker"></i>
+            </div>
+            <div class="info-content">
+                <h3>Adresse</h3>
+                <p>123 Avenue Mohammed V, Casablanca, Maroc</p>
+            </div>
+        </div>
+
+        <!-- Horaires -->
+        <div class="contact-item">
+            <div class="icon-container">
+                <i class="pi pi-clock"></i>
+            </div>
+            <div class="info-content">
+                <h3>Horaires</h3>
+                <p>Lundi à Samedi</p>
+                <p>09:00 à 18:00</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulaire de contact -->
+    <div class="contact-form-card">
+        <h2>Contactez-nous</h2>
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+                <div class="form-group">
+                    <span class="p-float-label">
+                        <input id="firstname" type="text" pInputText formControlName="firstname" class="p-inputtext-lg">
+                        <label for="firstname">Prénom *</label>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <span class="p-float-label">
+                        <input id="lastname" type="text" pInputText formControlName="lastname" class="p-inputtext-lg">
+                        <label for="lastname">Nom *</label>
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <span class="p-float-label">
+                        <input id="phone" type="tel" pInputText formControlName="phone" class="p-inputtext-lg">
+                        <label for="phone">Téléphone *</label>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <span class="p-float-label">
+                        <input id="email" type="email" pInputText formControlName="email" class="p-inputtext-lg">
+                        <label for="email">Email *</label>
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group full-width">
+                <span class="p-float-label">
+                    <textarea id="message" pInputTextarea formControlName="message" rows="5" class="p-inputtextarea-lg"></textarea>
+                    <label for="message">Message *</label>
+                </span>
+            </div>
+
+            <div class="form-actions">
+                <p-button type="submit" label="Envoyer" [disabled]="!contactForm.valid"></p-button>
+            </div>
+        </form>
+    </div>
+</div> 

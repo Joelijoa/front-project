@@ -7,10 +7,18 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { MenuModule } from 'primeng/menu';
+import { NotificationPopoverComponent } from '../../../modules/notifications/components/notification-popover/notification-popover.component';
 
 @Component({
   selector: 'app-header-candidat',
-  imports: [ButtonModule, ImportsModule, RouterModule, CommonModule, MenuModule],
+  imports: [
+    ButtonModule, 
+    ImportsModule, 
+    RouterModule, 
+    CommonModule, 
+    MenuModule,
+    NotificationPopoverComponent
+  ],
   templateUrl: './header-candidat.component.html',
   styleUrl: './header-candidat.component.scss',
   standalone: true,
@@ -70,6 +78,10 @@ export class HeaderCandidatComponent implements OnInit, OnDestroy {
 
   goToMyFavorites() {
     this.router.navigate(['/favorite']);
+  }
+
+  goToNotifications() {
+    this.router.navigate(['/notifications']);
   }
 
   logout() {
@@ -133,11 +145,6 @@ export class HeaderCandidatComponent implements OnInit, OnDestroy {
           label: 'Favoris',
           icon: 'pi pi-heart',
           command: () => this.goToMyFavorites()
-        },
-        {
-          label: 'Notifications',
-          icon: 'pi pi-bell'
-          // command: () => this.()
         },
         {
           label: 'Déconnexion',

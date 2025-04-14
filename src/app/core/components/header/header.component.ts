@@ -57,6 +57,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   goToProfile() {
     this.router.navigate(['/account/profile']);
   }
+  goToContact() {
+    this.router.navigate(['/contact']);
+  }
 
   logout() {
     this.authService.logout();

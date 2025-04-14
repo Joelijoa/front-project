@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import { FooterComponent } from "../../../../core/components/footer/footer.component";
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
@@ -33,6 +33,7 @@ interface Partner {
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
+  
   titre_1!: string;
   Sous_titre_1 !: string 
   img_illustration !: string;
@@ -102,7 +103,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     entreprises: '+400'
   };
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private router: Router) {}
 
   ngOnInit(): void {
     this.titre_1 = "La puissance de la connexion client";
@@ -122,5 +123,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         carouselElement.remove();
       }
     }
+  }
+
+  goToOffres(): void {
+    this.router.navigate(['/offers']);
   }
 }

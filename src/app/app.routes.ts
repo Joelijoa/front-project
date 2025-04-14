@@ -42,5 +42,17 @@ export const routes: Routes = [
         loadChildren: () =>
             import('./modules/favorite/favorite.module').then(m => m.FavoriteModule),
         title: 'Mes favoris'
+    },
+    {
+        path: 'notifications',
+        loadChildren: () =>
+            import('./modules/notifications/notifications.module').then(m => m.NotificationsModule),
+        title: 'Notifications'
+    },
+    {
+        path: 'contact',
+        loadChildren: () =>
+            import('./modules/contact/contact.module').then(m => m.ContactModule),
+        title: 'Contact us'
     }
 ];

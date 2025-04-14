@@ -1,0 +1,46 @@
+<div class="notification-container">
+  <button 
+    pButton 
+    type="button" 
+    icon="pi pi-bell" 
+    class="p-button-rounded p-button-text notification-button"
+    (click)="op.toggle($event)" [style]="{color: 'white'}">
+    <span class="p-badge" *ngIf="getUnreadCount() > 0">{{ getUnreadCount() }}</span>
+  </button>
+
+  <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '350px'}">
+    <div class="notifications-container">
+      <div class="notifications-header">
+        <h3>Notifications</h3>
+        <button 
+          *ngIf="getUnreadCount() > 0"
+          pButton 
+          type="button" 
+          class="p-button-text p-button-sm"
+          (click)="markAllAsRead()">
+          Tout marquer comme lu
+        </button>
+      </div>
+      
+      <div class="notifications-list" *ngIf="notifications.length > 0">
+        <div 
+          *ngFor="let notification of notifications" 
+          class="notification-item"
+          [class.unread]="!notification.read"
+          (click)="handleNotificationClick(notification)">
+          <i [class]="getNotificationIcon(notification.type)" class="notification-icon"></i>
+          <div class="notification-content">
+            <div class="notification-title">{{ notification.title }}</div>
+            <div class="notification-message">{{ notification.message }}</div>
+            <div class="notification-date">{{ formatDate(notification.date) }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="empty-notifications" *ngIf="notifications.length === 0">
+        <i class="pi pi-bell-slash"></i>
+        <p>Aucune notification</p>
+      </div>
+    </div>
+  </p-overlayPanel>
+</div> 

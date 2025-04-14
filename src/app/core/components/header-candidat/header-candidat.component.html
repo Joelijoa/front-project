@@ -30,6 +30,10 @@
                 </div>
             </ng-container>
             
+            <ng-container *ngIf="isLoggedIn">
+                <app-notification-popover></app-notification-popover>
+            </ng-container>
+
             <div class="expandable-button">
                 <p-button [label]="isContactHovered ? 'Nous contacter' : ''" icon="pi pi-envelope" (onClick)="goToContact()" [rounded]="true"
                     [style]="{'background-color': '#f4f6f8','color': '010327', 'border-color': 'grey', 'transition': 'all 0.3s ease'}"
@@ -37,5 +41,4 @@
             </div>
         </div>
     </ng-template>
-    
 </p-menubar>
