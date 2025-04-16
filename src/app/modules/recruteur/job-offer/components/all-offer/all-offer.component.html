@@ -1,0 +1,204 @@
+<app-header-recruteur></app-header-recruteur>
+
+<div class="job-offer-container">
+  <!-- En-tête -->
+  <div class="page-header">
+    <div class="header-content">
+      <h1>Mes offres d'emploi</h1>
+      <p class="subtitle">Gérez toutes vos offres d'emploi en un seul endroit.</p>
+    </div>
+    <div class="header-actions">
+      <button pButton pRipple type="button" icon="pi pi-plus" label="Nouvelle offre" 
+        class="p-button-primary" (click)="createNewOffer()"></button>
+    </div>
+  </div>
+
+  <!-- Filtres et recherche -->
+  <div class="filters-container">
+    <div class="search-container">
+      <span class="p-input-icon-left search-input">
+        <i class="pi pi-search"></i>
+        <input type="text" pInputText [(ngModel)]="searchText" placeholder="Rechercher une offre..."
+          (keyup.enter)="onSearch()"/>
+      </span>
+    </div>
+    
+    <div class="filters">
+      <p-multiSelect [options]="statusOptions" [(ngModel)]="selectedStatuses" 
+        optionLabel="label" placeholder="Statut" 
+        [style]="{'min-width': '150px'}" (onChange)="onStatusFilterChange()"
+        styleClass="status-filter">
+        <ng-template let-value pTemplate="selectedItems">
+          <div class="inline-flex">
+            <div *ngIf="value.length">Statut: {{value.length}} sélectionnés</div>
+            <div *ngIf="!value.length">Tous les statuts</div>
+          </div>
+        </ng-template>
+      </p-multiSelect>
+      
+      <p-multiSelect [options]="contractTypeOptions" [(ngModel)]="selectedTypes" 
+        optionLabel="label" placeholder="Type de contrat"
+        [style]="{'min-width': '180px'}" (onChange)="onTypeFilterChange()"
+        styleClass="type-filter">
+        <ng-template let-value pTemplate="selectedItems">
+          <div class="inline-flex">
+            <div *ngIf="value.length">Type: {{value.length}} sélectionnés</div>
+            <div *ngIf="!value.length">Tous les contrats</div>
+          </div>
+        </ng-template>
+      </p-multiSelect>
+      
+      <button pButton pRipple type="button" icon="pi pi-filter-slash" 
+        class="p-button-text p-button-sm reset-button" 
+        (click)="clearFilters()" 
+        [disabled]="!searchText && selectedStatuses.length === 0 && selectedTypes.length === 0"
+        pTooltip="Réinitialiser les filtres">
+      </button>
+    </div>
+  </div>
+  
+  <!-- Badge pour indiquer le nombre d'offres -->
+  <div class="results-info">
+    <p-chip [label]="filteredOffers.length + ' offres trouvées'" styleClass="count-chip"></p-chip>
+  </div>
+
+  <!-- Tableau des offres -->
+  <div class="offers-table-container">
+    <p-table 
+      [value]="filteredOffers" 
+      [paginator]="true" 
+      [rows]="10"
+      [rowsPerPageOptions]="[5,10,25,50]"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} offres"
+      [rowHover]="true"
+      styleClass="p-datatable-sm p-datatable-gridlines offers-table"
+      [tableStyle]="{'min-width': '60rem'}"
+      [scrollable]="true"
+      [responsiveLayout]="'stack'"
+      responsiveLayout="stack" 
+      [breakpoint]="'960px'"
+      sortField="publishedDate" 
+      [sortOrder]="-1">
+      
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="title" style="min-width: 200px">Titre <p-sortIcon field="title"></p-sortIcon></th>
+          <th pSortableColumn="location" style="min-width: 120px">Lieu <p-sortIcon field="location"></p-sortIcon></th>
+          <th pSortableColumn="contractType" style="min-width: 120px">Type <p-sortIcon field="contractType"></p-sortIcon></th>
+          <th pSortableColumn="publishedDate" style="min-width: 130px">Publication <p-sortIcon field="publishedDate"></p-sortIcon></th>
+          <th pSortableColumn="expiryDate" style="min-width: 130px">Expiration <p-sortIcon field="expiryDate"></p-sortIcon></th>
+          <th style="min-width: 100px">Statistiques</th>
+          <th pSortableColumn="status" style="min-width: 100px">Statut <p-sortIcon field="status"></p-sortIcon></th>
+          <th style="min-width: 120px">Actions</th>
+        </tr>
+      </ng-template>
+      
+      <ng-template pTemplate="body" let-offer>
+        <tr>
+          <td>
+            <div class="td-content">
+              <span class="p-column-title">Titre</span>
+              <div class="offer-title-cell">
+                <span class="offer-title">{{offer.title}}</span>
+                <span class="offer-company">{{offer.company}}</span>
+              </div>
+            </div>
+          </td>
+          
+          <td>
+            <div class="td-content">
+              <span class="p-column-title">Lieu</span>
+              <div class="location-cell">
+                <i class="pi pi-map-marker location-icon"></i>
+                <span>{{offer.location}}</span>
+                <p-badge [value]="getRemoteLabel(offer.remote)" severity="secondary" styleClass="remote-badge"></p-badge>
+              </div>
+            </div>
+          </td>
+          
+          <td>
+            <div class="td-content">
+              <span class="p-column-title">Type</span>
+              <p-tag [value]="getContractTypeLabel(offer.contractType)" 
+                [severity]="getContractTypeSeverity(offer.contractType)" 
+                styleClass="contract-tag"></p-tag>
+              <span class="salary-info">{{offer.salary}}</span>
+            </div>
+          </td>
+          
+          <td>
+            <div class="td-content">
+              <span class="p-column-title">Publication</span>
+              <span *ngIf="offer.publishedDate">{{offer.publishedDate | date:'dd MMM yyyy'}}</span>
+              <span *ngIf="!offer.publishedDate" class="no-date">-</span>
+            </div>
+          </td>
+          
+          <td>
+            <div class="td-content">
+              <span class="p-column-title">Expiration</span>
+              <span *ngIf="offer.expiryDate">{{offer.expiryDate | date:'dd MMM yyyy'}}</span>
+              <span *ngIf="!offer.expiryDate" class="no-date">-</span>
+            </div>
+          </td>
+          
+          <td>
+            <div class="td-content">
+              <span class="p-column-title">Statistiques</span>
+              <div class="stats-cell">
+                <span class="stat-item"><i class="pi pi-users"></i> {{offer.applications}}</span>
+                <span class="stat-item"><i class="pi pi-eye"></i> {{offer.views}}</span>
+              </div>
+            </div>
+          </td>
+          
+          <td>
+            <div class="td-content">
+              <span class="p-column-title">Statut</span>
+              <p-tag [value]="getStatusLabel(offer.status)" 
+                [severity]="getStatusSeverity(offer.status)" 
+                styleClass="status-tag"></p-tag>
+            </div>
+          </td>
+          
+          <td>
+            <div class="td-content">
+              <span class="p-column-title">Actions</span>
+              <div class="action-buttons">
+                <button pButton pRipple type="button" icon="pi pi-eye" 
+                  class="p-button-rounded p-button-text p-button-sm"
+                  pTooltip="Voir l'offre" (click)="viewOffer(offer)"></button>
+                <button pButton pRipple type="button" icon="pi pi-pencil" 
+                  class="p-button-rounded p-button-text p-button-sm"
+                  pTooltip="Modifier" (click)="editOffer(offer)"></button>
+                <button pButton pRipple type="button" icon="pi pi-copy" 
+                  class="p-button-rounded p-button-text p-button-sm"
+                  pTooltip="Dupliquer" (click)="duplicateOffer(offer)"></button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="8">
+            <div class="empty-message">
+              <i class="pi pi-search empty-icon"></i>
+              <span>Aucune offre d'emploi trouvée</span>
+              <p>Créez votre première offre d'emploi ou modifiez vos filtres de recherche.</p>
+              <button pButton pRipple type="button" icon="pi pi-plus" 
+                label="Créer une offre" class="p-button-primary" 
+                (click)="createNewOffer()"></button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      
+      <ng-template pTemplate="paginatorleft">
+        <div class="pagination-info">Total: {{filteredOffers.length}} offres</div>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

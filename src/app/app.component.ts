@@ -21,6 +21,7 @@ import { filter } from 'rxjs/operators';
 })
 export class AppComponent {
   private isLoginPageValue: boolean = false;
+  private isRecruiterRouteValue: boolean = false;
 
   constructor(
     private router: Router,
@@ -31,9 +32,11 @@ export class AppComponent {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
-      // Mettre à jour la valeur de isLoginPage
+      // Mettre à jour les valeurs si on est dans un navigateur
       if (isPlatformBrowser(this.platformId)) {
-        this.isLoginPageValue = this.router.url.includes('/login');
+        const url = this.router.url;
+        this.isLoginPageValue = url.includes('/login');
+        this.isRecruiterRouteValue = url.includes('/recruteur');
       }
       // Déclencher la détection de changements
       this.appRef.tick();
@@ -42,5 +45,9 @@ export class AppComponent {
 
   get isLoginPage(): boolean {
     return this.isLoginPageValue;
+  }
+  
+  get isRecruiterRoute(): boolean {
+    return this.isRecruiterRouteValue;
   }
 }

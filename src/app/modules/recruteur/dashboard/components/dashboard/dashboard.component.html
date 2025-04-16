@@ -1,0 +1,230 @@
+<app-header-recruteur></app-header-recruteur>
+<div class="dashboard-container">
+  <!-- En-tête du dashboard -->
+  <div class="dashboard-header">
+    <div class="header-content">
+      <h1>Tableau de bord</h1>
+      <p class="welcome-text">Bienvenue, {{currentRecruiter?.name || 'Recruteur'}} ! Voici un aperçu de votre activité.</p>
+    </div>
+    <div class="action-buttons">
+      <button pButton pRipple type="button" icon="pi pi-plus" label="Publier une offre" class="p-button-primary"></button>
+      <button pButton pRipple type="button" icon="pi pi-file-pdf" label="Générer un rapport" class="p-button-outlined"></button>
+    </div>
+  </div>
+
+  <!-- Statistiques -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="pi pi-briefcase"></i>
+      </div>
+      <div class="stat-content">
+        <h3>{{statistics?.activeOffers || 0}}</h3>
+        <p>Offres actives</p>
+      </div>
+      <div class="stat-change positive" *ngIf="statistics?.offersChange && statistics.offersChange > 0">
+        <i class="pi pi-arrow-up"></i>
+        <span>{{statistics.offersChange}}%</span>
+      </div>
+      <div class="stat-change negative" *ngIf="statistics?.offersChange && statistics.offersChange < 0">
+        <i class="pi pi-arrow-down"></i>
+        <span>{{Math.abs(statistics.offersChange)}}%</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="pi pi-users"></i>
+      </div>
+      <div class="stat-content">
+        <h3>{{statistics?.applications || 0}}</h3>
+        <p>Candidatures totales</p>
+      </div>
+      <div class="stat-change positive" *ngIf="statistics?.applicationsChange && statistics.applicationsChange > 0">
+        <i class="pi pi-arrow-up"></i>
+        <span>{{statistics.applicationsChange}}%</span>
+      </div>
+      <div class="stat-change negative" *ngIf="statistics?.applicationsChange && statistics.applicationsChange < 0">
+        <i class="pi pi-arrow-down"></i>
+        <span>{{Math.abs(statistics.applicationsChange)}}%</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="pi pi-eye"></i>
+      </div>
+      <div class="stat-content">
+        <h3>{{statistics?.views || 0}}</h3>
+        <p>Vues des offres</p>
+      </div>
+      <div class="stat-change positive" *ngIf="statistics?.viewsChange && statistics.viewsChange > 0">
+        <i class="pi pi-arrow-up"></i>
+        <span>{{statistics.viewsChange}}%</span>
+      </div>
+      <div class="stat-change negative" *ngIf="statistics?.viewsChange && statistics.viewsChange < 0">
+        <i class="pi pi-arrow-down"></i>
+        <span>{{Math.abs(statistics.viewsChange)}}%</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="pi pi-check-circle"></i>
+      </div>
+      <div class="stat-content">
+        <h3>{{statistics.hires || 0}}</h3>
+        <p>Recrutements finalisés</p>
+      </div>
+      <div class="stat-change positive" *ngIf="statistics?.hiresChange && statistics.hiresChange > 0">
+        <i class="pi pi-arrow-up"></i>
+        <span>{{statistics.hiresChange}}%</span>
+      </div>
+      <div class="stat-change negative" *ngIf="statistics?.hiresChange && statistics.hiresChange < 0">
+        <i class="pi pi-arrow-down"></i>
+        <span>{{Math.abs(statistics.hiresChange)}}%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section des graphiques -->
+  <div class="charts-section">
+    <!-- Graphique principal -->
+    <div class="chart-card large">
+      <div class="card-header">
+        <h2>Candidatures mensuelles</h2>
+        <p-dropdown [options]="timeRanges" [(ngModel)]="selectedTimeRange" optionLabel="label" styleClass="p-inputtext-sm"></p-dropdown>
+      </div>
+      <div class="chart-container">
+        <p-chart type="line" [data]="applicationsChartData" [options]="applicationsChartOptions"></p-chart>
+      </div>
+    </div>
+
+    <!-- Graphiques secondaires -->
+    <div class="charts-row">
+      <div class="chart-card">
+        <div class="card-header">
+          <h2>Vues et clics</h2>
+          <p-dropdown [options]="timeRanges" [(ngModel)]="selectedTimeRange" optionLabel="label" styleClass="p-inputtext-sm"></p-dropdown>
+        </div>
+        <div class="chart-container">
+          <p-chart type="bar" [data]="visitsChartData" [options]="visitsChartOptions"></p-chart>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="card-header">
+          <h2>Candidats par étape</h2>
+          <p-dropdown [options]="timeRanges" [(ngModel)]="selectedTimeRange" optionLabel="label" styleClass="p-inputtext-sm"></p-dropdown>
+        </div>
+        <div class="chart-container doughnut-chart">
+          <p-chart type="doughnut" [data]="stagesChartData" [options]="stagesChartOptions"></p-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Candidatures récentes -->
+  <div class="recent-applications">
+    <div class="section-header">
+      <h2>Candidatures récentes</h2>
+      <button pButton pRipple type="button" icon="pi pi-external-link" class="p-button-text p-button-rounded" (click)="viewAllApplications()"></button>
+    </div>
+    
+    <p-table [value]="recentApplications" [paginator]="false" [rows]="5" [tableStyle]="{'min-width': '60rem'}">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Candidat</th>
+          <th>Poste</th>
+          <th>Date</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-application>
+        <tr>
+          <td>
+            <div class="candidate-info">
+              <div class="candidate-avatar">
+                {{getInitials(application.candidate.name)}}
+              </div>
+              <div class="candidate-details">
+                <span class="candidate-name">{{application.candidate.name}}</span>
+                <span class="candidate-email">{{application.candidate.email}}</span>
+              </div>
+            </div>
+          </td>
+          <td>{{application.jobPost.title}}</td>
+          <td>{{application.date | date:'dd MMM yyyy'}}</td>
+          <td>
+            <p-tag [value]="application.status" [severity]="getStatusSeverity(application.status)"></p-tag>
+          </td>
+          <td>
+            <button pButton pRipple type="button" icon="pi pi-eye" class="p-button-rounded p-button-text p-button-sm" (click)="viewApplication(application)"></button>
+            <button pButton pRipple type="button" icon="pi pi-user-edit" class="p-button-rounded p-button-text p-button-sm" (click)="editApplication(application)"></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="5">
+            <div class="p-d-flex p-ai-center p-jc-center" style="height: 10rem;">
+              <p>Aucune candidature récente trouvée.</p>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <!-- Offres actives -->
+  <div class="active-offers">
+    <div class="section-header">
+      <h2>Offres actives</h2>
+      <button pButton pRipple type="button" icon="pi pi-external-link" class="p-button-text p-button-rounded" (click)="viewAllOffers()"></button>
+    </div>
+    
+    <p-table [value]="activeOffers" [paginator]="false" [rows]="5" [tableStyle]="{'min-width': '60rem'}">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Titre</th>
+          <th>Lieu</th>
+          <th>Type</th>
+          <th>Statistiques</th>
+          <th>Expiration</th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-offer>
+        <tr>
+          <td>{{offer.title}}</td>
+          <td>{{offer.location}}</td>
+          <td>
+            <span class="contract-type {{offer.contractType.toLowerCase()}}">
+              {{offer.contractType}}
+            </span>
+          </td>
+          <td>
+            <div class="d-flex gap-2">
+              <span><i class="pi pi-eye"></i> {{offer.views}}</span>
+              <span><i class="pi pi-percentage"></i> {{offer.clickRate}}%</span>
+              <span><i class="pi pi-users"></i> {{offer.applications}}</span>
+            </div>
+          </td>
+          <td>{{offer.expirationDate | date:'dd MMM yyyy'}}</td>
+          <td>
+            <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-sm" (click)="editOffer(offer)"></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="6">
+            <div class="p-d-flex p-ai-center p-jc-center" style="height: 10rem;">
+              <p>Aucune offre active trouvée.</p>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

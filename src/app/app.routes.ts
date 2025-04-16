@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './modules/home/components/home/home.component';
 import { AboutComponent } from './modules/about/about.component';
+import { DashboardComponent } from './modules/recruteur/dashboard/components/dashboard/dashboard.component';
 
 export const routes: Routes = [
     {
@@ -54,5 +55,21 @@ export const routes: Routes = [
         loadChildren: () =>
             import('./modules/contact/contact.module').then(m => m.ContactModule),
         title: 'Contact us'
+    },
+    {
+        path: 'recruteur/home',
+        component: DashboardComponent,
+        title: 'Tableau de bord recruteur'
+    },
+    {
+        path: 'recruteur/dashboard',
+        component: DashboardComponent,
+        title: 'Tableau de bord recruteur'
+    },
+    {
+        path: 'recruteur/offers',
+        loadChildren: () =>
+            import('./modules/recruteur/job-offer/job-offer.module').then(m => m.JobOfferModule),
+        title: 'Mes offres d\'emploi'
     }
 ];

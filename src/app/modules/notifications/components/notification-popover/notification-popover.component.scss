@@ -24,20 +24,30 @@ $white: #ffffff;
 
 // Styles de base
 :host {
-  display: inline-block;
+  display: inline-flex;
+  height: 100%;
+  align-items: center;
 }
 
 .notification-container {
   position: relative;
-  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
 .notification-button {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 40px;
+  height: 40px;
   padding: 0;
   border-radius: 50%;
-  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-right: 0;
 
   i {
     font-size: 1.2rem;
@@ -51,6 +61,24 @@ $white: #ffffff;
   &:focus {
     box-shadow: none;
   }
+  
+  .p-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #ff4081;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    min-width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    padding: 0 0.25rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
 }
 
 // Conteneur des notifications
@@ -58,7 +86,7 @@ $white: #ffffff;
   background: #FFFFFF;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 6px 20px rgba(150, 150, 150, 0.15);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 // En-tête
@@ -246,125 +274,18 @@ $white: #ffffff;
 
 // Surcharges PrimeNG
 :host ::ng-deep {
-  // Styles pour le bouton de notification
-  .p-button.notification-button {
-    width: 2.5rem;
-    height: 2.5rem;
-    background: transparent;
-    border: none;
-    color: white;
-    transition: transform 0.2s, background-color 0.2s;
-    
-    &:hover {
-      background: rgba(255, 255, 255, 0.2);
-      transform: scale(1.05);
-    }
-    
-    &:focus {
-      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
-    }
-
-    .pi-bell {
-      font-size: 1.2rem;
-      color: white;
-      animation: pulse 2s infinite ease-in-out;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
-  }
-
-  // Styles pour le badge
-  .p-badge {
-    background: var(--primary-color);
-    font-size: 0.75rem;
-    min-width: 1.5rem;
-    height: 1.5rem;
-    line-height: 1.5rem;
-    box-shadow: 0 2px 5px rgba(150, 150, 150, 0.2);
-  }
-
-  // Styles pour l'overlay panel
+  // Position du panel de notification
   .p-overlaypanel {
-    box-shadow: 0 6px 16px rgba(150, 150, 150, 0.15) !important;
-    border: none !important;
-    border-radius: 12px !important;
-    overflow: hidden;
-    background-color: #FFFFFF !important;
+    margin-top: 0.5rem;
     
-    .p-overlaypanel-content {
-      padding: 0 !important;
-      background-color: #FFFFFF !important;
-      border: none !important;
-    }
-
-    .p-overlaypanel-close {
-      background-color: transparent !important;
-      color: #666 !important;
-      border: none !important;
-      
-      &:hover {
-        background-color: rgba(var(--primary-color-rgb), 0.1) !important;
-        color: var(--primary-color) !important;
-      }
-    }
-
     &:before, &:after {
-      display: none !important;
+      border-bottom-color: white;
     }
   }
   
-  // Suppression du contour noir de tous les composants
-  .p-component, 
-  .p-component * {
-    border: none !important;
-    box-shadow: none !important;
-  }
-  
-  .p-datatable, 
-  .p-dialog,
-  .p-panel,
-  .p-card,
-  .p-fieldset,
-  .p-overlaypanel,
-  .p-menu,
-  .p-overlaypanel-content {
-    border: none !important;
-    border-radius: 12px !important;
-    background-color: #FFFFFF !important;
-  }
-  
-  // Forcer le fond blanc sur les conteneurs parents
-  body .p-component-overlay,
-  body .p-dialog-mask {
-    background-color: transparent !important;
-  }
-  
-  // Empêcher l'arrière-plan noir qui pourrait apparaître
-  .p-overlaypanel-flipped:after {
-    border-top-color: transparent !important;
-    border-bottom-color: transparent !important;
-  }
-  
-  .p-overlaypanel:after, 
-  .p-overlaypanel:before {
-    border-top-color: transparent !important;
-    border-bottom-color: transparent !important;
-    border-left-color: transparent !important;
-    border-right-color: transparent !important;
-  }
-  
-  // Supprimer spécifiquement les ombres noires
-  * {
-    box-shadow: none !important;
-  }
-  
-  // Réappliquer uniquement une ombre claire
-  .p-overlaypanel {
-    box-shadow: 0 6px 20px rgba(150, 150, 150, 0.15) !important;
-    filter: drop-shadow(0 0 5px rgba(150, 150, 150, 0.1));
+  // Style du badge
+  .p-badge {
+    background-color: #ff4081;
+    color: white;
   }
 } 

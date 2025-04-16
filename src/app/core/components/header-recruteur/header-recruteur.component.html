@@ -1,0 +1,74 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light" [ngClass]="myMenuBar">
+  <div class="container">
+    <a class="navbar-brand" (click)="goToHome()">
+      <img [src]="imgLogo" alt="Logo" class="logo">
+    </a>
+    
+    <button class="navbar-toggler" type="button" (click)="toogleNavbar()" [attr.aria-expanded]="!isCollapsed" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" [ngClass]="{'show': !isCollapsed}">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+            <i class="pi pi-home"></i> Accueil
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/recruteur/dashboard']" routerLinkActive="active-link">
+            <i class="pi pi-chart-bar"></i> Tableau de bord
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/recruteur/offers']" routerLinkActive="active-link">
+            <i class="pi pi-briefcase"></i> Mes offres d'emploi
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/recruteur/applications']" routerLinkActive="active-link">
+            <i class="pi pi-file"></i> Candidatures reçues
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/recruteur/settings']" routerLinkActive="active-link">
+            <i class="pi pi-cog"></i> Paramètres du compte
+          </a>
+        </li>
+      </ul>
+      
+      <div class="d-flex ms-auto align-items-center">
+        <div class="notification-wrapper" *ngIf="isLoggedIn">
+          <app-notification-popover></app-notification-popover>
+        </div>
+        
+        <button pButton 
+                icon="pi pi-sign-out"
+                class="p-button-text p-button-rounded logout-button"
+                pTooltip="Déconnexion"
+                *ngIf="isLoggedIn"
+                (click)="logout()">
+        </button>
+        
+        <div class="header-actions" *ngIf="!isLoggedIn">
+          <button pButton 
+                  class="p-button-text me-2" 
+                  (mouseenter)="isLoginHovered = true" 
+                  (mouseleave)="isLoginHovered = false"
+                  [ngClass]="{'p-button-raised': isLoginHovered}"
+                  (click)="goToLogin()">
+            Connexion
+          </button>
+          <button pButton 
+                  class="p-button-primary" 
+                  (mouseenter)="isRegisterHovered = true" 
+                  (mouseleave)="isRegisterHovered = false"
+                  [ngClass]="{'p-button-raised': isRegisterHovered}"
+                  (click)="goToRegister()">
+            Inscription
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav> 

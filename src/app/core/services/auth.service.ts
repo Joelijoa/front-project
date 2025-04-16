@@ -1,5 +1,5 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
@@ -7,7 +7,7 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class AuthService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
-  isLoggedIn$ = this.isLoggedInSubject.asObservable();
+  isLoggedIn$: Observable<boolean> = this.isLoggedInSubject.asObservable();
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(this.platformId)) {
@@ -24,10 +24,13 @@ export class AuthService {
   }
 
   logout() {
+    this.isLoggedInSubject.next(false);
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('userType');
+      // Forcer un rechargement de la page pour s'assurer que tous les composants sont actualisés
+      window.location.href = "/";
     }
-    this.isLoggedInSubject.next(false);
   }
 
   isLoggedIn(): boolean {
@@ -36,6 +39,15 @@ export class AuthService {
 
   // Méthode de test pour simuler la connexion
   simulateLogin() {
-    this.login();
+    this.isLoggedInSubject.next(true);
+    localStorage.setItem('isLoggedIn', 'true');
+  }
+
+  simulateRecruiterLogin() {
+    this.isLoggedInSubject.next(true);
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('userType', 'recruiter');
+    // Rediriger vers la page d'accueil du recruteur
+    return 'recruteur/home';
   }
 } 

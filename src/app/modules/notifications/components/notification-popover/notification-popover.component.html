@@ -4,7 +4,7 @@
     type="button" 
     icon="pi pi-bell" 
     class="p-button-rounded p-button-text notification-button"
-    (click)="op.toggle($event)" [style]="{color: 'white'}">
+    (click)="op.toggle($event)">
     <span class="p-badge" *ngIf="getUnreadCount() > 0">{{ getUnreadCount() }}</span>
   </button>
 

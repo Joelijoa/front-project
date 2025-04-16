@@ -10,7 +10,7 @@ import { MenuModule } from 'primeng/menu';
 import { NotificationPopoverComponent } from '../../../modules/notifications/components/notification-popover/notification-popover.component';
 
 @Component({
-  selector: 'app-header-candidat',
+  selector: 'app-header-recruteur',
   imports: [
     ButtonModule, 
     ImportsModule, 
@@ -19,16 +19,16 @@ import { NotificationPopoverComponent } from '../../../modules/notifications/com
     MenuModule,
     NotificationPopoverComponent
   ],
-  templateUrl: './header-candidat.component.html',
-  styleUrl: './header-candidat.component.scss',
+  templateUrl: './header-recruteur.component.html',
+  styleUrl: './header-recruteur.component.scss',
   standalone: true,
   encapsulation: ViewEncapsulation.None
 })
-export class HeaderCandidatComponent implements OnInit, OnDestroy {
+export class HeaderRecruteurComponent implements OnInit, OnDestroy {
   imgLogo ! : string;
   items: MenuItem[] | undefined;
   isLoggedIn: boolean = false;
-  isTestMode: boolean = true; // Pour le test
+  isTestMode: boolean = true;
   isLoginHovered: boolean = false;
   isRegisterHovered: boolean = false;
   isContactHovered: boolean = false;
@@ -45,19 +45,10 @@ export class HeaderCandidatComponent implements OnInit, OnDestroy {
   ) {}
 
   goToHome() {
-    this.router.navigate(['/']);
-  }
-
-  goToOffers() {
-    this.router.navigate(['/offers']);
-  }
-
-  goToAbout() {
-    this.router.navigate(['/about']);
-  }
-
-  goToContact() {
-    this.router.navigate(['/contact']);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('userType');
+    }
+    window.location.href = "/";
   }
 
   goToLogin() {
@@ -68,20 +59,20 @@ export class HeaderCandidatComponent implements OnInit, OnDestroy {
     this.router.navigate(['/account/register']);
   }
 
-  goToProfile() {
-    this.router.navigate(['/profil']);
+  goToDashboard() {
+    this.router.navigate(['/recruteur/dashboard']);
   }
 
-  goToMyApplications() {
-    this.router.navigate(['/candidature']);
+  goToOffers() {
+    this.router.navigate(['/recruteur/offers']);
   }
 
-  goToMyFavorites() {
-    this.router.navigate(['/favorite']);
+  goToApplications() {
+    this.router.navigate(['/recruteur/applications']);
   }
 
-  goToNotifications() {
-    this.router.navigate(['/notifications']);
+  goToSettings() {
+    this.router.navigate(['/recruteur/settings']);
   }
 
   logout() {
@@ -89,20 +80,17 @@ export class HeaderCandidatComponent implements OnInit, OnDestroy {
     this.router.navigate(['/']);
   }
 
-  // Méthode de test pour simuler la connexion
   simulateLogin() {
     this.authService.simulateLogin();
   }
 
   simulateRecruiterLogin() {
-    const redirectUrl = this.authService.simulateRecruiterLogin();
-    this.router.navigate([redirectUrl]);
+    this.authService.simulateRecruiterLogin();
   }
 
   ngOnInit() {
     this.imgLogo = "picture/logo.png";
     
-    // S'abonner aux changements d'état de connexion
     this.authService.isLoggedIn$.subscribe(isLoggedIn => {
       this.isLoggedIn = isLoggedIn;
       this.updateMenuItems();
@@ -120,16 +108,6 @@ export class HeaderCandidatComponent implements OnInit, OnDestroy {
         label: 'Accueil',
         icon: 'pi pi-home',
         command: () => this.goToHome()
-      },
-      {
-        label: 'Offres d\'emploi',
-        icon: 'pi pi-briefcase',
-        command: () => this.goToOffers()
-      },
-      {
-        label: 'À propos',
-        icon: 'pi pi-info-circle',
-        command: () => this.goToAbout()
       }
     ];
 
@@ -137,19 +115,62 @@ export class HeaderCandidatComponent implements OnInit, OnDestroy {
       this.items = [
         ...baseItems,
         {
-          label: 'Profil',
-          icon: 'pi pi-user',
-          command: () => this.goToProfile()
+          label: 'Tableau de bord',
+          icon: 'pi pi-chart-bar',
+          command: () => this.goToDashboard()
         },
         {
-          label: 'Mes Candidatures',
+          label: 'Mes offres d\'emploi',
+          icon: 'pi pi-briefcase',
+          items: [
+            {
+              label: 'Voir toutes les offres',
+              icon: 'pi pi-list',
+              command: () => this.goToOffers()
+            },
+            {
+              label: 'Créer une nouvelle offre',
+              icon: 'pi pi-plus',
+              command: () => this.router.navigate(['/recruteur/offers/new'])
+            }
+          ]
+        },
+        {
+          label: 'Candidatures reçues',
           icon: 'pi pi-file',
-          command: () => this.goToMyApplications()
+          items: [
+            {
+              label: 'Toutes les candidatures',
+              icon: 'pi pi-list',
+              command: () => this.goToApplications()
+            },
+            {
+              label: 'CV reçus',
+              icon: 'pi pi-file-pdf',
+              command: () => this.router.navigate(['/recruteur/applications/cv'])
+            }
+          ]
         },
         {
-          label: 'Favoris',
-          icon: 'pi pi-heart',
-          command: () => this.goToMyFavorites()
+          label: 'Paramètres du compte',
+          icon: 'pi pi-cog',
+          items: [
+            {
+              label: 'Informations entreprise',
+              icon: 'pi pi-building',
+              command: () => this.router.navigate(['/recruteur/settings/company'])
+            },
+            {
+              label: 'Gestion des utilisateurs',
+              icon: 'pi pi-users',
+              command: () => this.router.navigate(['/recruteur/settings/users'])
+            },
+            {
+              label: 'Notifications',
+              icon: 'pi pi-bell',
+              command: () => this.router.navigate(['/recruteur/settings/notifications'])
+            }
+          ]
         },
         {
           label: 'Déconnexion',
@@ -221,4 +242,4 @@ export class HeaderCandidatComponent implements OnInit, OnDestroy {
       }
     }
   }
-}
+} 
