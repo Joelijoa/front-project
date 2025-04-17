@@ -159,16 +159,6 @@ export class HeaderRecruteurComponent implements OnInit, OnDestroy {
               label: 'Informations entreprise',
               icon: 'pi pi-building',
               command: () => this.router.navigate(['/recruteur/settings/company'])
-            },
-            {
-              label: 'Gestion des utilisateurs',
-              icon: 'pi pi-users',
-              command: () => this.router.navigate(['/recruteur/settings/users'])
-            },
-            {
-              label: 'Notifications',
-              icon: 'pi pi-bell',
-              command: () => this.router.navigate(['/recruteur/settings/notifications'])
             }
           ]
         },

@@ -1,0 +1,26 @@
+<div class="header">Reports</div>
+<div class="total-card-list">
+  <p-card *ngFor="let total of totals" >
+    <ng-template pTemplate="content">
+      <div class="item label">{{ total.label }}</div>
+      <div class="item value">{{ total.value }}</div>
+    </ng-template>
+  </p-card>
+</div>
+
+<div class="charts-list">
+  <p-card>
+    <ng-template pTemplate="content">
+      <div class="chart-item">
+        <p-chart type="pie" [data]="pieData" [options]="pieOptions"></p-chart>
+      </div>
+    </ng-template>
+  </p-card>
+  <p-card>
+    <ng-template pTemplate="content">
+      <div class="chart-item">
+        <p-chart type="pie" ></p-chart>
+      </div>
+    </ng-template>
+  </p-card>
+</div>

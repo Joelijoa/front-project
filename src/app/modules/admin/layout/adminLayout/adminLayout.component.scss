@@ -1,0 +1,91 @@
+@use "../../components/sidebar/sidebar.component.scss";
+
+body {
+  --border-color: rgb(206, 201, 201);
+  --background-color: white;
+  --text-color: black;
+  --p-card-background : var(--background-color);
+  --p-card-color: var(--text-color);
+  --p-card-border-radius: 10px;
+  --p-card-body-padding: 10px ;
+  --p-card-shadow: 0 .125rem .25rem rgb(0 0 0 / 50%);
+  --p-inputgroup-addon-background	: var(--background-color);
+  --p-inputgroup-addon-color: rgb(61, 60, 60);
+  --p-inputgroup-addon-border-color: var(--border-color);
+  --p-inputtext-background: var(--background-color);
+  --p-inputtext-border-color: var(--border-color);
+  --p-datatable-row-background	: var(--background-color);
+  --p-datatable-row-color	: var(--text-color);
+  --p-datatable-body-cell-padding: 5px 10px;
+  --p-datatable-body-cell-border-color: var(--border-color);
+  --p-datatable-header-cell-background: rgb(81, 81, 81);
+  --p-paginator-nav-button-selected-background: var(--p-primary-color) !important;
+  --p-select-background: var(--background-color);
+  --p-select-color: var(--text-color);
+  --p-select-option-color: var(--text-color);
+  --p-select-overlay-color: var(--text-color);
+  --p-select-border-color	: var(--border-color);
+  // --p-select-option-selected-color: var(--text-color);
+  // --p-select-option-focus-color: var(--text-color);
+}
+
+.layout {
+  height: 100vh;
+
+  .main-content {
+    margin-left: var(--sidebar-width);
+    padding: 5px;
+    transition: margin-left 0.3s ease-out;
+
+    .appBar {
+      height: 50px;
+      display: flex;
+      justify-content: end;
+      gap: 10px;
+
+      .item {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: aquamarine;
+      }
+    }
+
+    .header {
+      font-size: 16px;
+      font-weight: bold;
+      color: #000;
+      padding: 10px 0px;
+    }
+
+    p-button.add button.p-button{
+      margin-bottom: 10px;
+    }
+
+    p-button.table-btn button.p-button  {
+      border-radius: 10px ;
+      padding: 5px 10px;
+    }
+  }
+
+  &.sidebar-collapsed {
+    .main-content {
+      margin-left: var(--sidebar-width-collapsed);
+    }
+  }
+
+  .filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    
+    > * {
+      flex: 1;
+    }
+  }
+}
+
+button.p-ripple.p-button.p-component.table-btn{
+  padding: 0 !important;
+  margin-bottom: 0 !important;
+}

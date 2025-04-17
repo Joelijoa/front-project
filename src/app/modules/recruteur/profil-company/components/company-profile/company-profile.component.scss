@@ -1,0 +1,250 @@
+.profile-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  padding-top: 100px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  position: relative;
+
+  .company-logo {
+    position: relative;
+
+    .edit-logo {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background: #0984e3;
+      color: white;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: scale(1.1);
+        background: #74b9ff;
+      }
+    }
+  }
+
+  .company-info {
+    flex: 1;
+
+    h1 {
+      margin: 0;
+      color: #2d3436;
+      font-size: 2rem;
+      font-weight: 600;
+    }
+
+    .description {
+      color: #636e72;
+      margin-top: 0.5rem;
+      line-height: 1.6;
+    }
+  }
+
+  .settings-button {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    color: #0984e3;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: #74b9ff;
+      transform: rotate(90deg);
+    }
+  }
+}
+
+.profile-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+
+  .social-section, .contact-section {
+    .p-card {
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      border: none;
+
+      .p-card-header {
+        padding: 1.5rem;
+        border-bottom: 2px solid #f0f2f5;
+        color: #2d3436;
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+
+      .p-card-content {
+        padding: 1.5rem;
+      }
+    }
+  }
+
+  .social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .social-input {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      i {
+        color: #0984e3;
+        font-size: 1.25rem;
+      }
+
+      input {
+        flex: 1;
+        padding: 0.75rem 1rem;
+        border-radius: 12px;
+        border: 2px solid #e0e0e0;
+        transition: all 0.3s ease;
+
+        &:focus {
+          outline: none;
+          border-color: #0984e3;
+          box-shadow: 0 0 0 4px rgba(9, 132, 227, 0.1);
+        }
+      }
+    }
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      label {
+        color: #2d3436;
+        font-weight: 500;
+      }
+
+      input, textarea, .p-dropdown {
+        padding: 0.75rem 1rem;
+        border-radius: 12px;
+        border: 2px solid #e0e0e0;
+        transition: all 0.3s ease;
+
+        &:focus {
+          outline: none;
+          border-color: #0984e3;
+          box-shadow: 0 0 0 4px rgba(9, 132, 227, 0.1);
+        }
+      }
+
+      .p-dropdown {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.profile-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 2rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+  button {
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    background-color: #0984e3;
+    border: none;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #74b9ff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(9, 132, 227, 0.2);
+    }
+  }
+}
+
+.password-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem 0;
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    label {
+      color: #2d3436;
+      font-weight: 500;
+    }
+
+    .p-password {
+      width: 100%;
+
+      input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border-radius: 12px;
+        border: 2px solid #e0e0e0;
+        transition: all 0.3s ease;
+
+        &:focus {
+          outline: none;
+          border-color: #0984e3;
+          box-shadow: 0 0 0 4px rgba(9, 132, 227, 0.1);
+        }
+      }
+    }
+  }
+}
+
+::ng-deep {
+  .p-dialog {
+    .p-dialog-header {
+      padding: 1.5rem;
+      border-bottom: 2px solid #f0f2f5;
+
+      .p-dialog-title {
+        color: #2d3436;
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+    }
+
+    .p-dialog-content {
+      padding: 1.5rem;
+    }
+
+    .p-dialog-footer {
+      padding: 1.5rem;
+      border-top: 2px solid #f0f2f5;
+    }
+  }
+} 

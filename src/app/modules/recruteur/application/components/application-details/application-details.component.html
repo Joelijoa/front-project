@@ -1,0 +1,79 @@
+<p-dialog [(visible)]="visible" [style]="{width: '50vw'}" [modal]="true" [draggable]="false" [resizable]="false">
+  <ng-template pTemplate="header">
+    <h2>Détails de la candidature</h2>
+  </ng-template>
+
+  <div class="application-details" *ngIf="application">
+    <!-- Informations du candidat -->
+    <div class="section">
+      <h3>Informations du candidat</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <label>Nom complet</label>
+          <p>{{application.candidate.firstName}} {{application.candidate.lastName}}</p>
+        </div>
+        <div class="info-item">
+          <label>Email</label>
+          <p>{{application.candidate.email}}</p>
+        </div>
+        <div class="info-item">
+          <label>Téléphone</label>
+          <p>{{application.candidate.phone}}</p>
+        </div>
+        <div class="info-item">
+          <label>Localisation</label>
+          <p>{{application.candidate.location}}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Informations de l'offre -->
+    <div class="section">
+      <h3>Offre concernée</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <label>Titre du poste</label>
+          <p>{{application.offer.title}}</p>
+        </div>
+        <div class="info-item">
+          <label>Entreprise</label>
+          <p>{{application.offer.company}}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Documents -->
+    <div class="section">
+      <h3>Documents</h3>
+      <div class="documents">
+        <a href="#" class="document-link">
+          <i class="pi pi-file-pdf"></i>
+          <span>{{application.candidate.resume}}</span>
+        </a>
+        <a href="#" class="document-link">
+          <i class="pi pi-file-pdf"></i>
+          <span>{{application.candidate.coverLetter}}</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Dates -->
+    <div class="section">
+      <h3>Dates</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <label>Date de candidature</label>
+          <p>{{application.applicationDate | date:'dd/MM/yyyy'}}</p>
+        </div>
+        <div class="info-item">
+          <label>Dernière mise à jour</label>
+          <p>{{application.lastUpdate | date:'dd/MM/yyyy'}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple type="button" label="Fermer" class="p-button-text" (click)="onClose()"></button>
+  </ng-template>
+</p-dialog> 

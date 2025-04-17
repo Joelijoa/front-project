@@ -1,0 +1,39 @@
+<div class="header">Society</div>
+
+<p-card>
+  <ng-template pTemplate="content">
+    <div class="filters">
+      <p-inputgroup>
+        <p-inputgroup-addon>
+          <i class="pi pi-search"></i>
+        </p-inputgroup-addon>
+        <input pInputText placeholder="Search..."/>
+      </p-inputgroup>
+    </div>
+    
+    <p-table #table [value]="societys" [paginator]="true" [rows]="10">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Domaine</th>
+          <th>Location</th>
+          <th>Details</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-soc>
+        <tr>
+          <td>{{ soc.id }}</td>
+          <td>{{ soc.name }}</td>
+          <td>{{ soc.domaine }}</td>
+          <td>{{ soc.location }}</td>
+          <td>
+            <p-button [ngClass]="{'table-btn':true}" severity="secondary"
+              >Details</p-button
+            >
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </ng-template>
+</p-card>

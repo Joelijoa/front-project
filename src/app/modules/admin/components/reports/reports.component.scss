@@ -1,0 +1,48 @@
+body {
+  --p-card-background : white;
+  --p-card-color: black;
+  --p-card-border-radius: 20px;
+  --p-card-body-padding: 10px ;
+  --p-card-shadow: 0 .125rem .25rem rgb(0 0 0 / 50%);
+}
+
+.total-card-list {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  padding-bottom: 10px;
+  p-card {
+    
+
+    flex: 1;
+
+    .p-card {
+      .item {
+        display: flex;
+        align-content: center;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .label {
+        padding-bottom: 5px;
+        // font-size: 1rem;
+        font-weight: 600;
+      }
+
+      .value {
+        font-size: 0.95rem;
+      }
+    }
+  }
+}
+
+.charts-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 10px;
+
+  // .chart-item{
+  //   height: 300px;
+  // }
+}

@@ -1,0 +1,15 @@
+<div class="sidebar" [ngClass]="{'collapsed': isCollapsed}">
+  <button (click)="toggleSidebar()" class="collapse-btn">
+    <i class="pi pi-chevron-left" *ngIf="!isCollapsed"></i>
+    <i class="pi pi-chevron-right" *ngIf="isCollapsed"></i>
+  </button>
+  <div class="header">
+    <div class="logo">
+
+    </div>
+    <div class="nomEnt">
+      stateck
+    </div>
+  </div>
+  <p-menu [model]="menuItem" />
+</div>

@@ -1,0 +1,61 @@
+<div class="header">Requests</div>
+
+<p-card>
+  <ng-template pTemplate="content">
+    <div class="filters">
+      <p-datepicker
+        placeholder="Start date"
+        [iconDisplay]="'input'"
+        [showIcon]="true"
+        [showButtonBar]="true"
+        inputId="icondisplay"
+      />
+      <p-datepicker
+        placeholder="End date"
+        [iconDisplay]="'input'"
+        [showIcon]="true"
+        [showButtonBar]="true"
+        inputId="icondisplay"
+      />
+      <p-select
+        [options]="customers"
+        [checkmark]="true"
+        optionLabel="label"
+        [showClear]="true"
+        placeholder="Customers"
+        class="w-full md:w-56"
+      />
+      <p-inputgroup>
+        <p-inputgroup-addon>
+          <i class="pi pi-search"></i>
+        </p-inputgroup-addon>
+        <input pInputText placeholder="Search..." />
+      </p-inputgroup>
+    </div>
+    
+    <p-table #table [value]="requests" [paginator]="true" [rows]="10">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Date</th>
+          <th>Customers</th>
+          <th>Poste</th>
+          <th>Closing date</th>
+          <th>Details</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-request>
+        <tr>
+          <td>{{ request.date }}</td>
+          <td>{{ request.customer }}</td>
+          <td>{{ request.poste }}</td>
+          <td>{{ request.closingDate }}</td>
+          <td>
+            <p-button [ngClass]="{'table-btn':true}" severity="secondary"
+              >See more</p-button
+            >
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </ng-template>
+</p-card>

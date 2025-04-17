@@ -1,0 +1,87 @@
+<app-header-recruteur></app-header-recruteur>
+
+<div class="applications-container">
+  <div class="header">
+    <div class="header-left">
+      <h2>Candidatures reçues</h2>
+      <button pButton pRipple 
+        label="Voir les CV" 
+        icon="pi pi-file"
+        class="p-button-text"
+        routerLink="../cv">
+      </button>
+    </div>
+    <div class="search-container">
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input type="text" pInputText [(ngModel)]="searchText" 
+          (input)="onSearch()" placeholder="Rechercher..." />
+      </span>
+    </div>
+  </div>
+
+  <div class="content">
+    <p-table [value]="filteredApplications" [paginator]="true" [rows]="10" 
+      [showCurrentPageReport]="true" currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} candidatures"
+      [rowsPerPageOptions]="[10, 25, 50]" styleClass="p-datatable-striped">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Candidat</th>
+          <th>Offre</th>
+          <th>Date de candidature</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-application>
+        <tr>
+          <td>
+            <div class="candidate-info">
+              <span class="candidate-name">{{application.candidate.firstName}} {{application.candidate.lastName}}</span>
+              <span class="candidate-email">{{application.candidate.email}}</span>
+            </div>
+          </td>
+          <td>
+            <div class="offer-info">
+              <span class="offer-title">{{application.offer.title}}</span>
+              <span class="offer-company">{{application.offer.company}}</span>
+            </div>
+          </td>
+          <td>{{application.applicationDate | date:'dd/MM/yyyy'}}</td>
+          <td>
+            <p-tag [value]="getStatusLabel(application.status)" 
+              [severity]="getStatusSeverity(application.status)">
+            </p-tag>
+          </td>
+          <td>
+            <div class="action-buttons">
+              <button pButton pRipple icon="pi pi-eye" 
+                class="p-button-rounded p-button-text" 
+                pTooltip="Voir les détails" tooltipPosition="top"
+                (click)="viewApplication(application)">
+              </button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="5" class="empty-message">
+            <div class="empty-state">
+              <i class="pi pi-inbox"></i>
+              <h3>Aucune candidature trouvée</h3>
+              <p>Vous n'avez reçu aucune candidature pour le moment</p>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <!-- Détails de la candidature -->
+  <app-application-details
+    [(visible)]="showApplicationDetails"
+    [application]="selectedApplication"
+    (visibleChange)="onApplicationDetailsClose()">
+  </app-application-details>
+</div> 

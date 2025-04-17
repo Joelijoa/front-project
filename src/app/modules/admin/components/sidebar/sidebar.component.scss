@@ -1,0 +1,99 @@
+:root {
+  --sidebar-width: 250px;
+  --sidebar-width-collapsed: 80px;
+}
+
+.sidebar {
+  width: var(--sidebar-width);
+  position: fixed;
+  height: 100%;
+  background-color: #0a0a23;
+  color: #fff;
+  transition: width 0.3s;
+  background-color: black;
+  overflow: hidden;
+
+  .p-menu {
+    background-color: transparent;
+    border: none;
+  }
+
+  .collapse-btn {
+    margin: 5px ;
+    top: 10px;
+    left: 230px; 
+    margin-top: 10px;
+    transition: left 0.3s;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    .logo {
+      width: 70px;
+      height: 50px;
+      color: #fff;
+      background-color: #fff;
+    }
+  }
+}
+
+.sidebar.collapsed {
+  width: var(--sidebar-width-collapsed);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  .p-menu {
+    min-width: var(--sidebar-width-collapsed);
+  }
+
+  .p-menu-item-link{
+    flex-direction: column;
+    align-items: center;
+    
+  }
+
+  .p-menu-item-label {
+    font-size: 0.75rem;
+  }
+  
+
+  .p-menu-submenu-label {
+    display: none;
+  }
+
+  .collapse-btn {
+    top: 10px;
+    left: 60px; 
+    transition: left 0.3s;
+  }
+
+  .nomEnt {
+    display: none;
+  }
+
+  .logo{
+    width: 60px;
+  }
+}
+
+.collapse-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  position: fixed;
+  background-color: #0a0a23;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+
+  i {
+    font-size: 10px;
+  }
+}

@@ -1,0 +1,333 @@
+.cv-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+  padding: 2rem;
+  height: 100vh;
+  background-color: #f8f9fa;
+  padding-top: 100px;
+  overflow: hidden;
+}
+
+.cv-list {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  height: calc(100vh - 200px);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #f0f2f5;
+    flex-shrink: 0;
+
+    h2 {
+      margin: 0;
+      color: #2d3436;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .search-container {
+      input {
+        padding: 0.75rem 1rem 0.75rem 2.5rem;
+        border-radius: 12px;
+        border: 2px solid #e0e0e0;
+        width: 250px;
+        transition: all 0.3s ease;
+        font-size: 0.95rem;
+        background-color: #f8f9fa;
+
+        &:focus {
+          outline: none;
+          border-color: #0984e3;
+          box-shadow: 0 0 0 4px rgba(9, 132, 227, 0.1);
+        }
+      }
+    }
+  }
+
+  .p-datatable {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+
+    .p-datatable-thead > tr > th {
+      background-color: #f8f9fa;
+      color: #2d3436;
+      font-weight: 600;
+      border-bottom: 2px solid #e0e0e0;
+      padding: 1rem;
+      font-size: 0.9rem;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    .p-datatable-tbody > tr {
+      transition: all 0.3s ease;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #f5f7ff;
+      }
+
+      &.selected {
+        background-color: #e3f2fd;
+      }
+
+      > td {
+        padding: 1rem;
+        border-bottom: 1px solid #f0f2f5;
+        color: #2d3436;
+
+        .candidate-info {
+          .name {
+            font-weight: 500;
+            color: #2d3436;
+            font-size: 1rem;
+          }
+        }
+
+        .skills {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+
+          .skill-tag {
+            background-color: #e3f2fd;
+            color: #0984e3;
+            border-radius: 8px;
+            padding: 0.35rem 0.75rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+          }
+        }
+
+        .view-button {
+          color: #0984e3;
+          transition: all 0.3s ease;
+
+          &:hover {
+            color: #74b9ff;
+            background-color: #e3f2fd;
+            transform: scale(1.1);
+          }
+        }
+      }
+    }
+  }
+}
+
+.cv-viewer, .cv-summary {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  height: calc(100vh - 200px);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .viewer-header, .summary-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #f0f2f5;
+
+    h3 {
+      margin: 0;
+      color: #1a237e;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .email {
+      color: #666;
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+    }
+  }
+
+  .cv-content, .summary-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f0f2f5;
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #c5cae9;
+      border-radius: 3px;
+
+      &:hover {
+        background: #9fa8da;
+      }
+    }
+
+    .section {
+      margin-bottom: 2rem;
+
+      h4 {
+        color: #1a237e;
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+
+      .skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .experience-list {
+        .experience-item {
+          margin-bottom: 1.5rem;
+          padding-bottom: 1.5rem;
+          border-bottom: 1px solid #f0f2f5;
+
+          &:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+          }
+
+          .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+
+            .title {
+              font-weight: 600;
+              color: #1a237e;
+              font-size: 1.05rem;
+            }
+
+            .company {
+              color: #666;
+              font-size: 0.95rem;
+            }
+
+            .period {
+              color: #666;
+              font-size: 0.85rem;
+              background-color: #f0f2f5;
+              padding: 0.25rem 0.5rem;
+              border-radius: 4px;
+            }
+          }
+
+          .description {
+            color: #444;
+            margin: 0;
+            line-height: 1.6;
+            font-size: 0.95rem;
+          }
+        }
+      }
+
+      .education-list {
+        .education-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1.5rem;
+          padding-bottom: 1.5rem;
+          border-bottom: 1px solid #f0f2f5;
+
+          &:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+          }
+
+          .degree {
+            font-weight: 600;
+            color: #1a237e;
+            font-size: 1.05rem;
+          }
+
+          .institution {
+            color: #666;
+            font-size: 0.95rem;
+          }
+
+          .period {
+            color: #666;
+            font-size: 0.85rem;
+            background-color: #f0f2f5;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+          }
+        }
+      }
+    }
+  }
+
+  .viewer-footer {
+    margin-top: 1.5rem;
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 2px solid #f0f2f5;
+
+    button {
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      background-color: #1a237e;
+      border: none;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #3949ab;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(26, 35, 126, 0.2);
+      }
+    }
+  }
+}
+
+// Styles pour la pagination
+.p-paginator {
+  background-color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 0 0 16px 16px;
+
+  .p-paginator-pages .p-paginator-page {
+    &.p-highlight {
+      background-color: #1a237e;
+      color: white;
+    }
+
+    &:hover {
+      background-color: #e8eaf6;
+    }
+  }
+} 

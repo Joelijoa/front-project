@@ -1,0 +1,111 @@
+<app-header-recruteur></app-header-recruteur>
+<div class="cv-container">
+  <!-- Liste des CV -->
+  <div class="cv-list">
+    <div class="header">
+      <h2>CV Reçus</h2>
+      <div class="search-container">
+        <input type="text" pInputText placeholder="Rechercher un CV..." />
+      </div>
+    </div>
+    
+    <p-table [value]="cvs" [paginator]="true" [rows]="10" 
+      [showCurrentPageReport]="true" currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} CV"
+      [rowsPerPageOptions]="[10, 25, 50]" styleClass="p-datatable-striped">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Candidat</th>
+          <th>Email</th>
+          <th>Date de réception</th>
+          <th>Compétences</th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-cv>
+        <tr [class.selected]="selectedCV?.id === cv.id" (click)="onCVSelect(cv)">
+          <td>
+            <div class="candidate-info">
+              <span class="name">{{cv.candidateName}}</span>
+            </div>
+          </td>
+          <td>{{cv.candidateEmail}}</td>
+          <td>{{cv.uploadDate | date:'dd/MM/yyyy'}}</td>
+          <td>
+            <div class="skills">
+              <p-tag *ngFor="let skill of cv.skills" [value]="skill" 
+                styleClass="skill-tag"></p-tag>
+            </div>
+          </td>
+          <td>
+            <button pButton pRipple icon="pi pi-eye" 
+              class="p-button-rounded p-button-text view-button"
+              (click)="onCVSelect(cv)"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <!-- CV Sélectionné -->
+  <div class="cv-viewer" *ngIf="selectedCV">
+    <div class="viewer-header">
+      <h3>{{selectedCV.candidateName}}</h3>
+      <span class="email">{{selectedCV.candidateEmail}}</span>
+    </div>
+    
+    <div class="cv-content">
+      <div class="section">
+        <h4>Compétences</h4>
+        <div class="skills">
+          <p-tag *ngFor="let skill of selectedCV.skills" [value]="skill" 
+            styleClass="skill-tag"></p-tag>
+        </div>
+      </div>
+
+      <div class="section">
+        <h4>Expérience</h4>
+        <div class="experience-list">
+          <div class="experience-item" *ngFor="let exp of selectedCV.experience">
+            <div class="experience-header">
+              <span class="title">{{exp.title}}</span>
+              <span class="company">{{exp.company}}</span>
+              <span class="period">{{exp.period}}</span>
+            </div>
+            <p class="description">{{exp.description}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h4>Formation</h4>
+        <div class="education-list">
+          <div class="education-item" *ngFor="let edu of selectedCV.education">
+            <span class="degree">{{edu.degree}}</span>
+            <span class="institution">{{edu.institution}}</span>
+            <span class="period">{{edu.period}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="viewer-footer">
+      <button pButton pRipple 
+        label="Résumer le CV" 
+        icon="pi pi-file-edit"
+        class="p-button-primary"
+        (click)="summarizeCV()">
+      </button>
+    </div>
+  </div>
+
+  <!-- Résumé du CV -->
+  <div class="cv-summary" *ngIf="selectedCV && isSummarizing">
+    <div class="summary-header">
+      <h3>Résumé du CV</h3>
+    </div>
+    
+    <div class="summary-content">
+      <p>{{selectedCV.summary}}</p>
+    </div>
+  </div>
+</div> 

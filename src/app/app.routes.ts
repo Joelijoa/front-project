@@ -6,6 +6,11 @@ import { AllOfferComponent } from './modules/recruteur/job-offer/components/all-
 import { OfferFormComponent } from './modules/recruteur/job-offer/components/offer-form/offer-form.component';
 import { OfferDetailsComponent } from './modules/recruteur/job-offer/components/offer-details/offer-details.component';
 import { DraftOffersComponent } from './modules/recruteur/job-offer/components/draft-offers/draft-offers.component';
+import { AllApplicationsComponent } from './modules/recruteur/application/components/all-applications/all-applications.component';
+import { CvListComponent } from './modules/recruteur/application/components/cv-list/cv-list.component';
+import { ProfilComponent } from './modules/profil/component/profil/profil.component';
+import { CompanyProfileComponent } from './modules/recruteur/profil-company/components/company-profile/company-profile.component';
+import { AdminLayoutComponent } from './modules/admin/layout/adminLayout/adminLayout.component';
 
 export const routes: Routes = [
     {
@@ -94,5 +99,26 @@ export const routes: Routes = [
         path: 'recruteur/offers/view/:id',
         component: OfferDetailsComponent,
         title: 'Détails de l\'offre'
-    }
+    },
+    {
+        path: 'recruteur/applications',
+        component: AllApplicationsComponent,
+        title: 'Mes candidatures'
+    },
+    {
+        path: 'recruteur/applications/cv',
+        component: CvListComponent,
+        title: 'Mes CV'
+    },
+    {
+        path: 'recruteur/settings/company',
+        component: CompanyProfileComponent,
+        title: 'Profil Entreprise'
+    },
+    {
+        path: 'admin',
+        loadChildren: () =>
+          import('./modules/admin/admin.module').then((m) => m.AdminModule),
+        title: 'Admin - Yobber',
+      }
 ];
