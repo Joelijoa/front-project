@@ -1,0 +1,83 @@
+<p-dialog [(visible)]="visible" [style]="{width: '50vw'}" [modal]="true" [draggable]="false" [resizable]="false">
+  <ng-template pTemplate="header">
+    <h2>{{isEditMode ? 'Modifier l\'offre' : 'Nouvelle offre d\'emploi'}}</h2>
+  </ng-template>
+
+  <form [formGroup]="offerForm" (ngSubmit)="onSubmit()">
+    <div class="form-grid">
+      <!-- Informations principales -->
+      <div class="form-section">
+        <h3>Informations principales</h3>
+        <div class="p-field">
+          <label for="title">Titre du poste *</label>
+          <input id="title" type="text" pInputText formControlName="title" placeholder="Ex: Développeur Full Stack" />
+        </div>
+
+        <div class="p-field">
+          <label for="company">Nom de l'entreprise *</label>
+          <input id="company" type="text" pInputText formControlName="company" />
+        </div>
+
+        <div class="p-field">
+          <label for="location">Localisation *</label>
+          <input id="location" type="text" pInputText formControlName="location" placeholder="Ex: Paris, France" />
+        </div>
+
+        <div class="p-field">
+          <label for="contractType">Type de contrat *</label>
+          <p-dropdown id="contractType" [options]="contractTypes" formControlName="contractType" 
+            optionLabel="label" placeholder="Sélectionnez un type de contrat"></p-dropdown>
+        </div>
+
+        <div class="p-field">
+          <label for="salary">Salaire</label>
+          <input id="salary" type="text" pInputText formControlName="salary" placeholder="Ex: 40K€ - 50K€" />
+        </div>
+      </div>
+
+      <!-- Description et exigences -->
+      <div class="form-section">
+        <h3>Description et exigences</h3>
+        <div class="p-field">
+          <label for="description">Description du poste *</label>
+          <p-editor id="description" formControlName="description" [style]="{'height':'200px'}"></p-editor>
+        </div>
+
+        <div class="p-field">
+          <label for="requirements">Expérience requise *</label>
+          <p-editor id="requirements" formControlName="requirements" [style]="{'height':'200px'}"></p-editor>
+        </div>
+
+        <div class="p-field">
+          <label for="process">Processus d'entretien</label>
+          <p-editor id="process" formControlName="process" [style]="{'height':'150px'}"></p-editor>
+        </div>
+      </div>
+
+      <!-- Informations complémentaires -->
+      <div class="form-section">
+        <h3>Informations complémentaires</h3>
+        <div class="p-field">
+          <label for="companyDescription">Description de l'entreprise</label>
+          <p-editor id="companyDescription" formControlName="companyDescription" [style]="{'height':'150px'}"></p-editor>
+        </div>
+
+        <div class="p-field">
+          <label for="benefits">Avantages</label>
+          <p-editor id="benefits" formControlName="benefits" [style]="{'height':'150px'}"></p-editor>
+        </div>
+
+        <div class="p-field">
+          <label for="expiryDate">Date limite de candidature</label>
+          <p-calendar id="expiryDate" formControlName="expiryDate" [showIcon]="true" dateFormat="dd/mm/yy"></p-calendar>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple type="button" label="Annuler" class="p-button-text" (click)="onCancel()"></button>
+    <button pButton pRipple type="button" label="Enregistrer" class="p-button-primary" (click)="onSubmit()" 
+      [disabled]="!offerForm.valid"></button>
+  </ng-template>
+</p-dialog> 

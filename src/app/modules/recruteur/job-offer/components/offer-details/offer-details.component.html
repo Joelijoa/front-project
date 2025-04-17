@@ -1,0 +1,77 @@
+<p-dialog [(visible)]="visible" [style]="{width: '50vw'}" [modal]="true" [draggable]="false" [resizable]="false">
+  <ng-template pTemplate="header">
+    <h2>{{offer?.title}}</h2>
+  </ng-template>
+
+  <div class="offer-details" *ngIf="offer">
+    <div class="offer-header">
+      <div class="company-info">
+        <h3>{{offer.company}}</h3>
+        <div class="location">
+          <i class="pi pi-map-marker"></i>
+          <span>{{offer.location}}</span>
+          <p-tag *ngIf="offer.remote" value="Télétravail" severity="info" styleClass="remote-tag"></p-tag>
+        </div>
+      </div>
+      <div class="offer-meta">
+        <p-tag [value]="getContractTypeLabel(offer.contractType)" 
+          [severity]="getContractTypeSeverity(offer.contractType)"></p-tag>
+        <span class="salary" *ngIf="offer.salary">{{offer.salary}}</span>
+      </div>
+    </div>
+
+    <div class="offer-content">
+      <div class="section">
+        <h3>Description du poste</h3>
+        <div class="content" [innerHTML]="offer.description"></div>
+      </div>
+
+      <div class="section">
+        <h3>Expérience requise</h3>
+        <div class="content" [innerHTML]="offer.requirements"></div>
+      </div>
+
+      <div class="section" *ngIf="offer.process">
+        <h3>Processus d'entretien</h3>
+        <div class="content" [innerHTML]="offer.process"></div>
+      </div>
+
+      <div class="section" *ngIf="offer.companyDescription">
+        <h3>À propos de l'entreprise</h3>
+        <div class="content" [innerHTML]="offer.companyDescription"></div>
+      </div>
+
+      <div class="section" *ngIf="offer.benefits">
+        <h3>Avantages</h3>
+        <div class="content" [innerHTML]="offer.benefits"></div>
+      </div>
+    </div>
+
+    <div class="offer-footer">
+      <div class="dates">
+        <div class="date-item">
+          <span class="label">Publiée le :</span>
+          <span class="value">{{offer.publishedDate | date:'dd MMM yyyy'}}</span>
+        </div>
+        <div class="date-item" *ngIf="offer.expiryDate">
+          <span class="label">Expire le :</span>
+          <span class="value">{{offer.expiryDate | date:'dd MMM yyyy'}}</span>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat-item">
+          <i class="pi pi-eye"></i>
+          <span>{{offer.views}} vues</span>
+        </div>
+        <div class="stat-item">
+          <i class="pi pi-users"></i>
+          <span>{{offer.applications}} candidatures</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple type="button" label="Fermer" class="p-button-text" (click)="onClose()"></button>
+  </ng-template>
+</p-dialog> 

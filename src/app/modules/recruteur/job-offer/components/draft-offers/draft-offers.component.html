@@ -1,0 +1,77 @@
+<app-header-recruteur></app-header-recruteur>
+
+<div class="draft-offers-container">
+  <div class="header">
+    <h2>Brouillons d'offres</h2>
+    <div class="search-container">
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input type="text" pInputText [(ngModel)]="searchText" 
+          (input)="onSearch()" placeholder="Rechercher..." />
+      </span>
+    </div>
+  </div>
+
+  <div class="content">
+    <p-table [value]="filteredDrafts" [paginator]="true" [rows]="10" 
+      [showCurrentPageReport]="true" currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} brouillons"
+      [rowsPerPageOptions]="[10, 25, 50]" styleClass="p-datatable-striped">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Titre</th>
+          <th>Entreprise</th>
+          <th>Localisation</th>
+          <th>Type de contrat</th>
+          <th>Salaire</th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-offer>
+        <tr>
+          <td>{{offer.title}}</td>
+          <td>{{offer.company}}</td>
+          <td>{{offer.location}}</td>
+          <td>
+            <p-tag [value]="getContractTypeLabel(offer.contractType)" 
+              [severity]="getContractTypeSeverity(offer.contractType)">
+            </p-tag>
+          </td>
+          <td>{{offer.salary}}</td>
+          <td>
+            <div class="action-buttons">
+              <button pButton pRipple icon="pi pi-pencil" 
+                class="p-button-rounded p-button-text" 
+                pTooltip="Modifier" tooltipPosition="top"
+                (click)="editOffer(offer)">
+              </button>
+              <button pButton pRipple icon="pi pi-trash" 
+                class="p-button-rounded p-button-text p-button-danger" 
+                pTooltip="Supprimer" tooltipPosition="top">
+              </button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="6" class="empty-message">
+            <div class="empty-state">
+              <i class="pi pi-file-edit"></i>
+              <h3>Aucun brouillon trouvé</h3>
+              <p>Commencez par créer une nouvelle offre d'emploi</p>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <!-- Formulaire d'édition -->
+  <app-offer-form
+    [(visible)]="showOfferForm"
+    [offer]="selectedOffer"
+    [isEditMode]="isEditMode"
+    (submit)="onOfferFormSubmit($event)"
+    (cancel)="onOfferFormCancel()">
+  </app-offer-form>
+</div> 

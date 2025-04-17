@@ -14,21 +14,9 @@ import { DialogModule } from 'primeng/dialog';
 import { ChipModule } from 'primeng/chip';
 import { BadgeModule } from 'primeng/badge';
 import { Router } from '@angular/router';
-
-interface JobOffer {
-  id: number;
-  title: string;
-  company: string;
-  location: string;
-  contractType: string;
-  salary: string;
-  remote: string;
-  status: string;
-  publishedDate: Date | null;
-  expiryDate: Date | null;
-  applications: number;
-  views: number;
-}
+import { OfferFormComponent } from '../offer-form/offer-form.component';
+import { OfferDetailsComponent } from '../offer-details/offer-details.component';
+import { JobOffer } from '../../models/job-offer.model';
 
 @Component({
   selector: 'app-all-offer',
@@ -47,7 +35,9 @@ interface JobOffer {
     MultiSelectModule,
     DialogModule,
     ChipModule,
-    BadgeModule
+    BadgeModule,
+    OfferFormComponent,
+    OfferDetailsComponent
   ],
   templateUrl: './all-offer.component.html',
   styleUrl: './all-offer.component.scss'
@@ -77,6 +67,12 @@ export class AllOfferComponent implements OnInit {
     { label: 'Freelance', value: 'freelance' }
   ];
   
+  // Dialogues
+  showOfferForm: boolean = false;
+  showOfferDetails: boolean = false;
+  selectedOffer: JobOffer | undefined;
+  isEditMode: boolean = false;
+  
   constructor(private router: Router) {}
   
   ngOnInit() {
@@ -89,116 +85,132 @@ export class AllOfferComponent implements OnInit {
     // Données de test
     this.offers = [
       {
-        id: 1,
+        id: '1',
         title: 'Développeur Frontend Angular',
         company: 'Tech Solutions',
         location: 'Paris',
         contractType: 'cdi',
         salary: '45-55k€',
-        remote: 'hybrid',
-        status: 'active',
+        remote: true,
+        status: 'PUBLISHED',
         publishedDate: new Date('2023-12-15'),
         expiryDate: new Date('2024-06-15'),
         applications: 12,
-        views: 245
+        views: 245,
+        description: 'Description du poste',
+        requirements: 'Exigences du poste'
       },
       {
-        id: 2,
+        id: '2',
         title: 'UX/UI Designer',
         company: 'Design Studio',
         location: 'Lyon',
         contractType: 'cdd',
         salary: '40-45k€',
-        remote: 'remote',
-        status: 'active',
+        remote: true,
+        status: 'PUBLISHED',
         publishedDate: new Date('2023-12-20'),
         expiryDate: new Date('2024-05-20'),
         applications: 8,
-        views: 186
+        views: 186,
+        description: 'Description du poste',
+        requirements: 'Exigences du poste'
       },
       {
-        id: 3,
+        id: '3',
         title: 'Chef de Projet IT',
         company: 'Tech Solutions',
         location: 'Paris',
         contractType: 'cdi',
         salary: '60-70k€',
-        remote: 'onsite',
-        status: 'active',
+        remote: false,
+        status: 'PUBLISHED',
         publishedDate: new Date('2023-12-10'),
         expiryDate: new Date('2024-06-10'),
         applications: 15,
-        views: 320
+        views: 320,
+        description: 'Description du poste',
+        requirements: 'Exigences du poste'
       },
       {
-        id: 4,
+        id: '4',
         title: 'Data Scientist',
         company: 'AI Innovations',
         location: 'Toulouse',
         contractType: 'cdi',
         salary: '55-65k€',
-        remote: 'remote',
-        status: 'active',
+        remote: true,
+        status: 'PUBLISHED',
         publishedDate: new Date('2023-11-30'),
         expiryDate: new Date('2024-05-30'),
         applications: 10,
-        views: 275
+        views: 275,
+        description: 'Description du poste',
+        requirements: 'Exigences du poste'
       },
       {
-        id: 5,
+        id: '5',
         title: 'DevOps Engineer',
         company: 'Cloud Services',
         location: 'Nantes',
         contractType: 'cdi',
         salary: '50-60k€',
-        remote: 'hybrid',
-        status: 'draft',
+        remote: true,
+        status: 'DRAFT',
         publishedDate: new Date('2023-12-25'),
         expiryDate: new Date('2024-06-25'),
         applications: 0,
-        views: 0
+        views: 0,
+        description: 'Description du poste',
+        requirements: 'Exigences du poste'
       },
       {
-        id: 6,
+        id: '6',
         title: 'Stage Marketing Digital',
         company: 'MarketPro',
         location: 'Bordeaux',
         contractType: 'stage',
         salary: '800€/mois',
-        remote: 'onsite',
-        status: 'expired',
+        remote: false,
+        status: 'CLOSED',
         publishedDate: new Date('2023-10-15'),
         expiryDate: new Date('2024-01-15'),
         applications: 20,
-        views: 350
+        views: 350,
+        description: 'Description du poste',
+        requirements: 'Exigences du poste'
       },
       {
-        id: 7,
+        id: '7',
         title: 'Développeur Backend Node.js',
         company: 'Web Agency',
         location: 'Lille',
         contractType: 'alternance',
         salary: 'Selon profil',
-        remote: 'hybrid',
-        status: 'active',
+        remote: true,
+        status: 'PUBLISHED',
         publishedDate: new Date('2023-12-05'),
         expiryDate: new Date('2024-06-05'),
         applications: 5,
-        views: 190
+        views: 190,
+        description: 'Description du poste',
+        requirements: 'Exigences du poste'
       },
       {
-        id: 8,
+        id: '8',
         title: 'Product Owner',
         company: 'Innovation Lab',
         location: 'Marseille',
         contractType: 'cdi',
         salary: '55-65k€',
-        remote: 'remote',
-        status: 'draft',
-        publishedDate: null,
-        expiryDate: null,
+        remote: true,
+        status: 'DRAFT',
+        publishedDate: new Date(),
+        expiryDate: new Date('2024-06-30'),
         applications: 0,
-        views: 0
+        views: 0,
+        description: 'Description du poste',
+        requirements: 'Exigences du poste'
       }
     ];
   }
@@ -320,22 +332,49 @@ export class AllOfferComponent implements OnInit {
   }
   
   editOffer(offer: JobOffer) {
-    // Naviguer vers la page d'édition
-    this.router.navigate([`/recruteur/offers/edit/${offer.id}`]);
+    this.selectedOffer = offer;
+    this.isEditMode = true;
+    this.showOfferForm = true;
   }
   
   createNewOffer() {
-    // Naviguer vers la page de création
-    this.router.navigate(['/recruteur/offers/new']);
+    this.selectedOffer = undefined;
+    this.isEditMode = false;
+    this.showOfferForm = true;
   }
   
   viewOffer(offer: JobOffer) {
-    // Naviguer vers la page de détail
-    this.router.navigate([`/recruteur/offers/view/${offer.id}`]);
+    this.selectedOffer = offer;
+    this.showOfferDetails = true;
   }
   
   duplicateOffer(offer: JobOffer) {
     // Logique pour dupliquer une offre
     console.log('Duplication de l\'offre', offer.id);
+  }
+  
+  onOfferFormSubmit(offer: JobOffer) {
+    if (this.isEditMode) {
+      // Mettre à jour l'offre existante
+      const index = this.offers.findIndex(o => o.id === offer.id);
+      if (index !== -1) {
+        this.offers[index] = offer;
+      }
+    } else {
+      // Ajouter une nouvelle offre
+      this.offers.unshift(offer);
+    }
+    this.showOfferForm = false;
+    this.applyFilters();
+  }
+  
+  onOfferFormCancel() {
+    this.showOfferForm = false;
+    this.selectedOffer = undefined;
+  }
+  
+  onOfferDetailsClose() {
+    this.showOfferDetails = false;
+    this.selectedOffer = undefined;
   }
 }

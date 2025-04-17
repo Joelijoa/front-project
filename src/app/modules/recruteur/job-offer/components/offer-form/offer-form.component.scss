@@ -1,0 +1,57 @@
+:host {
+  display: block;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.form-section {
+  h3 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+  }
+}
+
+.p-field {
+  margin-bottom: 1.5rem;
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  input, p-dropdown {
+    width: 100%;
+  }
+
+  .p-editor-container {
+    border: 1px solid var(--surface-border);
+    border-radius: 6px;
+  }
+}
+
+::ng-deep {
+  .p-dialog {
+    .p-dialog-header {
+      background: var(--surface-section);
+      border-bottom: 1px solid var(--surface-border);
+    }
+
+    .p-dialog-content {
+      background: var(--surface-section);
+      padding: 0;
+    }
+
+    .p-dialog-footer {
+      background: var(--surface-section);
+      border-top: 1px solid var(--surface-border);
+      padding: 1rem;
+    }
+  }
+} 

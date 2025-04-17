@@ -8,6 +8,8 @@
       <p class="subtitle">Gérez toutes vos offres d'emploi en un seul endroit.</p>
     </div>
     <div class="header-actions">
+      <!-- <button pButton pRipple type="button" icon="pi pi-file-edit" label="Brouillons" 
+        class="p-button-text" routerLink="/drafts"></button> -->
       <button pButton pRipple type="button" icon="pi pi-plus" label="Nouvelle offre" 
         class="p-button-primary" (click)="createNewOffer()"></button>
     </div>
@@ -30,8 +32,8 @@
         styleClass="status-filter">
         <ng-template let-value pTemplate="selectedItems">
           <div class="inline-flex">
-            <div *ngIf="value.length">Statut: {{value.length}} sélectionnés</div>
-            <div *ngIf="!value.length">Tous les statuts</div>
+            <div *ngIf="value && value.length">Statut: {{value.length}} sélectionnés</div>
+            <div *ngIf="!value || !value.length">Tous les statuts</div>
           </div>
         </ng-template>
       </p-multiSelect>
@@ -42,8 +44,8 @@
         styleClass="type-filter">
         <ng-template let-value pTemplate="selectedItems">
           <div class="inline-flex">
-            <div *ngIf="value.length">Type: {{value.length}} sélectionnés</div>
-            <div *ngIf="!value.length">Tous les contrats</div>
+            <div *ngIf="value && value.length">Type: {{value.length}} sélectionnés</div>
+            <div *ngIf="!value || !value.length">Tous les contrats</div>
           </div>
         </ng-template>
       </p-multiSelect>
@@ -202,3 +204,19 @@
     </p-table>
   </div>
 </div>
+
+<!-- Dialogues -->
+<app-offer-form 
+  *ngIf="showOfferForm"
+  [visible]="showOfferForm"
+  [offer]="selectedOffer"
+  (visibleChange)="onOfferFormCancel()"
+  (submit)="onOfferFormSubmit($event)">
+</app-offer-form>
+
+<app-offer-details 
+  *ngIf="showOfferDetails"
+  [visible]="showOfferDetails"
+  [offer]="selectedOffer"
+  (visibleChange)="onOfferDetailsClose()">
+</app-offer-details>

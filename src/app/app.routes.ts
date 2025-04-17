@@ -2,6 +2,10 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './modules/home/components/home/home.component';
 import { AboutComponent } from './modules/about/about.component';
 import { DashboardComponent } from './modules/recruteur/dashboard/components/dashboard/dashboard.component';
+import { AllOfferComponent } from './modules/recruteur/job-offer/components/all-offer/all-offer.component';
+import { OfferFormComponent } from './modules/recruteur/job-offer/components/offer-form/offer-form.component';
+import { OfferDetailsComponent } from './modules/recruteur/job-offer/components/offer-details/offer-details.component';
+import { DraftOffersComponent } from './modules/recruteur/job-offer/components/draft-offers/draft-offers.component';
 
 export const routes: Routes = [
     {
@@ -68,8 +72,27 @@ export const routes: Routes = [
     },
     {
         path: 'recruteur/offers',
-        loadChildren: () =>
-            import('./modules/recruteur/job-offer/job-offer.module').then(m => m.JobOfferModule),
+        component: AllOfferComponent,
         title: 'Mes offres d\'emploi'
+    },
+    {
+        path: 'recruteur/offers/new',
+        component: OfferFormComponent,
+        title: 'Nouvelle offre'
+    },
+    {
+        path: 'recruteur/offers/drafts',
+        component: DraftOffersComponent,
+        title: 'Mes brouillons'
+    },
+    {
+        path: 'recruteur/offers/edit/:id',
+        component: OfferFormComponent,
+        title: 'Modifier l\'offre'
+    },
+    {
+        path: 'recruteur/offers/view/:id',
+        component: OfferDetailsComponent,
+        title: 'Détails de l\'offre'
     }
 ];

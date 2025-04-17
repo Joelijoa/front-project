@@ -129,9 +129,9 @@ export class HeaderRecruteurComponent implements OnInit, OnDestroy {
               command: () => this.goToOffers()
             },
             {
-              label: 'Créer une nouvelle offre',
-              icon: 'pi pi-plus',
-              command: () => this.router.navigate(['/recruteur/offers/new'])
+              label: 'Mes Brouillons',
+              icon: 'pi pi-file-o',
+              command: () => this.router.navigate(['/recruteur/offers/drafts'])
             }
           ]
         },

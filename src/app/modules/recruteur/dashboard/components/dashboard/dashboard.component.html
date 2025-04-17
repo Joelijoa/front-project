@@ -4,10 +4,9 @@
   <div class="dashboard-header">
     <div class="header-content">
       <h1>Tableau de bord</h1>
-      <p class="welcome-text">Bienvenue, {{currentRecruiter?.name || 'Recruteur'}} ! Voici un aperçu de votre activité.</p>
+      <p class="welcome-text">Bienvenue, {{currentRecruiter.name || 'Recruteur'}} ! Voici un aperçu de votre activité.</p>
     </div>
     <div class="action-buttons">
-      <button pButton pRipple type="button" icon="pi pi-plus" label="Publier une offre" class="p-button-primary"></button>
       <button pButton pRipple type="button" icon="pi pi-file-pdf" label="Générer un rapport" class="p-button-outlined"></button>
     </div>
   </div>
@@ -19,7 +18,7 @@
         <i class="pi pi-briefcase"></i>
       </div>
       <div class="stat-content">
-        <h3>{{statistics?.activeOffers || 0}}</h3>
+        <h3>{{statistics.activeOffers || 0}}</h3>
         <p>Offres actives</p>
       </div>
       <div class="stat-change positive" *ngIf="statistics?.offersChange && statistics.offersChange > 0">
@@ -37,7 +36,7 @@
         <i class="pi pi-users"></i>
       </div>
       <div class="stat-content">
-        <h3>{{statistics?.applications || 0}}</h3>
+        <h3>{{statistics.applications || 0}}</h3>
         <p>Candidatures totales</p>
       </div>
       <div class="stat-change positive" *ngIf="statistics?.applicationsChange && statistics.applicationsChange > 0">
@@ -55,7 +54,7 @@
         <i class="pi pi-eye"></i>
       </div>
       <div class="stat-content">
-        <h3>{{statistics?.views || 0}}</h3>
+        <h3>{{statistics.views || 0}}</h3>
         <p>Vues des offres</p>
       </div>
       <div class="stat-change positive" *ngIf="statistics?.viewsChange && statistics.viewsChange > 0">
