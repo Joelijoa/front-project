@@ -1,99 +1,210 @@
 <app-header-recruteur></app-header-recruteur>
-
+<!-- Profile Container -->
 <div class="profile-container">
-  <div class="profile-header">
-    <div class="company-logo">
-      <p-avatar [image]="company.logo" size="xlarge" shape="circle"></p-avatar>
-      <button pButton pRipple icon="pi pi-camera" class="p-button-rounded p-button-text edit-logo"></button>
+  <!-- Left Section -->
+  <div class="profile-left">
+    <div class="profile-image">
+      <img [src]="company.logoUrl || 'assets/images/default-company.png'" alt="Logo entreprise">
+      <button class="edit-photo" pButton icon="pi pi-camera" (click)="onUploadLogo()"></button>
+      <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*" style="display: none">
     </div>
-    <div class="company-info">
-      <h1>{{company.name}}</h1>
-      <p class="description">{{company.description}}</p>
-    </div>
-    <button pButton pRipple icon="pi pi-cog" class="p-button-rounded p-button-text settings-button" 
-      (click)="showPasswordDialog = true"></button>
-  </div>
-
-  <div class="profile-content">
-    <div class="social-section">
-      <p-card header="Réseaux sociaux">
-        <div class="social-links">
-          <div class="social-input">
-            <i class="pi pi-linkedin"></i>
-            <input type="text" pInputText [(ngModel)]="company.socialLinks.linkedin" placeholder="LinkedIn" />
-          </div>
-          <div class="social-input">
-            <i class="pi pi-twitter"></i>
-            <input type="text" pInputText [(ngModel)]="company.socialLinks.twitter" placeholder="Twitter" />
-          </div>
-          <div class="social-input">
-            <i class="pi pi-facebook"></i>
-            <input type="text" pInputText [(ngModel)]="company.socialLinks.facebook" placeholder="Facebook" />
-          </div>
-          <div class="social-input">
-            <i class="pi pi-globe"></i>
-            <input type="text" pInputText [(ngModel)]="company.socialLinks.website" placeholder="Site web" />
-          </div>
-        </div>
-      </p-card>
-    </div>
-
-    <div class="contact-section">
-      <p-card header="Informations de contact">
-        <div class="contact-form">
-          <div class="form-group">
-            <label>Domaine d'activité</label>
-            <p-dropdown [options]="activityDomains" [(ngModel)]="company.contactInfo.activityDomain" 
-              placeholder="Sélectionnez un domaine"></p-dropdown>
-          </div>
-          <div class="form-group">
-            <label>Secteur</label>
-            <p-dropdown [options]="sectors" [(ngModel)]="company.contactInfo.sector" 
-              placeholder="Sélectionnez un secteur"></p-dropdown>
-          </div>
-          <div class="form-group">
-            <label>Téléphone</label>
-            <input type="text" pInputText [(ngModel)]="company.contactInfo.phone" />
-          </div>
-          <div class="form-group">
-            <label>Email</label>
-            <input type="text" pInputText [(ngModel)]="company.contactInfo.email" />
-          </div>
-          <div class="form-group">
-            <label>Adresse</label>
-            <textarea pInputTextarea [(ngModel)]="company.contactInfo.address" rows="3"></textarea>
-          </div>
-        </div>
-      </p-card>
+    <h2>{{company.name}}</h2>
+    <p class="description">{{company.description}}</p>
+    
+    <!-- Social Links -->
+    <div class="social-links">
+      <h3>Réseaux sociaux</h3>
+      <div class="links-grid">
+        <a [href]="company.website" target="_blank" class="social-link" *ngIf="company.website">
+          <i class="pi pi-globe"></i>
+          <span>Site web</span>
+        </a>
+        <a [href]="company.linkedin" target="_blank" class="social-link" *ngIf="company.linkedin">
+          <i class="pi pi-linkedin"></i>
+          <span>LinkedIn</span>
+        </a>
+        <a [href]="company.twitter" target="_blank" class="social-link" *ngIf="company.twitter">
+          <i class="pi pi-twitter"></i>
+          <span>Twitter</span>
+        </a>
+        <a class="social-link add-more" *ngIf="!company.website || !company.linkedin || !company.twitter" (click)="editSocialLinks()">
+          <i class="pi pi-plus-circle"></i>
+          <span>Ajouter un réseau</span>
+        </a>
+      </div>
     </div>
   </div>
 
-  <div class="profile-actions">
-    <button pButton pRipple label="Enregistrer les modifications" class="p-button-primary" 
-      (click)="updateProfile()"></button>
+  <!-- Right Section -->
+  <div class="profile-right">
+    <div class="settings-button">
+      <button pButton icon="pi pi-cog" (click)="menu.toggle($event)"></button>
+      <p-menu #menu [popup]="true" [model]="menuItems" appendTo="body"></p-menu>
+    </div>
+
+    <div class="info-section">
+      <h3>Informations de l'entreprise</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <label>Nom</label>
+          <p>{{company.name}}</p>
+        </div>
+        <div class="info-item">
+          <label>Email</label>
+          <p>{{company.email}}</p>
+        </div>
+        <div class="info-item">
+          <label>Téléphone</label>
+          <p>{{company.phone || 'Non renseigné'}}</p>
+        </div>
+        <div class="info-item">
+          <label>Adresse</label>
+          <p>{{company.address || 'Non renseigné'}}</p>
+        </div>
+        <div class="info-item">
+          <label>Secteur d'activité</label>
+          <p>{{company.sector}}</p>
+        </div>
+        <div class="info-item">
+          <label>Taille de l'entreprise</label>
+          <p>{{company.size}} employés</p>
+        </div>
+
+        <div class="values-section">
+          <h4>Nos valeurs</h4>
+          <div class="values-grid">
+            <div class="value-item">
+              <i class="pi pi-star"></i>
+              <span>Excellence</span>
+            </div>
+            <div class="value-item">
+              <i class="pi pi-users"></i>
+              <span>Collaboration</span>
+            </div>
+            <div class="value-item">
+              <i class="pi pi-heart"></i>
+              <span>Passion</span>
+            </div>
+            <div class="value-item">
+              <i class="pi pi-globe"></i>
+              <span>Innovation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<p-dialog header="Changer le mot de passe" [(visible)]="showPasswordDialog" [style]="{width: '450px'}" 
-  [modal]="true">
-  <div class="password-form">
+<!-- Personal Info Dialog -->
+<p-dialog 
+  [(visible)]="showPersonalInfoDialog" 
+  [modal]="true" 
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="profile-dialog"
+  header="Modifier les informations">
+  
+  <form [formGroup]="personalInfoForm" (ngSubmit)="updatePersonalInfo()">
+    <div class="form-group">
+      <label>Nom de l'entreprise</label>
+      <input type="text" pInputText formControlName="name">
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <textarea pInputTextarea formControlName="description" rows="5"></textarea>
+    </div>
+    <div class="form-group">
+      <label>Téléphone</label>
+      <input type="tel" pInputText formControlName="phone">
+    </div>
+    <div class="form-group">
+      <label>Adresse</label>
+      <input type="text" pInputText formControlName="address">
+    </div>
+    <div class="form-group">
+      <label>Secteur d'activité</label>
+      <input type="text" pInputText formControlName="sector">
+    </div>
+    <div class="form-group">
+      <label>Taille de l'entreprise</label>
+      <input type="number" pInputText formControlName="size">
+    </div>
+    
+    <div class="dialog-footer">
+      <button pButton type="button" label="Annuler" class="p-button-text" (click)="showPersonalInfoDialog = false"></button>
+      <button pButton type="submit" label="Enregistrer" [disabled]="personalInfoForm.invalid"></button>
+    </div>
+  </form>
+</p-dialog>
+
+<!-- Security Dialog -->
+<p-dialog 
+  [(visible)]="showSecurityDialog" 
+  [modal]="true" 
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="profile-dialog"
+  header="Sécurité">
+  
+  <form [formGroup]="securityForm" (ngSubmit)="updatePassword()">
     <div class="form-group">
       <label>Mot de passe actuel</label>
-      <p-password [(ngModel)]="passwordForm.currentPassword" [feedback]="false"></p-password>
+      <input type="password" pInputText formControlName="currentPassword">
     </div>
     <div class="form-group">
       <label>Nouveau mot de passe</label>
-      <p-password [(ngModel)]="passwordForm.newPassword" [feedback]="true"></p-password>
+      <input type="password" pInputText formControlName="newPassword">
     </div>
     <div class="form-group">
       <label>Confirmer le mot de passe</label>
-      <p-password [(ngModel)]="passwordForm.confirmPassword" [feedback]="false"></p-password>
+      <input type="password" pInputText formControlName="confirmPassword">
     </div>
-  </div>
-  <ng-template pTemplate="footer">
-    <button pButton pRipple label="Annuler" class="p-button-text" (click)="showPasswordDialog = false"></button>
-    <button pButton pRipple label="Changer" class="p-button-primary" (click)="changePassword()"></button>
-  </ng-template>
+    
+    <div class="dialog-footer">
+      <button pButton type="button" label="Annuler" class="p-button-text" (click)="showSecurityDialog = false"></button>
+      <button pButton type="submit" label="Modifier" [disabled]="securityForm.invalid"></button>
+    </div>
+  </form>
+</p-dialog>
+
+<!-- Social Links Dialog -->
+<p-dialog 
+  [(visible)]="showSocialLinksDialog" 
+  [modal]="true" 
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="profile-dialog"
+  header="Réseaux sociaux">
+  
+  <form [formGroup]="socialLinksForm" (ngSubmit)="updateSocialLinks()">
+    <div class="form-group">
+      <label>Site web</label>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon"><i class="pi pi-globe"></i></span>
+        <input type="url" pInputText formControlName="website" placeholder="https://...">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>LinkedIn</label>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon"><i class="pi pi-linkedin"></i></span>
+        <input type="url" pInputText formControlName="linkedin" placeholder="https://linkedin.com/...">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Twitter</label>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon"><i class="pi pi-twitter"></i></span>
+        <input type="url" pInputText formControlName="twitter" placeholder="https://twitter.com/...">
+      </div>
+    </div>
+    
+    <div class="dialog-footer">
+      <button pButton type="button" label="Annuler" class="p-button-text" (click)="showSocialLinksDialog = false"></button>
+      <button pButton type="submit" label="Enregistrer"></button>
+    </div>
+  </form>
 </p-dialog>
 
 <p-toast></p-toast> 

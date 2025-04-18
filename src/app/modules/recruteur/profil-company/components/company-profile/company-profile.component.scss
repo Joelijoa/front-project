@@ -1,250 +1,668 @@
 .profile-container {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 2rem;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
+  margin: 2rem auto;
+  padding: 0 2rem;
   padding-top: 100px;
 }
 
-.profile-header {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  margin-bottom: 3rem;
-  padding: 2rem;
+.profile-left {
   background: white;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  position: relative;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  height: fit-content;
 
-  .company-logo {
+  .profile-image {
     position: relative;
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 1.5rem;
 
-    .edit-logo {
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 16px;
+    }
+
+    .edit-photo {
       position: absolute;
-      bottom: 0;
-      right: 0;
-      background: #0984e3;
-      color: white;
-      width: 2.5rem;
-      height: 2.5rem;
+      bottom: -10px;
+      right: -10px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: #010327;
+      border: none;
+      color: white;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: transform 0.3s ease;
 
       &:hover {
         transform: scale(1.1);
-        background: #74b9ff;
       }
     }
   }
 
-  .company-info {
-    flex: 1;
+  h2 {
+    text-align: center;
+    margin: 0;
+    color: #2d3436;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
 
-    h1 {
-      margin: 0;
-      color: #2d3436;
-      font-size: 2rem;
-      font-weight: 600;
+  .description {
+    text-align: center;
+    color: #636e72;
+    margin: 1rem 0;
+    line-height: 1.6;
+  }
+}
+
+.social-links {
+  margin-top: 2rem;
+  position: relative;
+
+  h3 {
+    color: #2d3436;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .links-grid {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    color: #2d3436;
+    text-decoration: none;
+    transition: all 0.3s ease;
+
+    i {
+      font-size: 1.2rem;
+      color: #010327;
     }
 
-    .description {
-      color: #636e72;
-      margin-top: 0.5rem;
-      line-height: 1.6;
+    &:hover {
+      background: #e9ecef;
+      transform: translateX(5px);
     }
   }
+
+  .add-social {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: #010327;
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.profile-right {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  position: relative;
 
   .settings-button {
     position: absolute;
     top: 1.5rem;
     right: 1.5rem;
-    color: #0984e3;
-    transition: all 0.3s ease;
 
-    &:hover {
-      color: #74b9ff;
-      transform: rotate(90deg);
+    button {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: #010327;
+      border: none;
+      color: white;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: rotate(90deg);
+      }
     }
   }
 }
 
-.profile-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  margin-bottom: 2rem;
-
-  .social-section, .contact-section {
-    .p-card {
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      border: none;
-
-      .p-card-header {
-        padding: 1.5rem;
-        border-bottom: 2px solid #f0f2f5;
-        color: #2d3436;
-        font-size: 1.25rem;
-        font-weight: 600;
-      }
-
-      .p-card-content {
-        padding: 1.5rem;
-      }
-    }
+.info-section {
+  h3 {
+    color: #2d3436;
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
   }
 
-  .social-links {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
-    .social-input {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-
-      i {
-        color: #0984e3;
-        font-size: 1.25rem;
-      }
-
-      input {
-        flex: 1;
-        padding: 0.75rem 1rem;
-        border-radius: 12px;
-        border: 2px solid #e0e0e0;
-        transition: all 0.3s ease;
-
-        &:focus {
-          outline: none;
-          border-color: #0984e3;
-          box-shadow: 0 0 0 4px rgba(9, 132, 227, 0.1);
-        }
-      }
-    }
-  }
-
-  .contact-form {
-    display: flex;
-    flex-direction: column;
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
 
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-
+    .info-item {
       label {
+        display: block;
+        color: #636e72;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+      }
+
+      p {
         color: #2d3436;
         font-weight: 500;
-      }
-
-      input, textarea, .p-dropdown {
-        padding: 0.75rem 1rem;
-        border-radius: 12px;
-        border: 2px solid #e0e0e0;
-        transition: all 0.3s ease;
-
-        &:focus {
-          outline: none;
-          border-color: #0984e3;
-          box-shadow: 0 0 0 4px rgba(9, 132, 227, 0.1);
-        }
-      }
-
-      .p-dropdown {
-        width: 100%;
+        margin: 0;
       }
     }
   }
 }
 
-.profile-actions {
-  display: flex;
-  justify-content: flex-end;
-  padding: 2rem;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-
-  button {
-    padding: 0.75rem 1.5rem;
-    border-radius: 12px;
-    font-weight: 600;
-    font-size: 1rem;
-    background-color: #0984e3;
-    border: none;
-    transition: all 0.3s ease;
-
-    &:hover {
-      background-color: #74b9ff;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(9, 132, 227, 0.2);
-    }
+.profile-dialog {
+  .p-dialog-header {
+    background: white;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #e9ecef;
   }
-}
 
-.password-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  padding: 1rem 0;
+  .p-dialog-content {
+    background: white;
+    padding: 2rem;
+    min-width: 500px;
+  }
 
   .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    margin-bottom: 1.5rem;
 
     label {
-      color: #2d3436;
+      display: block;
+      color: #636e72;
+      margin-bottom: 0.5rem;
       font-weight: 500;
     }
 
-    .p-password {
-      width: 100%;
+    .p-inputgroup {
+      display: flex;
+      align-items: center;
+
+      .p-inputgroup-addon {
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-right: none;
+        border-radius: 8px 0 0 8px;
+        padding: 0.75rem;
+        color: #010327;
+        
+        i {
+          font-size: 1.1rem;
+        }
+      }
 
       input {
+        border-radius: 0 8px 8px 0;
+        border: 1px solid #e9ecef;
+        padding: 0.75rem;
         width: 100%;
-        padding: 0.75rem 1rem;
-        border-radius: 12px;
-        border: 2px solid #e0e0e0;
         transition: all 0.3s ease;
+        color: #000;
 
         &:focus {
           outline: none;
-          border-color: #0984e3;
-          box-shadow: 0 0 0 4px rgba(9, 132, 227, 0.1);
+          border-color: #010327;
+          box-shadow: 0 0 0 3px rgba(#010327, 0.1);
+        }
+      }
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      color: #000;
+
+      &:focus {
+        border-color: #010327;
+        box-shadow: 0 0 0 3px rgba(#010327, 0.1);
+        outline: none;
+      }
+    }
+  }
+
+  .dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+
+    button {
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+
+      &.p-button-text {
+        color: #6c757d;
+        background: #e9ecef;
+
+        &:hover {
+          background: #dee2e6;
+        }
+      }
+
+      &:not(.p-button-text) {
+        background: #010327;
+        border: none;
+        color: white;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(#010327, 0.2);
+        }
+
+        &:disabled {
+          background: #b2bec3;
+          cursor: not-allowed;
+          transform: none;
+          box-shadow: none;
         }
       }
     }
   }
 }
 
-::ng-deep {
-  .p-dialog {
-    .p-dialog-header {
-      padding: 1.5rem;
-      border-bottom: 2px solid #f0f2f5;
+button[label="Fermer"],
+button[label="Annuler"] {
+  background: #6c757d !important;
+  color: white !important;
 
-      .p-dialog-title {
+  &:hover {
+    background: #5a6268 !important;
+  }
+}
+
+button[label="Fermer"] {
+  background: #dc3545 !important;
+  
+  &:hover {
+    background: #c82333 !important;
+  }
+}
+
+.p-menu {
+  background: white;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+  min-width: 200px;
+
+  .p-menuitem {
+    border-radius: 8px;
+    margin: 0.25rem 0;
+
+    .p-menuitem-link {
+      padding: 0.75rem 1rem;
+      color: #2d3436;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: #f8f9fa;
+      }
+
+      .p-menuitem-icon {
+        color: #010327;
+      }
+
+      .p-menuitem-text {
         color: #2d3436;
-        font-size: 1.25rem;
-        font-weight: 600;
+      }
+    }
+  }
+}
+
+.p-toast {
+  .p-toast-message {
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    margin-bottom: 1rem;
+
+    &.p-toast-message-success {
+      background: #010327;
+      border: none;
+      color: white;
+
+      .p-toast-message-icon {
+        color: white;
       }
     }
 
-    .p-dialog-content {
-      padding: 1.5rem;
-    }
+    &.p-toast-message-error {
+      background: #dc3545;
+      border: none;
+      color: white;
 
-    .p-dialog-footer {
-      padding: 1.5rem;
-      border-top: 2px solid #f0f2f5;
+      .p-toast-message-icon {
+        color: white;
+      }
     }
   }
-} 
+}
+.values-section {
+  h4 {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+  }
+  
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
+    
+    .value-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: white;
+      padding: 1.5rem 1rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      border: 1px solid var(--border-color);
+      
+      &:nth-child(1) i {
+        color: #ff6b35; // Orange
+      }
+      
+      &:nth-child(2) i {
+        color: #4361ee; // Bleu
+      }
+      
+      &:nth-child(3) i {
+        color: #f72585; // Rose
+      }
+      
+      &:nth-child(4) i {
+        color: #7209b7; // Violet
+      }
+      
+      i {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      span {
+        text-align: center;
+        font-weight: 500;
+        color: var(--text-dark);
+      }
+      
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+      }
+    }
+  }
+}
+
+// Styles pour les champs de formulaire PrimeNG
+:host ::ng-deep {
+  .p-inputtext {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #dfe6e9;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+
+    &:focus {
+      border-color: #0984e3;
+      box-shadow: 0 0 0 3px rgba(9, 132, 227, 0.1);
+    }
+  }
+
+  .p-button {
+    background: linear-gradient(45deg, #0984e3, #00b894);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    &:disabled {
+      background: #b2bec3;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// Styles pour les dialogues PrimeNG
+:host ::ng-deep {
+  .p-dialog {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    
+    .p-dialog-header {
+      background: white;
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid #f5f5f5;
+      
+      .p-dialog-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #2d3436;
+      }
+      
+      .p-dialog-header-icon {
+        color: #010327;
+        border: none;
+        background: transparent;
+        width: 2rem;
+        height: 2rem;
+        transition: transform 0.2s;
+        
+        &:hover {
+          transform: rotate(90deg);
+          background: transparent;
+        }
+        
+        &:focus {
+          box-shadow: none;
+        }
+      }
+    }
+    
+    .p-dialog-content {
+      background: white;
+      padding: 2rem;
+      min-width: 520px;
+    }
+  }
+  
+  .p-button {
+    &.p-button-text {
+      background: #f5f5f5;
+      color: #6c757d;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      
+      &:hover {
+        background: #e9ecef;
+        color: #495057;
+      }
+    }
+    
+    &:not(.p-button-text) {
+      background: #010327;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      
+      &:hover {
+        background: #020652;
+        box-shadow: 0 4px 8px rgba(1, 3, 39, 0.2);
+      }
+      
+      &:focus {
+        box-shadow: 0 0 0 2px rgba(1, 3, 39, 0.2);
+      }
+      
+      &:disabled {
+        background: #b2bec3;
+        opacity: 0.7;
+      }
+    }
+  }
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  
+  label {
+    display: block;
+    color: #636e72;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  
+  .p-inputgroup {
+    display: flex;
+    align-items: center;
+    
+    .p-inputgroup-addon {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-right: none;
+      border-radius: 8px 0 0 8px;
+      padding: 0.75rem;
+      color: #010327;
+      
+      i {
+        font-size: 1.1rem;
+      }
+    }
+    
+    input {
+      border-radius: 0 8px 8px 0;
+      border: 1px solid #e9ecef;
+      padding: 0.75rem;
+      width: 100%;
+      transition: all 0.3s ease;
+      color: #000 !important;
+      
+      &:focus {
+        outline: none;
+        border-color: #010327;
+        box-shadow: 0 0 0 3px rgba(1, 3, 39, 0.1);
+      }
+    }
+  }
+  
+  input, textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    color: #000 !important;
+    
+    &:focus {
+      border-color: #010327;
+      box-shadow: 0 0 0 3px rgba(1, 3, 39, 0.1);
+      outline: none;
+    }
+  }
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.p-menu {
+  background: white;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+  min-width: 200px;
+  
+  .p-menuitem {
+    border-radius: 8px;
+    margin: 0.25rem 0;
+    
+    .p-menuitem-link {
+      padding: 0.75rem 1rem;
+      color: #2d3436;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: #f8f9fa;
+      }
+      
+      .p-menuitem-icon {
+        color: #010327;
+      }
+      
+      .p-menuitem-text {
+        color: #2d3436;
+      }
+    }
+  }
+}
+
+.p-toast {
+  .p-toast-message {
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    
+    &.p-toast-message-success {
+      background: #010327;
+      border: none;
+      color: white;
+      
+      .p-toast-message-icon {
+        color: white;
+      }
+    }
+    
+    &.p-toast-message-error {
+      background: #dc3545;
+      border: none;
+      color: white;
+      
+      .p-toast-message-icon {
+        color: white;
+      }
+    }
+  }
+}
+
