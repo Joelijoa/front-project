@@ -8,6 +8,7 @@ import { SocietyComponent } from './components/society/society.component';
 import { UsersComponent } from './components/users/users.component';
 import { AccountsComponent } from './components/accounts/accounts.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { CustomerStatisticsComponent } from './components/customer-statistics/customer-statistics.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,8 @@ const routes: Routes = [
       { path: "society", component: SocietyComponent },
       { path: "users", component: UsersComponent },
       { path: "accounts", component: AccountsComponent },
+      { path: "customer-statistics", component: CustomerStatisticsComponent },
+
     ]
 
   },
