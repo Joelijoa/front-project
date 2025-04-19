@@ -1,17 +1,35 @@
-<div class="header">Users</div>
-
-<p-card>
-  <ng-template pTemplate="content">
-    <div class="filters">
-      <p-inputgroup>
-        <p-inputgroup-addon>
-          <i class="pi pi-search"></i>
-        </p-inputgroup-addon>
-        <input pInputText placeholder="Search..."/>
-      </p-inputgroup>
+<div class="main-container">
+  <div class="page-header">
+    <div class="header-content">
+      <h1>Users</h1>
+      <p class="subtitle">ataovy</p>
     </div>
-    
-    <p-table #table [value]="users" [paginator]="true" [rows]="10">
+  </div>
+
+  <div class="filters-row">
+    <p-inputgroup>
+      <p-inputgroup-addon>
+        <i class="pi pi-search"></i>
+      </p-inputgroup-addon>
+      <input pInputText placeholder="Search..." />
+    </p-inputgroup>
+  </div>
+
+  <div class="table-container">
+    <p-table
+      #table
+      [value]="users"
+      [paginator]="true"
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} demandes"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      [tableStyle]="{ 'min-width': '60rem' }"
+      [scrollable]="true"
+      [responsiveLayout]="'stack'"
+      [breakpoint]="'960px'"
+      styleClass="modern-table"
+    >
       <ng-template pTemplate="header">
         <tr>
           <th>Id</th>
@@ -28,12 +46,12 @@
           <td>{{ user.email }}</td>
           <td>{{ user.location }}</td>
           <td>
-            <p-button [ngClass]="{'table-btn':true}" severity="secondary"
+            <p-button [ngClass]="{ 'table-btn': true }" severity="secondary"
               >Details</p-button
             >
           </td>
         </tr>
       </ng-template>
     </p-table>
-  </ng-template>
-</p-card>
+  </div>
+</div>
