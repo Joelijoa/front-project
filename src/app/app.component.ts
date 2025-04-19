@@ -41,7 +41,8 @@ export class AppComponent {
 
   private updateNavBarVisibility(url: string): void {
     const hiddenRoutes = ['/login', '/recruteur', '/admin'];
-    this.showNavBar = !hiddenRoutes.includes(url);
+    this.showNavBar = !hiddenRoutes.some(prefix => url.startsWith(prefix));
+
     console.log('showNavBar:', this.showNavBar); // Debugging line
   }
 }

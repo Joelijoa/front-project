@@ -20,6 +20,9 @@ html {
 }
   
 body {
+  --border-color: rgb(206, 201, 201);
+  --background-color: white;
+  --text-color: black;
     background: var(--surface-ground);
     color: #696969;
     padding: 1rem;
@@ -49,6 +52,17 @@ body {
     --p-datatable-row-color: #ffffff;
     --p-datatable-row-color: #000000;
     --p-datatable-header-cell-background: #010327 ;
+    --p-card-background : var(--background-color);
+    --p-card-color: var(--text-color);
+    --p-card-border-radius: 10px;
+    --p-card-body-padding: 10px ;
+    --p-card-shadow: 0 .125rem .25rem rgba(75, 73, 73, 0.5);
+    --p-inputgroup-addon-background	: var(--background-color);
+    --p-inputgroup-addon-color: rgb(61, 60, 60);
+    // --p-inputgroup-addon-border-color: var(--border-color);
+    
+
+    --p-menubar-submenu-background: #010327;
   
     .p-select-overlay {
       --p-text-color:#000000;
@@ -75,6 +89,7 @@ body {
     }
     .p-datatable-table {
       border-radius: 8px !important;
+
     }
     .p-popover{
       background-color: #ffffff !important;
