@@ -1,39 +1,62 @@
-<div class="header">Society</div>
-
-<p-card>
-  <ng-template pTemplate="content">
-    <div class="filters">
-      <p-inputgroup>
-        <p-inputgroup-addon>
-          <i class="pi pi-search"></i>
-        </p-inputgroup-addon>
-        <input pInputText placeholder="Search..."/>
-      </p-inputgroup>
+<div class="main-container">
+  <div class="page-header">
+    <div class="header-content">
+      <h1>Society</h1>
+      <p class="subtitle">ty tsy aiko oe inona ataoko eto</p>
     </div>
-    
-    <p-table #table [value]="societys" [paginator]="true" [rows]="10">
-      <ng-template pTemplate="header">
-        <tr>
-          <th>Id</th>
-          <th>Name</th>
-          <th>Domaine</th>
-          <th>Location</th>
-          <th>Details</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-soc>
-        <tr>
-          <td>{{ soc.id }}</td>
-          <td>{{ soc.name }}</td>
-          <td>{{ soc.domaine }}</td>
-          <td>{{ soc.location }}</td>
-          <td>
-            <p-button [ngClass]="{'table-btn':true}" severity="secondary"
-              >Details</p-button
-            >
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </ng-template>
-</p-card>
+  </div>
+
+  <div class="filters-row">
+    <p-inputgroup>
+      <p-inputgroup-addon>
+        <i class="pi pi-search"></i>
+      </p-inputgroup-addon>
+      <input pInputText placeholder="Search..." />
+    </p-inputgroup>
+  </div>
+
+  <div class="results-info">
+    <span class="result-count">
+      <i class="pi pi-list"></i>
+      ATAO demandes trouvées
+    </span>
+  </div>
+
+  <p-table
+    #table
+    [value]="societys"
+    [paginator]="true"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} demandes"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    [tableStyle]="{ 'min-width': '60rem' }"
+    [scrollable]="true"
+    [responsiveLayout]="'stack'"
+    [breakpoint]="'960px'"
+    styleClass="modern-table"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Domaine</th>
+        <th>Location</th>
+        <th>Details</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-soc>
+      <tr>
+        <td>{{ soc.id }}</td>
+        <td>{{ soc.name }}</td>
+        <td>{{ soc.domaine }}</td>
+        <td>{{ soc.location }}</td>
+        <td>
+          <p-button [ngClass]="{ 'table-btn': true }" severity="secondary"
+            >Details</p-button
+          >
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

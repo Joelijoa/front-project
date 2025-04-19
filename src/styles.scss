@@ -49,7 +49,24 @@ body {
     --p-datatable-row-color: #ffffff;
     --p-datatable-row-color: #000000;
     --p-datatable-header-cell-background: #010327 ;
-  
+
+    --p-select-option-focus-background: white;
+    --p-select-option-selected-color: #000000;
+    --p-select-option-selected-focus-color	: #000000;
+    --p-select-option-focus-color	: #000000;
+    
+    --p-datepicker-panel-background	: #ffffff;
+    --p-datepicker-panel-color	: #000000;
+    --p-datepicker-header-background	: #010327;
+    --p-datepicker-header-color	: #000000;
+    --p-datepicker-date-color	: #000000;
+    --p-datepicker-week-day-color: #000000;
+    --p-datepicker-header-color: white;
+    --p-datepicker-header-padding: 0.25rem 0.5rem;
+    // --p-inputgroup-addon-border-color: var(--border-color);
+    --p-popover-content-padding: 0;
+    
+    --p-menubar-mobile-button-hover-background	: #010327;
     .p-select-overlay {
       --p-text-color:#000000;
       --p-inputtext-background: transparent;
