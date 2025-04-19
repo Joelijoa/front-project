@@ -1,61 +1,134 @@
-<div class="header">Requests</div>
-
-<p-card>
-  <ng-template pTemplate="content">
-    <div class="filters">
-      <p-datepicker
-        placeholder="Start date"
-        [iconDisplay]="'input'"
-        [showIcon]="true"
-        [showButtonBar]="true"
-        inputId="icondisplay"
-      />
-      <p-datepicker
-        placeholder="End date"
-        [iconDisplay]="'input'"
-        [showIcon]="true"
-        [showButtonBar]="true"
-        inputId="icondisplay"
-      />
-      <p-select
-        [options]="customers"
-        [checkmark]="true"
-        optionLabel="label"
-        [showClear]="true"
-        placeholder="Customers"
-        class="w-full md:w-56"
-      />
-      <p-inputgroup>
-        <p-inputgroup-addon>
-          <i class="pi pi-search"></i>
-        </p-inputgroup-addon>
-        <input pInputText placeholder="Search..." />
-      </p-inputgroup>
+<div class="requests-container">
+  <div class="page-header">
+    <div class="header-content">
+      <h1>Demandes</h1>
+      <p class="subtitle">Gérez toutes les demandes disponibles sur la plateforme.</p>
     </div>
+  </div>
+
+  <!-- Filtres et recherche alignés sur une ligne -->
+  <div class="filters-row">
+    <p-datepicker
+      placeholder="Date de début"
+      [iconDisplay]="'input'"
+      [showIcon]="true"
+      [showButtonBar]="true"
+      styleClass="filter-calendar"
+      [style]="{'background-color': '#ffffff'}"
+      [inputStyle]="{'background-color': '#ffffff', 'color': '#212529'}"
+    ></p-datepicker>
     
-    <p-table #table [value]="requests" [paginator]="true" [rows]="10">
+    <p-datepicker
+      placeholder="Date de fin"
+      [iconDisplay]="'input'"
+      [showIcon]="true"
+      [showButtonBar]="true"
+      styleClass="filter-calendar"
+      [style]="{'background-color': '#ffffff'}"
+      [inputStyle]="{'background-color': '#ffffff', 'color': '#212529'}"
+    ></p-datepicker>
+    
+    <p-select
+      [options]="customers"
+      [checkmark]="true"
+      optionLabel="label"
+      [showClear]="true"
+      placeholder="Clients"
+      styleClass="filter-dropdown"
+      [style]="{'background-color': '#ffffff'}"
+      class="w-full md:w-56"
+    ></p-select>
+    
+    <span class="search-container">
+      <i class="pi pi-search"></i>
+      <input pInputText type="text" placeholder="Rechercher une demande..." class="search-input" />
+    </span>
+  </div>
+
+  <!-- Badge pour indiquer le nombre de demandes -->
+  <div class="results-info">
+    <span class="result-count">
+      <i class="pi pi-list"></i>
+      {{ requests.length }} demandes trouvées
+    </span>
+  </div>
+
+  <!-- Tableau des demandes modernisé -->
+  <div class="offers-table-container">
+    <p-table 
+      #table 
+      [value]="requests" 
+      [paginator]="true" 
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} demandes"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      [tableStyle]="{ 'min-width': '60rem' }"
+      [scrollable]="true"
+      [responsiveLayout]="'stack'"
+      [breakpoint]="'960px'"
+      styleClass="modern-table"
+    >
       <ng-template pTemplate="header">
         <tr>
-          <th>Date</th>
-          <th>Customers</th>
-          <th>Poste</th>
-          <th>Closing date</th>
-          <th>Details</th>
+          <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon></th>
+          <th pSortableColumn="customer">Client <p-sortIcon field="customer"></p-sortIcon></th>
+          <th pSortableColumn="poste">Poste <p-sortIcon field="poste"></p-sortIcon></th>
+          <th pSortableColumn="closingDate">Date de clôture <p-sortIcon field="closingDate"></p-sortIcon></th>
+          <th>Actions</th>
         </tr>
       </ng-template>
+      
       <ng-template pTemplate="body" let-request>
         <tr>
-          <td>{{ request.date }}</td>
-          <td>{{ request.customer }}</td>
-          <td>{{ request.poste }}</td>
-          <td>{{ request.closingDate }}</td>
           <td>
-            <p-button [ngClass]="{'table-btn':true}" severity="secondary"
-              >See more</p-button
-            >
+            <span class="p-column-title">Date</span>
+            <span class="cell-content">{{ request.date }}</span>
+          </td>
+          
+          <td>
+            <span class="p-column-title">Client</span>
+            <span class="customer-chip">{{ request.customer }}</span>
+          </td>
+          
+          <td>
+            <span class="p-column-title">Poste</span>
+            <span class="cell-content position-title">{{ request.poste }}</span>
+          </td>
+          
+          <td>
+            <span class="p-column-title">Date de clôture</span>
+            <span class="cell-content">{{ request.closingDate }}</span>
+          </td>
+          
+          <td>
+            <span class="p-column-title">Actions</span>
+            <div class="action-buttons">
+              <button pButton pRipple type="button" icon="pi pi-eye" 
+                class="p-button-rounded p-button-text view-btn"
+                pTooltip="Voir les détails" tooltipPosition="top"></button>
+              <button pButton pRipple type="button" icon="pi pi-pencil" 
+                class="p-button-rounded p-button-text edit-btn"
+                pTooltip="Modifier" tooltipPosition="top"></button>
+              <button pButton pRipple type="button" icon="pi pi-trash" 
+                class="p-button-rounded p-button-text delete-btn"
+                pTooltip="Supprimer" tooltipPosition="top"></button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="5">
+            <div class="empty-message">
+              <i class="pi pi-search"></i>
+              <h3>Aucune demande trouvée</h3>
+              <p>Modifiez vos filtres de recherche pour voir les demandes.</p>
+            </div>
           </td>
         </tr>
       </ng-template>
     </p-table>
-  </ng-template>
-</p-card>
+  </div>
+</div>

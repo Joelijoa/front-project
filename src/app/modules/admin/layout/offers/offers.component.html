@@ -1,0 +1,324 @@
+<!-- En-tête avec titre et actions -->
+<div class="offers-container">
+  <div class="page-header">
+    <div class="header-content">
+      <h1>Offres d'emploi</h1>
+      <p class="subtitle">Gérez toutes les offres d'emploi disponibles sur la plateforme.</p>
+    </div>
+    <button pButton pRipple type="button" icon="pi pi-plus" label="Nouvelle offre" 
+      class="add-offer-btn" (click)="onAddNewOffer()"></button>
+  </div>
+
+  <!-- Filtres et recherche alignés sur une ligne -->
+  <div class="filters-row">
+    <p-calendar
+      placeholder="Date de début"
+      [showIcon]="true"
+      [showButtonBar]="true"
+      [showClear]="true"
+      styleClass="filter-calendar"
+      [style]="{'background-color': '#ffffff'}"
+      [inputStyle]="{'background-color': '#ffffff', 'color': '#212529'}"
+    ></p-calendar>
+    
+    <p-calendar
+      placeholder="Date de fin"
+      [showIcon]="true"
+      [showButtonBar]="true"
+      [showClear]="true"
+      styleClass="filter-calendar"
+      [style]="{'background-color': '#ffffff'}"
+      [inputStyle]="{'background-color': '#ffffff', 'color': '#212529'}"
+    ></p-calendar>
+    
+    <p-dropdown
+      [options]="customers"
+      optionLabel="name"
+      [showClear]="true"
+      placeholder="Clients"
+      styleClass="filter-dropdown"
+      [style]="{'background-color': '#ffffff'}"
+      [panelStyle]="{'background-color': '#ffffff'}"
+      [filter]="true"
+      filterBy="name"
+    ></p-dropdown>
+    
+    <span class="search-container">
+      <i class="pi pi-search"></i>
+      <input pInputText type="text" placeholder="Rechercher une offre..." class="search-input" />
+    </span>
+  </div>
+
+  <!-- Badge pour indiquer le nombre d'offres -->
+  <div class="results-info">
+    <span class="result-count">
+      <i class="pi pi-list"></i>
+      {{ offers.length }} offres trouvées
+    </span>
+  </div>
+
+  <!-- Tableau des offres modernisé -->
+  <div class="offers-table-container">
+    <p-table 
+      #table 
+      [value]="offers" 
+      [paginator]="true" 
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} offres"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      [tableStyle]="{ 'min-width': '60rem' }"
+      [scrollable]="true"
+      [responsiveLayout]="'stack'"
+      [breakpoint]="'960px'"
+      styleClass="modern-table"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon></th>
+          <th pSortableColumn="customer">Client <p-sortIcon field="customer"></p-sortIcon></th>
+          <th pSortableColumn="poste">Poste <p-sortIcon field="poste"></p-sortIcon></th>
+          <th pSortableColumn="closingDate">Date de clôture <p-sortIcon field="closingDate"></p-sortIcon></th>
+          <th pSortableColumn="salary">Salaire <p-sortIcon field="salary"></p-sortIcon></th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+      
+      <ng-template pTemplate="body" let-offer>
+        <tr>
+          <td>
+            <span class="p-column-title"></span>
+            <span class="cell-content">{{ offer.date | date:'dd/MM/yyyy' }}</span>
+          </td>
+          
+          <td>
+            <span class="p-column-title"></span>
+            <span class="customer-chip">{{ offer.customer }}</span>
+          </td>
+          
+          <td>
+            <span class="p-column-title"></span>
+            <span class="cell-content position-title">{{ offer.poste }}</span>
+          </td>
+          
+          <td>
+            <span class="p-column-title"></span>
+            <span class="cell-content">{{ offer.closingDate | date:'dd/MM/yyyy' }}</span>
+          </td>
+          
+          <td>
+            <span class="p-column-title"></span>
+            <span class="cell-content">{{ offer.salary }}</span>
+          </td>
+          
+          <td>
+            <span class="p-column-title"></span>
+            <div class="action-buttons">
+              <button pButton pRipple type="button" icon="pi pi-eye" 
+                class="p-button-rounded p-button-text view-btn"
+                pTooltip="Voir les détails" tooltipPosition="top" (click)="viewOffer(offer)"></button>
+              <button pButton pRipple type="button" icon="pi pi-pencil" 
+                class="p-button-rounded p-button-text edit-btn"
+                pTooltip="Modifier" tooltipPosition="top" (click)="editOffer(offer)"></button>
+              <button pButton pRipple type="button" icon="pi pi-trash" 
+                class="p-button-rounded p-button-text delete-btn"
+                pTooltip="Supprimer" tooltipPosition="top" (click)="deleteOffer(offer)"></button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="6">
+            <div class="empty-message">
+              <i class="pi pi-search"></i>
+              <h3>Aucune offre d'emploi trouvée</h3>
+              <p>Ajoutez votre première offre d'emploi ou modifiez vos filtres de recherche.</p>
+              <button pButton pRipple type="button" icon="pi pi-plus" 
+                label="Nouvelle offre" class="add-offer-btn empty-add-btn" 
+                (click)="onAddNewOffer()"></button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <!-- Dialogue pour ajouter/modifier une offre -->
+  <p-dialog 
+    [(visible)]="showOfferDialog" 
+    [style]="{width: '50vw'}" 
+    [modal]="true" 
+    [draggable]="false" 
+    [resizable]="false" 
+    styleClass="offer-dialog"
+  >
+    <ng-template pTemplate="header">
+      <h2>{{ editMode ? "Modifier l'offre" : "Nouvelle offre d'emploi" }}</h2>
+    </ng-template>
+    
+    <form [formGroup]="offerForm" (ngSubmit)="saveOffer()">
+      <p-stepper [value]="1">
+        <p-step-list>
+          <p-step [value]="1">Informations principales</p-step>
+          <p-step [value]="2">Description et exigences</p-step>
+          <p-step [value]="3">Informations complémentaires</p-step>
+        </p-step-list> 
+    
+        <p-step-panels>
+          <!-- Step 1: Informations principales -->
+          <p-step-panel [value]="1">
+            <ng-template #content>
+              <div class="form-field">
+                <label for="title">Titre du poste *</label>
+                <input
+                  id="title"
+                  type="text"
+                  pInputText
+                  formControlName="poste"
+                  placeholder="Ex: Développeur Full Stack"
+                />
+              </div>
+
+              <div class="form-field">
+                <label for="company">Client *</label>
+                <p-dropdown
+                  id="company"
+                  [options]="customers"
+                  formControlName="customer"
+                  optionLabel="name"
+                  placeholder="Sélectionnez un client"
+                  [filter]="true"
+                  filterBy="name"
+                ></p-dropdown>
+              </div>
+      
+              <div class="form-field">
+                <label for="location">Localisation *</label>
+                <input
+                  id="location"
+                  type="text"
+                  pInputText
+                  formControlName="location"
+                  placeholder="Ex: Casablanca, Maroc"
+                />
+              </div>
+      
+              <div class="form-field">
+                <label for="contractType">Type de contrat *</label>
+                <p-dropdown
+                  id="contractType"
+                  [options]="contractTypes"
+                  formControlName="contractType"
+                  optionLabel="label"
+                  placeholder="Sélectionnez un type de contrat"
+                ></p-dropdown>
+              </div>
+      
+              <div class="form-field">
+                <label for="salary">Salaire</label>
+                <div class="p-inputgroup">
+                  <input
+                    id="salary"
+                    type="text"
+                    pInputText
+                    formControlName="salary"
+                    placeholder="Ex: 40000"
+                  />
+                  <span class="p-inputgroup-addon">MAD</span>
+                </div>
+              </div>
+            </ng-template>
+          </p-step-panel>
+    
+          <!-- Step 2: Description et exigences -->
+          <p-step-panel [value]="2">
+            <ng-template #content>
+              <div class="form-field">
+                <label for="description">Description du poste *</label>
+                <p-editor
+                  id="description"
+                  formControlName="description"
+                  [style]="{ height: '200px' }"
+                ></p-editor>
+              </div>
+
+              <div class="form-field">
+                <label for="requirements">Expérience requise *</label>
+                <p-editor
+                  id="requirements"
+                  formControlName="requirements"
+                  [style]="{ height: '200px' }"
+                ></p-editor>
+              </div>
+      
+              <div class="form-field">
+                <label for="process">Processus de recrutement</label>
+                <p-editor
+                  id="process"
+                  formControlName="process"
+                  [style]="{ height: '150px' }"
+                ></p-editor>
+              </div>
+            </ng-template>
+          </p-step-panel>
+    
+          <!-- Step 3: Informations complémentaires -->
+          <p-step-panel [value]="3">
+            <ng-template #content>
+              <div class="form-field">
+                <label for="companyDescription">Description de l'entreprise</label>
+                <p-editor
+                  id="companyDescription"
+                  formControlName="companyDescription"
+                  [style]="{ height: '150px' }"
+                ></p-editor>
+              </div>
+
+              <div class="form-field">
+                <label for="benefits">Avantages</label>
+                <p-editor
+                  id="benefits"
+                  formControlName="benefits"
+                  [style]="{ height: '150px' }"
+                ></p-editor>
+              </div>
+      
+              <div class="form-field">
+                <label for="closingDate">Date limite de candidature *</label>
+                <p-calendar
+                  id="closingDate"
+                  formControlName="closingDate"
+                  [showIcon]="true"
+                  [showButtonBar]="true"
+                  dateFormat="dd/mm/yy"
+                ></p-calendar>
+              </div>
+            </ng-template>
+          </p-step-panel>
+        </p-step-panels>
+      </p-stepper>
+    </form>
+
+    <ng-template pTemplate="footer">
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="Annuler"
+        class="p-button-text cancel-btn"
+        (click)="closeOfferDialog()"
+      ></button>
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="Enregistrer"
+        class="save-btn"
+        (click)="saveOffer()"
+        [disabled]="!offerForm.valid"
+      ></button>
+    </ng-template>
+  </p-dialog>
+</div>

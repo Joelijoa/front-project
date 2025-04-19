@@ -116,7 +116,7 @@ export const routes: Routes = [
         title: 'Profil Entreprise'
     },
     {
-        path: 'admin/offers',
+        path: 'admin',
         loadChildren: () =>
           import('./modules/admin/admin.module').then((m) => m.AdminModule),
         title: 'Admin - Yobber',

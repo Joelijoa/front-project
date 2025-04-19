@@ -2,52 +2,62 @@
 
 body {
   --border-color: rgb(206, 201, 201);
-  --background-color: white;
-  --text-color: black;
-  --p-card-background : var(--background-color);
-  --p-card-color: var(--text-color);
-  --p-card-border-radius: 10px;
-  --p-card-body-padding: 10px ;
-  --p-card-shadow: 0 .125rem .25rem rgb(0 0 0 / 50%);
-  --p-inputgroup-addon-background	: var(--background-color);
-  --p-inputgroup-addon-color: rgb(61, 60, 60);
-  --p-inputgroup-addon-border-color: var(--border-color);
-  --p-inputtext-background: var(--background-color);
-  --p-inputtext-border-color: var(--border-color);
-  --p-datatable-row-background	: var(--background-color);
-  --p-datatable-row-color	: var(--text-color);
-  --p-datatable-body-cell-padding: 5px 10px;
-  --p-datatable-body-cell-border-color: var(--border-color);
-  --p-datatable-header-cell-background: rgb(81, 81, 81);
-  --p-paginator-nav-button-selected-background: var(--p-primary-color) !important;
-  --p-select-background: var(--background-color);
-  --p-select-color: var(--text-color);
-  --p-select-option-color: var(--text-color);
-  --p-select-overlay-color: var(--text-color);
-  --p-select-border-color	: var(--border-color);
-  // --p-select-option-selected-color: var(--text-color);
-  // --p-select-option-focus-color: var(--text-color);
+  // --background-color: white;
+  // --text-color: black;
+  // --p-card-background : var(--background-color);
+  // --p-card-color: var(--text-color);
+  // --p-card-border-radius: 10px;
+  // --p-card-body-padding: 10px ;
+  // --p-card-shadow: 0 .125rem .25rem rgba(255, 11, 11, 0.5);
+  // --p-inputgroup-addon-background	: var(--background-color);
+  // --p-inputgroup-addon-color: rgb(61, 60, 60);
+  // --p-inputgroup-addon-border-color: var(--border-color);
+  // --p-inputtext-background: var(--background-color);
+  // --p-inputtext-border-color: var(--border-color);
+  // --p-datatable-row-background	: var(--background-color);
+  // --p-datatable-row-color	: var(--text-color);
+  // --p-datatable-body-cell-padding: 5px 10px;
+  // --p-datatable-body-cell-border-color: var(--border-color);
+  // --p-datatable-header-cell-background: rgb(81, 81, 81);
+  // --p-paginator-nav-button-selected-background: var(--p-primary-color) !important;
+  // --p-select-background: var(--background-color);
+  // --p-select-color: var(--text-color);
+  // --p-select-option-color: var(--text-color);
+  // --p-select-overlay-color: var(--text-color);
+  // --p-select-border-color	: var(--border-color);
 }
 
 .layout {
   height: 100vh;
 
+  &.sidebar-collapsed {
+    .main-content {
+      margin-left: var(--sidebar-width-collapsed) ;
+    }
+  }
+
   .main-content {
-    margin-left: var(--sidebar-width);
+    margin-left: var(--sidebar-width) ;
     padding: 5px;
     transition: margin-left 0.3s ease-out;
 
     .appBar {
       height: 50px;
-      display: flex;
+      width: 100%;
+      display: flex !important;
       justify-content: end;
       gap: 10px;
 
-      .item {
-        width: 50px;
+      p-button.item button {
+        width: 50px ;
         height: 50px;
         border-radius: 50%;
-        background-color: aquamarine;
+        background-color: var(--color-primary);
+
+        .p-button-icon {
+          color: #fff;
+          font-size: 15px;
+        }
       }
     }
 
@@ -68,11 +78,7 @@ body {
     }
   }
 
-  &.sidebar-collapsed {
-    .main-content {
-      margin-left: var(--sidebar-width-collapsed);
-    }
-  }
+  
 
   .filters {
     display: flex;
