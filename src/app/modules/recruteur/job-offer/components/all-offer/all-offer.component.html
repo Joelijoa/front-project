@@ -16,7 +16,7 @@
   </div>
 
   <!-- Filtres et recherche -->
-  <div class="filters-container">
+  <!-- <div class="filters-container">
     <div class="search-container">
       <span class="p-input-icon-left search-input">
         <i class="pi pi-search"></i>
@@ -57,8 +57,78 @@
         pTooltip="Réinitialiser les filtres">
       </button>
     </div>
-  </div>
+  </div> -->
   
+  <div class="filters-container">
+    <p-input-group>
+      <p-inputgroup-addon>
+        <i class="pi pi-search"></i>
+      </p-inputgroup-addon>
+      <input
+          type="text"
+          pInputText
+          [(ngModel)]="searchText"
+          placeholder="Rechercher une offre..."
+          (keyup.enter)="onSearch()"
+        />
+    </p-input-group>
+
+    <p-multiSelect
+      [options]="statusOptions"
+      [(ngModel)]="selectedStatuses"
+      optionLabel="label"
+      placeholder="Statut"
+      [style]="{ 'min-width': '150px' }"
+      (onChange)="onStatusFilterChange()"
+      styleClass="status-filter"
+    >
+      <ng-template let-value pTemplate="selectedItems">
+        <div class="inline-flex">
+          <div *ngIf="value && value.length">
+            Statut: {{ value.length }} sélectionnés
+          </div>
+          <div *ngIf="!value || !value.length">Tous les statuts</div>
+        </div>
+      </ng-template>
+    </p-multiSelect>
+
+    <p-multiSelect
+      [options]="contractTypeOptions"
+      [(ngModel)]="selectedTypes"
+      optionLabel="label"
+      placeholder="Type de contrat"
+      [style]="{ 'min-width': '180px' }"
+      (onChange)="onTypeFilterChange()"
+      styleClass="type-filter"
+    >
+      <ng-template let-value pTemplate="selectedItems">
+        <div class="inline-flex">
+          <div *ngIf="value && value.length">
+            Type: {{ value.length }} sélectionnés
+          </div>
+          <div *ngIf="!value || !value.length">Tous les contrats</div>
+        </div>
+      </ng-template>
+    </p-multiSelect>
+
+    <button
+      pButton
+      pRipple
+      [style]="{ 'width': '50px' }"
+      type="button"
+      icon="pi pi-filter-slash"
+      class="p-button-text p-button-sm reset-button"
+      (click)="clearFilters()"
+      [ngClass]="{'filter-button': true}"
+      [disabled]="
+        !searchText &&
+        selectedStatuses.length === 0 &&
+        selectedTypes.length === 0
+      "
+      pTooltip="Réinitialiser les filtres"
+      tooltipPosition="bottom"
+    ></button>
+  </div>
   <!-- Badge pour indiquer le nombre d'offres -->
   <div class="results-info">
     <p-chip [label]="filteredOffers.length + ' offres trouvées'" styleClass="count-chip"></p-chip>
@@ -66,23 +136,23 @@
 
   <!-- Tableau des offres -->
   <div class="offers-table-container">
-    <p-table 
-      [value]="filteredOffers" 
-      [paginator]="true" 
+    <p-table
+      [value]="filteredOffers"
+      [paginator]="true"
       [rows]="10"
-      [rowsPerPageOptions]="[5,10,25,50]"
+      [rowsPerPageOptions]="[5, 10, 25, 50]"
       [showCurrentPageReport]="true"
       currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} offres"
-      [rowHover]="true"
+      [rowHover]="false"
       styleClass="p-datatable-sm p-datatable-gridlines offers-table"
-      [tableStyle]="{'min-width': '60rem'}"
+      [tableStyle]="{ 'min-width': '60rem' }"
       [scrollable]="true"
       [responsiveLayout]="'stack'"
-      responsiveLayout="stack" 
+      responsiveLayout="stack"
       [breakpoint]="'960px'"
-      sortField="publishedDate" 
-      [sortOrder]="-1">
-      
+      sortField="publishedDate"
+      [sortOrder]="-1"
+    >
       <ng-template pTemplate="header">
         <tr>
           <th pSortableColumn="title" style="min-width: 200px">Titre <p-sortIcon field="title"></p-sortIcon></th>

@@ -17,6 +17,8 @@ import { Router } from '@angular/router';
 import { OfferFormComponent } from '../offer-form/offer-form.component';
 import { OfferDetailsComponent } from '../offer-details/offer-details.component';
 import { JobOffer } from '../../models/job-offer.model';
+import { InputGroup } from 'primeng/inputgroup';
+import { InputGroupAddon } from 'primeng/inputgroupaddon';
 
 @Component({
   selector: 'app-all-offer',
@@ -37,7 +39,9 @@ import { JobOffer } from '../../models/job-offer.model';
     ChipModule,
     BadgeModule,
     OfferFormComponent,
-    OfferDetailsComponent
+    OfferDetailsComponent,
+    InputGroup,
+    InputGroupAddon
   ],
   templateUrl: './all-offer.component.html',
   styleUrl: './all-offer.component.scss'

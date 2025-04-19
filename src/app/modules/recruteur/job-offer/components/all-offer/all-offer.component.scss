@@ -328,6 +328,23 @@
     font-size: 0.875rem;
   }
 }
+.filters-container {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  background-color: #ffffff !important;
+
+  > .filter-button {
+    width: 40px; // or whatever fits your design
+    flex: 0 0 auto;
+  }
+
+  // Equal width for all other children
+  > *:not(.filter-button) {
+    flex: 1;
+    min-width: 0; // important to avoid overflowing
+  }
+}
 
 /* Style des multiselect */
 ::ng-deep {

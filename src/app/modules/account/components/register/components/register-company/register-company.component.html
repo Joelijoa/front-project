@@ -110,6 +110,21 @@
                             Le domaine d'activité est requis
                         </small>
                     </div>
+                    <div class="form-field">
+                        <label for="dossierJuridique">Dossier Juridique</label>
+                        <p-fileUpload
+                            mode="basic"
+                            name="dossierJuridique"
+                            [auto]="true"
+                            accept=".pdf,.doc,.docx"
+                            (onSelect)="onFileSelect($event)"
+                            chooseLabel="Télécharger un fichier"
+                            [style]="{'width':'100%', 'background-color':'grey', 'color': 'white','border-color':'grey'}"
+                        ></p-fileUpload>
+                        <small class="error-message" *ngIf="registerForm.get('dossierJuridique')?.invalid && registerForm.get('dossierJuridique')?.touched">
+                            Le fichier est requis
+                        </small>
+                    </div>
                 </div>
 
                 <div class="form-footer">

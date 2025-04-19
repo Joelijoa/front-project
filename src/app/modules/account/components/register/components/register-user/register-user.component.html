@@ -62,6 +62,13 @@
                             Le mot de passe est requis
                         </small>
                     </div>
+                    <div class="form-field">
+                        <label for="password">Confirmer votre mot de passe</label>
+                        <p-password id="password" formControlName="password" [toggleMask]="true" placeholder="Confirmer le mot de passe"></p-password>
+                        <small class="error-message" *ngIf="registerForm.get('password')?.errors?.['required'] && registerForm.get('password')?.touched">
+                            Le mot de passe est requis
+                        </small>
+                    </div>
 
                     <div class="form-field">
                         <label for="pays">Pays</label>

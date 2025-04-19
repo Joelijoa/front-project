@@ -83,5 +83,28 @@ body {
     --p-editor-content-background	: white;
     --p-editor-toolbar-item-color	: #000000;
     --p-editor-content-color	: #000000;
+    --p-multiselect-option-color	: #000000;
+    --p-multiselect-overlay-background:	white;
+    --p-multiselect-color	: #000000;
+    --p-multiselect-background	: white;
+    --p-checkbox-background	: white;
+    --p-multiselect-option-selected-color	: #000000;
+    --p-multiselect-option-selected-color	: #000000;
+    --p-multiselect-option-focus-color	: #000000;
+    --p-multiselect-option-focus-background	: white;
+    --p-multiselect-option-selected-focus-color	: #000000;
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #f0f0f0;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background-color: #32d50e;
+      border-radius: 6px;
+      border: 3px solid #f0f0f0;
+    }
     
 }

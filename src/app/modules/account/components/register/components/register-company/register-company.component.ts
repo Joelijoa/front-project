@@ -13,6 +13,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 // Components
 import { FooterComponent } from '../../../../../../core/components/footer/footer.component';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @Component({
     selector: 'app-register-company',
@@ -29,11 +30,14 @@ import { FooterComponent } from '../../../../../../core/components/footer/footer
         CalendarModule,
         PasswordModule,
         CheckboxModule,
-        FooterComponent
+        FooterComponent,
+        FileUploadModule
     ]
 })
 export class RegisterCompanyComponent implements OnInit {
     registerForm!: FormGroup;
+    fichierJuridique: File | null = null;
+
 
     civilites = [
         { label: 'M.', value: 'M' },
@@ -72,6 +76,7 @@ export class RegisterCompanyComponent implements OnInit {
         { label: 'Commerce', value: 'COM' }
     ];
 
+    
     constructor(
         private fb: FormBuilder,
         private router: Router
@@ -96,6 +101,7 @@ export class RegisterCompanyComponent implements OnInit {
             formeJuridique: ['', Validators.required],
             typeSociete: ['', Validators.required],
             domaineActivite: ['', Validators.required],
+            dossierJuridique: [null, Validators.required],
             acceptConditions: [false, Validators.requiredTrue]
         });
     }
@@ -111,6 +117,16 @@ export class RegisterCompanyComponent implements OnInit {
                     control.markAsTouched();
                 }
             });
+        }
+    }
+    onFileSelect(event: any): void {
+        const file = event.files[0];
+        if (file) {
+            this.fichierJuridique = file;
+            this.registerForm.patchValue({
+                dossierJuridique: file
+            });
+            this.registerForm.get('dossierJuridique')?.updateValueAndValidity();
         }
     }
 }

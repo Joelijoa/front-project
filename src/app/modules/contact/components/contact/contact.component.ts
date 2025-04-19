@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextarea } from 'primeng/inputtextarea';
 import { ToastModule } from 'primeng/toast';
+import { FooterComponent } from "../../../../core/components/footer/footer.component";
 
 @Component({
   selector: 'app-contact',
@@ -19,8 +20,9 @@ import { ToastModule } from 'primeng/toast';
     ButtonModule,
     InputTextModule,
     InputTextarea,
-    ToastModule
-  ]
+    ToastModule,
+    FooterComponent
+]
 })
 export class ContactComponent implements OnInit {
   contactForm: FormGroup;

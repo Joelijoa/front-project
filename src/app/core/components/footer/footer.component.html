@@ -12,34 +12,21 @@
     <div class="footer-section">
         <h3>Navigation rapide</h3>
         <ul>
-          <li>Accueil</li>
-          <li>Plan du site</li>
-          <li>Newsletters</li>
-          <li>Nos partenaires</li>
-          <li>Nous rejoindre</li>
+          <li><a [routerLink]="['/']">Accueil</a></li>
+          <li><a [routerLink]="['/account/register']">Nos partenaires</a></li>
+          <li><a [routerLink]="['/account/register']">Nous rejoindre</a></li>
         </ul>
       </div>
     <div class="footer-section">
-      <h3>Les Offres par fonction</h3>
+      <h3>Les Offres par secteur</h3>
       <ul>
-        <li>Commerciale/vente/Export</li>
-        <li>Marketing / E-business</li>
-        <li>RH / Personnel / Formation</li>
-        <li>Informatique / Electronique</li>
-        <li>Banque / Finance</li>
+        <li><a [routerLink]="['/offers']"></a>Commerciale/vente/Export</li>
+        <li><a [routerLink]="['/offers']"></a>Marketing / E-business</li>
+        <li><a [routerLink]="['/offers']"></a>RH / Personnel / Formation</li>
+        <li><a [routerLink]="['/offers']"></a>Informatique / Electronique</li>
+        <li><a [routerLink]="['/offers']"></a>Banque / Finance</li>
       </ul>
     </div>
-
-    <div class="footer-section">
-        <h3>Les Offres par secteur</h3>
-        <ul>
-          <li>Commerciale/vente/Export</li>
-          <li>Marketing / E-business</li>
-          <li>RH / Personnel / Formation</li>
-          <li>Informatique / Electronique</li>
-          <li>Banque / Finance</li>
-        </ul>
-      </div>
   
     <div class="footer-section">
       <h3>Contacts</h3>
@@ -47,7 +34,7 @@
         <li>{{tel}}</li>
         <li>{{mail}}</li>
         <li>{{adress}}</li>
-        <li>Nous contacter</li>
+        <li><a [routerLink]="['/contact']"></a>Nous contacter</li>
       </ul>
     </div>
   
