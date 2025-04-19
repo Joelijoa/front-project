@@ -1,10 +1,11 @@
 <p-dialog [(visible)]="visible" [style]="{width: '50vw'}" [modal]="true" [draggable]="false" [resizable]="false">
   <ng-template pTemplate="header">
-    <h2>{{offer?.title}}</h2>
+    <h2>Détails</h2>
   </ng-template>
 
-  <div class="offer-details" *ngIf="offer">
-    <div class="offer-header">
+  <div class="offer-details-container" *ngIf="offer">
+    <!-- En-tête de l'offre -->
+    <div class="detail-section company-header">
       <div class="company-info">
         <h3>{{offer.company}}</h3>
         <div class="location">
@@ -20,34 +21,34 @@
       </div>
     </div>
 
-    <div class="offer-content">
-      <div class="section">
-        <h3>Description du poste</h3>
-        <div class="content" [innerHTML]="offer.description"></div>
-      </div>
-
-      <div class="section">
-        <h3>Expérience requise</h3>
-        <div class="content" [innerHTML]="offer.requirements"></div>
-      </div>
-
-      <div class="section" *ngIf="offer.process">
-        <h3>Processus d'entretien</h3>
-        <div class="content" [innerHTML]="offer.process"></div>
-      </div>
-
-      <div class="section" *ngIf="offer.companyDescription">
-        <h3>À propos de l'entreprise</h3>
-        <div class="content" [innerHTML]="offer.companyDescription"></div>
-      </div>
-
-      <div class="section" *ngIf="offer.benefits">
-        <h3>Avantages</h3>
-        <div class="content" [innerHTML]="offer.benefits"></div>
-      </div>
+    <!-- Contenu principal -->
+    <div class="detail-section">
+      <h3>Description du poste</h3>
+      <div class="content" [innerHTML]="offer.description"></div>
     </div>
 
-    <div class="offer-footer">
+    <div class="detail-section">
+      <h3>Expérience requise</h3>
+      <div class="content" [innerHTML]="offer.requirements"></div>
+    </div>
+
+    <div class="detail-section" *ngIf="offer.process">
+      <h3>Processus d'entretien</h3>
+      <div class="content" [innerHTML]="offer.process"></div>
+    </div>
+
+    <div class="detail-section" *ngIf="offer.companyDescription">
+      <h3>À propos de l'entreprise</h3>
+      <div class="content" [innerHTML]="offer.companyDescription"></div>
+    </div>
+
+    <div class="detail-section" *ngIf="offer.benefits">
+      <h3>Avantages</h3>
+      <div class="content" [innerHTML]="offer.benefits"></div>
+    </div>
+
+    <!-- Pied de page avec statistiques -->
+    <div class="detail-section footer-stats">
       <div class="dates">
         <div class="date-item">
           <span class="label">Publiée le :</span>

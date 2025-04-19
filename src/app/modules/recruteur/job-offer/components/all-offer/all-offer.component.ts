@@ -259,34 +259,34 @@ export class AllOfferComponent implements OnInit {
   }
   
   getStatusSeverity(status: string): 'success' | 'info' | 'warn' | 'danger' | 'secondary' | undefined {
-    switch (status) {
-      case 'active':
-        return 'success';
+    switch (status.toLowerCase()) {
+      case 'published':
+        return 'success'; // vert
       case 'draft':
-        return 'secondary';
+        return 'warn';    // orange
+      case 'closed':
+        return 'danger';  // rouge
       case 'expired':
-        return 'danger';
       case 'archived':
-        return 'info';
       default:
         return 'secondary';
     }
   }
   
   getContractTypeSeverity(type: string): 'success' | 'info' | 'warn' | 'danger' | 'secondary' | 'contrast' | undefined {
-    switch (type) {
+    // CDI et CDD seront en gris (secondary)
+    switch (type.toLowerCase()) {
       case 'cdi':
-        return 'success';
       case 'cdd':
-        return 'warn';
+        return 'secondary'; // gris
       case 'stage':
         return 'info';
       case 'alternance':
-        return 'secondary';
-      case 'freelance':
-        return 'danger';
-      default:
         return 'info';
+      case 'freelance':
+        return 'contrast';
+      default:
+        return 'secondary';
     }
   }
   
@@ -322,17 +322,12 @@ export class AllOfferComponent implements OnInit {
     }
   }
   
-  getRemoteLabel(remote: string): string {
-    switch (remote) {
-      case 'remote':
-        return 'Télétravail';
-      case 'hybrid':
-        return 'Hybride';
-      case 'onsite':
-        return 'Sur site';
-      default:
-        return remote;
-    }
+  getRemoteLabel(isRemote: boolean): string {
+    return isRemote ? 'true' : 'false';
+  }
+  
+  getRemoteSeverity(isRemote: boolean): 'success' | 'info' | 'warn' | 'danger' | 'secondary' | 'contrast' {
+    return isRemote ? 'warn' : 'secondary'; // jaune pour true, gris pour false
   }
   
   editOffer(offer: JobOffer) {

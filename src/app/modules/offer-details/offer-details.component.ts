@@ -2,13 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from "../../core/components/footer/footer.component";
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-offer-details',
   templateUrl: './offer-details.component.html',
   styleUrls: ['./offer-details.component.scss'],
   standalone: true,
-  imports: [CommonModule, FooterComponent]
+  imports: [CommonModule, FooterComponent, DialogModule, ReactiveFormsModule, ButtonModule]
 })
 export class OfferDetailsComponent implements OnInit {
   offer: any = {
@@ -73,11 +76,68 @@ Notre culture d'entreprise est basée sur l'innovation, la collaboration et le d
     }
   };
 
-  constructor(private route: ActivatedRoute) {}
+  // Propriétés pour le dialogue de candidature
+  applyDialogVisible: boolean = false;
+  applyForm: FormGroup;
+  cvFileName: string = '';
+  coverLetterFileName: string = '';
+
+  constructor(private route: ActivatedRoute, private fb: FormBuilder) {
+    this.applyForm = this.fb.group({
+      cv: ['', Validators.required],
+      coverLetter: ['', Validators.required]
+    });
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       console.log('ID de l\'offre:', params['id']);
     });
+  }
+
+  // Méthodes pour la dialogue de candidature
+  showApplyDialog(): void {
+    this.applyDialogVisible = true;
+  }
+
+  onCvSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.cvFileName = file.name;
+      this.applyForm.patchValue({
+        cv: file
+      });
+    }
+  }
+
+  onCoverLetterSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.coverLetterFileName = file.name;
+      this.applyForm.patchValue({
+        coverLetter: file
+      });
+    }
+  }
+
+  submitApplication(): void {
+    if (this.applyForm.valid) {
+      // Logique pour soumettre la candidature
+      console.log('Application submitted', this.applyForm.value);
+      // Réinitialiser le formulaire
+      this.applyForm.reset();
+      this.cvFileName = '';
+      this.coverLetterFileName = '';
+      this.applyDialogVisible = false;
+      
+      // Afficher un message de confirmation (à implémenter)
+      // this.messageService.add({ severity: 'success', summary: 'Candidature envoyée', detail: 'Votre candidature a été envoyée avec succès.' });
+    } else {
+      // Marquer tous les champs comme touchés pour afficher les erreurs
+      Object.keys(this.applyForm.controls).forEach(key => {
+        const control = this.applyForm.get(key);
+        control?.markAsTouched();
+      });
+    }
   }
 } 

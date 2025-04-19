@@ -1,79 +1,137 @@
 <app-header-recruteur></app-header-recruteur>
 
 <div class="applications-container">
-  <div class="header">
-    <div class="header-left">
-      <h2>Candidatures reçues</h2>
+  <!-- En-tête avec titre et actions -->
+  <div class="page-header">
+    <div class="header-content">
+      <h1>Candidatures reçues</h1>
+      <p class="subtitle">Consultez et gérez toutes les candidatures pour vos offres d'emploi.</p>
+    </div>
+    <div class="header-actions">
       <button pButton pRipple 
         label="Voir les CV" 
         icon="pi pi-file"
-        class="p-button-text"
-        routerLink="../cv">
+        class="p-button-text btn-view-cv"
+        routerLink="/recruteur/applications/cv">
       </button>
-    </div>
-    <div class="search-container">
-      <span class="p-input-icon-left">
-        <i class="pi pi-search"></i>
-        <input type="text" pInputText [(ngModel)]="searchText" 
-          (input)="onSearch()" placeholder="Rechercher..." />
-      </span>
     </div>
   </div>
 
-  <div class="content">
-    <p-table [value]="filteredApplications" [paginator]="true" [rows]="10" 
-      [showCurrentPageReport]="true" currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} candidatures"
-      [rowsPerPageOptions]="[10, 25, 50]" styleClass="p-datatable-striped">
+  <!-- Filtres et recherche -->
+  <div class="filters-container">
+    <p-input-group>
+      <p-inputgroup-addon>
+        <i class="pi pi-search"></i>
+      </p-inputgroup-addon>
+      <input
+        type="text"
+        pInputText
+        [(ngModel)]="searchText" 
+        (input)="onSearch()"
+        placeholder="Rechercher une candidature..." 
+      />
+    </p-input-group>
+  </div>
+
+  <!-- Badge pour indiquer le nombre de candidatures -->
+  <div class="results-info">
+    <p-chip [label]="filteredApplications.length + ' candidatures trouvées'" styleClass="count-chip"></p-chip>
+  </div>
+
+  <!-- Tableau des candidatures -->
+  <div class="applications-table-container">
+    <p-table 
+      [value]="filteredApplications" 
+      [paginator]="true" 
+      [rows]="10" 
+      [showCurrentPageReport]="true" 
+      currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} candidatures"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      styleClass="p-datatable-sm p-datatable-gridlines applications-table"
+      [tableStyle]="{ 'min-width': '60rem' }"
+      [scrollable]="true"
+      [responsiveLayout]="'stack'"
+      [breakpoint]="'960px'"
+      sortField="applicationDate"
+      [sortOrder]="-1"
+    >
       <ng-template pTemplate="header">
         <tr>
-          <th>Candidat</th>
-          <th>Offre</th>
-          <th>Date de candidature</th>
-          <th>Statut</th>
-          <th>Actions</th>
+          <th pSortableColumn="candidate.lastName" style="min-width: 200px">Candidat <p-sortIcon field="candidate.lastName"></p-sortIcon></th>
+          <th pSortableColumn="offer.title" style="min-width: 200px">Offre <p-sortIcon field="offer.title"></p-sortIcon></th>
+          <th pSortableColumn="applicationDate" style="min-width: 130px">Date <p-sortIcon field="applicationDate"></p-sortIcon></th>
+          <th pSortableColumn="status" style="min-width: 120px">Statut <p-sortIcon field="status"></p-sortIcon></th>
+          <th style="min-width: 80px">Actions</th>
         </tr>
       </ng-template>
+      
       <ng-template pTemplate="body" let-application>
         <tr>
           <td>
-            <div class="candidate-info">
-              <span class="candidate-name">{{application.candidate.firstName}} {{application.candidate.lastName}}</span>
-              <span class="candidate-email">{{application.candidate.email}}</span>
+            <div class="td-content">
+              <span class="p-column-title">Candidat</span>
+              <div class="candidate-info">
+                <span class="candidate-name">{{application.candidate.firstName}} {{application.candidate.lastName}}</span>
+                <span class="candidate-email">{{application.candidate.email}}</span>
+              </div>
             </div>
           </td>
+          
           <td>
-            <div class="offer-info">
-              <span class="offer-title">{{application.offer.title}}</span>
-              <span class="offer-company">{{application.offer.company}}</span>
+            <div class="td-content">
+              <span class="p-column-title">Offre</span>
+              <div class="offer-info">
+                <span class="offer-title">{{application.offer.title}}</span>
+                <span class="offer-company">{{application.offer.company}}</span>
+              </div>
             </div>
           </td>
-          <td>{{application.applicationDate | date:'dd/MM/yyyy'}}</td>
+          
           <td>
-            <p-tag [value]="getStatusLabel(application.status)" 
-              [severity]="getStatusSeverity(application.status)">
-            </p-tag>
+            <div class="td-content">
+              <span class="p-column-title">Date</span>
+              <span class="application-date">{{application.applicationDate | date:'dd MMM yyyy'}}</span>
+            </div>
           </td>
+          
           <td>
-            <div class="action-buttons">
-              <button pButton pRipple icon="pi pi-eye" 
-                class="p-button-rounded p-button-text" 
-                pTooltip="Voir les détails" tooltipPosition="top"
-                (click)="viewApplication(application)">
-              </button>
+            <div class="td-content">
+              <span class="p-column-title">Statut</span>
+              <p-tag [value]="getStatusLabel(application.status)" 
+                [styleClass]="'status-' + application.status.toLowerCase()">
+              </p-tag>
+            </div>
+          </td>
+          
+          <td>
+            <div class="td-content">
+              <span class="p-column-title">Actions</span>
+              <div class="action-buttons">
+                <button pButton pRipple icon="pi pi-eye" 
+                  class="p-button-rounded p-button-text p-button-sm" 
+                  pTooltip="Voir les détails" tooltipPosition="top"
+                  (click)="viewApplication(application)">
+                </button>
+              </div>
             </div>
           </td>
         </tr>
       </ng-template>
+      
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="5" class="empty-message">
-            <div class="empty-state">
-              <i class="pi pi-inbox"></i>
+          <td colspan="5">
+            <div class="empty-message">
+              <i class="pi pi-inbox empty-icon"></i>
               <h3>Aucune candidature trouvée</h3>
-              <p>Vous n'avez reçu aucune candidature pour le moment</p>
+              <p>Vous n'avez reçu aucune candidature pour le moment ou aucune ne correspond à votre recherche.</p>
             </div>
           </td>
         </tr>
+      </ng-template>
+      
+      <ng-template pTemplate="paginatorleft">
+        <div class="pagination-info">Total: {{filteredApplications.length}} candidatures</div>
       </ng-template>
     </p-table>
   </div>

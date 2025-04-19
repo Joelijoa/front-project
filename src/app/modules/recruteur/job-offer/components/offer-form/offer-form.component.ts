@@ -8,6 +8,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { EditorModule } from 'primeng/editor';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
+import { Step, StepList, StepPanel, StepPanels, Stepper } from 'primeng/stepper';
 
 @Component({
   selector: 'app-offer-form',
@@ -22,7 +23,8 @@ import { DialogModule } from 'primeng/dialog';
     DropdownModule,
     EditorModule,
     ButtonModule,
-    DialogModule
+    DialogModule,
+    Stepper, StepList, Step, StepPanel, StepPanels
   ]
 })
 export class OfferFormComponent implements OnInit {

@@ -618,4 +618,182 @@
       grid-template-columns: 1fr;
     }
   }
+}
+
+/* Styles pour le bouton de candidature */
+.btn-apply {
+  background-color: #010327;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: #020550;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(1, 3, 39, 0.2);
+  }
+  
+  i {
+    font-size: 1rem;
+  }
+}
+
+/* Styles pour le dialog de candidature */
+.apply-dialog {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  
+  .p-dialog-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 1.25rem 1.5rem;
+    
+    h2 {
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: #333;
+      margin: 0;
+    }
+  }
+  
+  .p-dialog-content {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    color: #333;
+  }
+  
+  .p-dialog-footer {
+    background-color: #ffffff;
+    border-top: 1px solid #f0f0f0;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+  }
+}
+
+.apply-dialog-container {
+  .apply-section {
+    h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+    
+    .company-name {
+      color: #556ee6;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+    
+    .file-upload-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      
+      .file-upload-item {
+        label {
+          display: block;
+          font-size: 0.875rem;
+          color: #495057;
+          margin-bottom: 0.5rem;
+          font-weight: 500;
+        }
+        
+        .upload-zone {
+          border: 2px dashed #d4d9df;
+          border-radius: 8px;
+          padding: 2rem 1.5rem;
+          text-align: center;
+          cursor: pointer;
+          transition: all 0.2s;
+          background-color: #f8f9fa;
+          
+          &:hover {
+            border-color: #556ee6;
+            background-color: rgba(85, 110, 230, 0.05);
+          }
+          
+          &.has-file {
+            border-color: #34c38f;
+            background-color: rgba(52, 195, 143, 0.05);
+          }
+          
+          .upload-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            
+            i {
+              font-size: 2rem;
+              color: #556ee6;
+            }
+            
+            span {
+              font-size: 0.9rem;
+              color: #495057;
+            }
+          }
+        }
+        
+        .file-selected {
+          display: block;
+          color: #34c38f;
+          margin-top: 0.5rem;
+          font-size: 0.8rem;
+        }
+        
+        .error-message {
+          display: block;
+          color: #f46a6a;
+          margin-top: 0.5rem;
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
+}
+
+/* Styles pour les boutons du footer */
+:host ::ng-deep {
+  .p-dialog-footer {
+    button {
+      min-width: 110px;
+      
+      &.p-button-text {
+        color: #495057;
+        
+        &:hover {
+          background-color: rgba(73, 80, 87, 0.08);
+        }
+      }
+      
+      &.apply-btn {
+        background-color: #010327;
+        border-color: #010327;
+        
+        &:hover:not(:disabled) {
+          background-color: #020550;
+          border-color: #020550;
+        }
+        
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
 } 

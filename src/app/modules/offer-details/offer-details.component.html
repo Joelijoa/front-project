@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="offer-actions">
-      <button class="btn-apply"><i class="fas fa-paper-plane"></i> Postuler</button>
+      <button class="btn-apply" (click)="showApplyDialog()"><i class="fas fa-paper-plane"></i> Postuler</button>
       <button class="btn-save"><i class="far fa-bookmark"></i> Sauvegarder</button>
     </div>
   </header>
@@ -158,3 +158,68 @@
 
 </div> 
 <app-footer></app-footer>
+
+<!-- Dialog pour postuler -->
+<p-dialog [(visible)]="applyDialogVisible" [modal]="true" [draggable]="false" [resizable]="false" [style]="{width: '500px'}" styleClass="apply-dialog">
+  <ng-template pTemplate="header">
+    <h2>Postuler à l'offre</h2>
+  </ng-template>
+  
+  <div class="apply-dialog-container">
+    <div class="apply-section">
+      <h3>Postuler pour : {{ offer.title }}</h3>
+      <p class="company-name">{{ offer.company }}</p>
+      
+      <form [formGroup]="applyForm" (ngSubmit)="submitApplication()">
+        <div class="file-upload-container">
+          <div class="file-upload-item">
+            <label for="cv">CV (PDF, DOC, DOCX)</label>
+            <div class="upload-zone" [class.has-file]="cvFileName" (click)="cvFileInput.click()">
+              <input 
+                type="file" 
+                #cvFileInput 
+                style="display: none;" 
+                (change)="onCvSelected($event)"
+                accept=".pdf,.doc,.docx">
+              <div class="upload-content">
+                <i class="pi pi-cloud-upload"></i>
+                <span *ngIf="!cvFileName">Glissez votre CV ici ou cliquez pour parcourir</span>
+                <span *ngIf="cvFileName">{{ cvFileName }}</span>
+              </div>
+            </div>
+            <small *ngIf="cvFileName" class="file-selected">Fichier sélectionné</small>
+            <small *ngIf="applyForm.get('cv')?.hasError('required') && applyForm.get('cv')?.touched" class="error-message">
+              CV requis
+            </small>
+          </div>
+          
+          <div class="file-upload-item">
+            <label for="coverLetter">Lettre de motivation (PDF, DOC, DOCX)</label>
+            <div class="upload-zone" [class.has-file]="coverLetterFileName" (click)="coverLetterFileInput.click()">
+              <input 
+                type="file" 
+                #coverLetterFileInput 
+                style="display: none;" 
+                (change)="onCoverLetterSelected($event)"
+                accept=".pdf,.doc,.docx">
+              <div class="upload-content">
+                <i class="pi pi-cloud-upload"></i>
+                <span *ngIf="!coverLetterFileName">Glissez votre lettre de motivation ici ou cliquez pour parcourir</span>
+                <span *ngIf="coverLetterFileName">{{ coverLetterFileName }}</span>
+              </div>
+            </div>
+            <small *ngIf="coverLetterFileName" class="file-selected">Fichier sélectionné</small>
+            <small *ngIf="applyForm.get('coverLetter')?.hasError('required') && applyForm.get('coverLetter')?.touched" class="error-message">
+              Lettre de motivation requise
+            </small>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <ng-template pTemplate="footer">
+    <button pButton pRipple type="button" label="Annuler" class="p-button-text" (click)="applyDialogVisible = false"></button>
+    <button pButton pRipple type="button" label="Postuler" class="p-button-primary apply-btn" (click)="submitApplication()" [disabled]="!applyForm.valid"></button>
+  </ng-template>
+</p-dialog>

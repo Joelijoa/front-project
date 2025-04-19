@@ -11,6 +11,9 @@ import { DialogModule } from 'primeng/dialog';
 import { Application } from '../../models/application.model';
 import { ApplicationDetailsComponent } from '../application-details/application-details.component';
 import { HeaderRecruteurComponent } from '../../../../../core/components/header-recruteur/header-recruteur.component';
+import { ChipModule } from 'primeng/chip';
+import { InputGroup } from 'primeng/inputgroup';
+import { InputGroupAddon } from 'primeng/inputgroupaddon';
 
 @Component({
   selector: 'app-all-applications',
@@ -26,7 +29,10 @@ import { HeaderRecruteurComponent } from '../../../../../core/components/header-
     TagModule,
     TooltipModule,
     DialogModule,
-    ApplicationDetailsComponent
+    ApplicationDetailsComponent,
+    ChipModule,
+    InputGroup,
+    InputGroupAddon
   ],
   templateUrl: './all-applications.component.html',
   styleUrls: ['./all-applications.component.scss']

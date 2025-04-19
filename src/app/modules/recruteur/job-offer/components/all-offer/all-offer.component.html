@@ -183,8 +183,9 @@
               <span class="p-column-title">Lieu</span>
               <div class="location-cell">
                 <i class="pi pi-map-marker location-icon"></i>
-                <span>{{offer.location}}</span>
-                <p-badge [value]="getRemoteLabel(offer.remote)" severity="secondary" styleClass="remote-badge"></p-badge>
+                <span class="location-name">{{offer.location}}</span>
+                <p-badge [value]="getRemoteLabel(offer.remote)" 
+                         [styleClass]="'remote-' + getRemoteLabel(offer.remote)"></p-badge>
               </div>
             </div>
           </td>
@@ -193,8 +194,7 @@
             <div class="td-content">
               <span class="p-column-title">Type</span>
               <p-tag [value]="getContractTypeLabel(offer.contractType)" 
-                [severity]="getContractTypeSeverity(offer.contractType)" 
-                styleClass="contract-tag"></p-tag>
+                [styleClass]="'contract-' + offer.contractType"></p-tag>
               <span class="salary-info">{{offer.salary}}</span>
             </div>
           </td>
@@ -229,8 +229,7 @@
             <div class="td-content">
               <span class="p-column-title">Statut</span>
               <p-tag [value]="getStatusLabel(offer.status)" 
-                [severity]="getStatusSeverity(offer.status)" 
-                styleClass="status-tag"></p-tag>
+                [styleClass]="'status-' + offer.status.toLowerCase()"></p-tag>
             </div>
           </td>
           
@@ -277,10 +276,8 @@
 
 <!-- Dialogues -->
 <app-offer-form 
-  *ngIf="showOfferForm"
-  [visible]="showOfferForm"
+  [(visible)]="showOfferForm"
   [offer]="selectedOffer"
-  (visibleChange)="onOfferFormCancel()"
   (submit)="onOfferFormSubmit($event)">
 </app-offer-form>
 
