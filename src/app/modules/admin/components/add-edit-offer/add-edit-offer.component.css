@@ -1,0 +1,9 @@
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+div.footer {
+  display: flex;
+  justify-content: space-between;
+}

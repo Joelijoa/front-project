@@ -12,12 +12,14 @@ const routes: Routes = [
     path: '',
     component: AdminLayoutComponent,
     children: [
+      { path: '', redirectTo: 'offers', pathMatch: 'full' },
       {path: "offers", component: OffersComponent},
       {path: "requests", component: RequestsComponent},
       {path: "reports", component: ReportsComponent},
       {path: "society", component: SocietyComponent},
       {path: "users", component: UsersComponent},
     ]
+    
   },
   { path: '**', redirectTo: 'offers' }
 ];

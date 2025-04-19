@@ -9,6 +9,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { TableModule } from 'primeng/table';
+import { AddEditOfferComponent } from '../../components/add-edit-offer/add-edit-offer.component';
 
 @Component({
   selector: 'app-offers',
@@ -26,21 +27,21 @@ import { TableModule } from 'primeng/table';
     InputGroupAddonModule,
     CommonModule,
     CardModule,
+    AddEditOfferComponent
   ]
 })
+
 export class OffersComponent implements OnInit {
   customers = [
     { label: 'INWI', value: 'INWI' },
     { label: 'Other', value: 'Other' }
   ];
-  
+
   offers = [
     { date: '05/03/2025', customer: 'INWI', poste: 'Responsable SI', closingDate: '22/06/2025', salary: '15000.00 MAD' },
   ];
 
   constructor() { }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

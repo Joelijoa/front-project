@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button';
 import { ParametrePopoverComponent } from '../../components/parametrePopover/parametrePopover.component';
+import { ProfilePopoverComponent } from '../../components/profile-popover/profile-popover.component';
 
 @Component({
   selector: 'app-adminLayout',
@@ -13,6 +14,7 @@ import { ParametrePopoverComponent } from '../../components/parametrePopover/par
   imports: [
     SidebarComponent,
     ParametrePopoverComponent,
+    ProfilePopoverComponent,
     RouterModule,
     BreadcrumbModule,
     ButtonModule
