@@ -60,7 +60,11 @@ export class SidebarComponent {
             icon: 'pi pi-users',
             command: () => this.router.navigate(['/admin/users']),
           },
-          { label: 'Accounts', icon: 'pi pi-id-card' },
+          {
+             label: 'Accounts',
+            icon: 'pi pi-id-card',
+            command: ()=> this.router.navigate(['/admin/accounts'])
+           },
         ],
       },
     ];

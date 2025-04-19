@@ -1,30 +1,8 @@
 @use "../../components/sidebar/sidebar.component.scss";
+@use "sass:color";
 
 body {
   --border-color: rgb(206, 201, 201);
-  // --background-color: white;
-  // --text-color: black;
-  // --p-card-background : var(--background-color);
-  // --p-card-color: var(--text-color);
-  // --p-card-border-radius: 10px;
-  // --p-card-body-padding: 10px ;
-  // --p-card-shadow: 0 .125rem .25rem rgba(255, 11, 11, 0.5);
-  // --p-inputgroup-addon-background	: var(--background-color);
-  // --p-inputgroup-addon-color: rgb(61, 60, 60);
-  // --p-inputgroup-addon-border-color: var(--border-color);
-  // --p-inputtext-background: var(--background-color);
-  // --p-inputtext-border-color: var(--border-color);
-  // --p-datatable-row-background	: var(--background-color);
-  // --p-datatable-row-color	: var(--text-color);
-  // --p-datatable-body-cell-padding: 5px 10px;
-  // --p-datatable-body-cell-border-color: var(--border-color);
-  // --p-datatable-header-cell-background: rgb(81, 81, 81);
-  // --p-paginator-nav-button-selected-background: var(--p-primary-color) !important;
-  // --p-select-background: var(--background-color);
-  // --p-select-color: var(--text-color);
-  // --p-select-option-color: var(--text-color);
-  // --p-select-overlay-color: var(--text-color);
-  // --p-select-border-color	: var(--border-color);
 }
 
 .layout {
@@ -39,6 +17,7 @@ body {
   .main-content {
     margin-left: var(--sidebar-width) ;
     padding: 5px;
+    height: auto;
     transition: margin-left 0.3s ease-out;
 
     .appBar {
@@ -94,4 +73,447 @@ body {
 button.p-ripple.p-button.p-component.table-btn{
   padding: 0 !important;
   margin-bottom: 0 !important;
+}
+
+// Variables
+$primary-color: #4361ee;
+$primary-light: #eef2ff;
+$secondary-color: #f8f9fa;
+$border-color: #e9ecef;
+$text-color: #212529;
+$text-muted: #6c757d;
+$white: #ffffff;
+$danger: #ef476f;
+$warning: #ffd166;
+$info: #118ab2;
+$success: #06d6a0;
+$radius: 8px;
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+$shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 100%;
+  padding: 1.5rem;
+  background-color: $white;
+  border-radius: $radius;
+  box-shadow: $shadow;
+  
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid $border-color;
+    
+    .header-content {
+      h1 {
+        font-size: 1.75rem;
+        margin: 0;
+        color: $text-color;
+        font-weight: 600;
+      }
+      
+      .subtitle {
+        margin: 0.5rem 0 0;
+        color: $text-muted;
+        font-size: 0.9rem;
+      }
+    }
+    
+    .add-offer-btn {
+      background-color: $primary-color;
+      border: none;
+      border-radius: $radius;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background-color: $primary-color;
+        transform: translateY(-2px);
+        box-shadow: $shadow;
+      }
+    }
+  }
+  
+  .filters-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: 1rem 0;
+    
+    .filter-calendar, 
+    .filter-dropdown {
+      min-width: 180px;
+      flex: 1;
+    }
+    
+    .search-container {
+      position: relative;
+      flex: 2;
+      
+      i {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $text-muted;
+        z-index: 1;
+      }
+      
+      .search-input {
+        width: 100%;
+        padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+        border-radius: $radius;
+        border: 1px solid $border-color;
+        background-color: $white;
+        color: $text-color;
+        transition: border-color 0.2s;
+        
+        &:hover, &:focus {
+          border-color: $primary-color;
+        }
+      }
+    }
+    
+    @media (max-width: 992px) {
+      flex-direction: column;
+      align-items: stretch;
+      
+      .filter-calendar, 
+      .filter-dropdown,
+      .search-container {
+        width: 100%;
+      }
+    }
+  }
+  
+  .results-info {
+    display: flex;
+    align-items: center;
+    
+    .result-count {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background-color: $primary-light;
+      color: $primary-color;
+      border-radius: $radius;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+  }
+  
+  .table-container {
+    overflow: hidden;
+    border-radius: $radius;
+    border: 1px solid $border-color;
+  }
+}
+
+// Style pour le calendrier
+.p-calendar {
+  background-color: $white;
+  
+  .p-inputtext {
+    background-color: $white !important;
+    color: $text-color !important;
+    border: 1px solid $border-color !important;
+    border-radius: $radius;
+    padding: 0.75rem;
+    transition: border-color 0.2s;
+    
+    &:hover, &:focus {
+      border-color: $primary-color !important;
+    }
+  }
+  
+  .p-button {
+    background-color: $white !important;
+    border: 1px solid $border-color !important;
+    color: $text-color !important;
+    
+    &:hover {
+      background-color: $secondary-color !important;
+    }
+  }
+}
+
+// Style pour la liste déroulante
+.p-dropdown {
+  background-color: $white;
+  
+  .p-dropdown-label {
+    background-color: $white !important;
+    color: $text-color !important;
+    border-color: $border-color !important;
+    padding: 0.75rem;
+  }
+  
+  .p-dropdown-trigger {
+    color: $text-muted !important;
+  }
+}
+
+// Style pour le tableau
+.modern-table {
+  .p-datatable-header {
+    background-color: $white !important;
+    border: none !important;
+    padding: 1rem;
+  }
+  
+  .p-datatable-thead > tr > th {
+    background-color: $secondary-color !important;
+    color: $text-color !important;
+    border: none !important;
+    border-bottom: 1px solid $border-color !important;
+    padding: 1rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    
+    &:first-child {
+      border-top-left-radius: $radius;
+    }
+    
+    &:last-child {
+      border-top-right-radius: $radius;
+    }
+    
+    .p-sortable-column-icon {
+      color: $text-muted !important;
+    }
+    
+    &.p-highlight {
+      background-color: $secondary-color !important;
+      
+      .p-sortable-column-icon {
+        color: $primary-color !important;
+      }
+    }
+  }
+  
+  .p-datatable-tbody > tr {
+    border-bottom: 1px solid $border-color !important;
+    transition: background-color 0.2s;
+    
+    &:hover {
+      background-color: $primary-light !important;
+    }
+    
+    > td {
+      padding: 1rem !important;
+      border: none !important;
+      color: $text-color !important;
+    }
+    
+    &:last-child {
+      border-bottom: none !important;
+    }
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    
+    .p-button {
+      height: 2.25rem;
+      width: 2.25rem;
+      color: $text-muted !important;
+      
+      &.view-btn:hover {
+        color: $info !important;
+        background-color: rgba($info, 0.1) !important;
+      }
+      
+      &.edit-btn:hover {
+        color: $warning !important;
+        background-color: rgba($warning, 0.1) !important;
+      }
+      
+      &.delete-btn:hover {
+        color: $danger !important;
+        background-color: rgba($danger, 0.1) !important;
+      }
+    }
+  }
+  
+  .customer-chip {
+    display: inline-block;
+    padding: 0.35rem 0.7rem;
+    background-color: $primary-light;
+    color: $primary-color;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  
+  .empty-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+    
+    i {
+      font-size: 2.5rem;
+      color: $border-color;
+      margin-bottom: 1rem;
+    }
+    
+    h3 {
+      color: $text-color;
+      margin: 0 0 0.5rem 0;
+      font-weight: 600;
+    }
+    
+    p {
+      color: $text-muted;
+      margin: 0 0 1.5rem 0;
+      text-align: center;
+      max-width: 500px;
+    }
+    
+    .empty-add-btn {
+      background-color: $primary-color;
+      border: none;
+      border-radius: $radius;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background-color: $primary-color;
+        transform: translateY(-2px);
+        box-shadow: $shadow;
+      }
+    }
+  }
+  
+  .p-paginator {
+    background-color: $white !important;
+    border: none !important;
+    padding: 1rem;
+    
+    .p-paginator-element {
+      min-width: 2.25rem;
+      height: 2.25rem;
+      margin: 0 0.2rem;
+      border-radius: 4px;
+      
+      &.p-highlight {
+        background-color: $primary-light !important;
+        color: $primary-color !important;
+      }
+    }
+  }
+}
+
+// Style pour la boîte de dialogue
+.offer-dialog {
+  .p-dialog-header {
+    background-color: $white !important;
+    color: $text-color !important;
+    border-bottom: 1px solid $border-color !important;
+    padding: 1.25rem 1.5rem;
+    
+    h2 {
+      font-weight: 600;
+      margin: 0;
+    }
+  }
+  
+  .p-dialog-content {
+    padding: 1.5rem;
+  }
+  
+  .form-field {
+    margin-bottom: 1.5rem;
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: $text-color;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+    
+    input, textarea, .p-dropdown, .p-calendar {
+      width: 100%;
+      border-radius: $radius;
+      border: 1px solid $border-color;
+      background-color: $white;
+      transition: border-color 0.2s;
+      
+      &:hover, &:focus {
+        border-color: $primary-color;
+      }
+    }
+    
+    .p-inputgroup {
+      .p-inputgroup-addon {
+        background-color: $secondary-color;
+        border-color: $border-color;
+        color: $text-muted;
+      }
+    }
+  }
+  
+  .p-dialog-footer {
+    border-top: 1px solid $border-color !important;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    
+    .cancel-btn {
+      background-color: transparent !important;
+      color: $text-muted !important;
+      border: 1px solid $border-color !important;
+      
+      &:hover {
+        background-color: $secondary-color !important;
+      }
+    }
+    
+    .save-btn {
+      background-color: $primary-color !important;
+      border: none !important;
+      
+      &:hover {
+        background-color: $primary-color !important;
+        box-shadow: $shadow-sm;
+      }
+    }
+  }
+}
+
+// Classes responsives
+@media (max-width: 768px) {
+  .main-container {
+    .page-header {
+      flex-direction: column;
+      align-items: flex-start;
+      
+      .add-offer-btn {
+        margin-top: 1rem;
+        align-self: flex-start;
+      }
+    }
+    
+    .filters-row {
+      flex-direction: column;
+      
+      .filter-calendar, .filter-dropdown, .search-container {
+        width: 100%;
+      }
+      
+      .search-container .search-input {
+        width: 100%;
+      }
+    }
+  }
 }

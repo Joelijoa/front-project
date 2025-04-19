@@ -44,13 +44,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   // Section partenaires
   titre_partenaires: string = "Ils nous font confiance";
   partners: Partner[] = [
-    { name: 'Entreprise 1', image: "picture/atti.png" },
-    { name: 'Entreprise 2', image: 'picture/axa.png' },
-    { name: 'Entreprise 3', image: 'picture/bmce.png' },
-    { name: 'Entreprise 4', image: 'picture/danone.png' },
-    { name: 'Entreprise 5', image: 'picture/sg.png' },
-    { name: 'Entreprise 6', image: 'picture/bim.jpg' },
-    { name: 'Entreprise 7', image: 'picture/um6p.png' }
+    { name: 'Entreprise 1', image: "/picture/atti.png" },
+    { name: 'Entreprise 2', image: '/picture/axa.png' },
+    { name: 'Entreprise 3', image: '/picture/bmce.png' },
+    { name: 'Entreprise 4', image: '/picture/danone.png' },
+    { name: 'Entreprise 5', image: '/picture/sg.png' },
+    { name: 'Entreprise 6', image: '/picture/bim.jpg' },
+    { name: 'Entreprise 7', image: '/picture/um6p.png' }
   ];
 
   // Options du carrousel
@@ -108,11 +108,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.titre_1 = "La puissance de la connexion client";
     this.Sous_titre_1 = "Chaque interaction, une opportunité.";
-    this.img_illustration = "picture/yobber-photo.png"
+    this.img_illustration = "/picture/yobber-photo.png"
     
     this.titre_2 = "Notre impact";
     this.Sous_titre_2 = "Interaction entreprise et candidat efficace";
-    this.img_illustration_2 = "picture/yobber-photo-2.png";
+    this.img_illustration_2 = "/picture/yobber-photo-2.png";
   }
 
   ngOnDestroy() {

@@ -1,0 +1,208 @@
+<div class="content-container">
+  <div class="page-header">
+    <div class="title-wrapper">
+      <h1>Gestion des comptes entreprises</h1>
+      <p class="subtitle">Validez ou refusez les demandes de création de compte entreprise</p>
+    </div>
+  </div>
+
+  <div class="content-card">
+    <p-tabView>
+      <!-- Premier onglet: Comptes en attente de validation -->
+      <p-tabPanel header="En attente ({{pendingAccounts.length}})">
+        <div class="panel-content">
+          <p-table 
+            [value]="pendingAccounts" 
+            [loading]="loading"
+            [paginator]="true" 
+            [rows]="10" 
+            styleClass="p-datatable-sm p-datatable-striped"
+            [rowHover]="true"
+            responsiveLayout="scroll">
+            
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Société</th>
+                <th>Email</th>
+                <th>Date de création</th>
+                <th pSortableColumn="status">Statut <p-sortIcon field="status"></p-sortIcon></th>
+                <th style="width: 15%">Actions</th>
+              </tr>
+            </ng-template>
+            
+            <ng-template pTemplate="body" let-account>
+              <tr>
+                <td>{{account.companyName}}</td>
+                <td>{{account.email}}</td>
+                <td>{{account.createdAt | date:'dd/MM/yyyy HH:mm'}}</td>
+                <td>
+                  <span class="status-badge status-pending">En attente</span>
+                </td>
+                <td>
+                  <div class="action-cell">
+                    <button pButton pRipple type="button" icon="pi pi-eye" class="p-button-rounded p-button-info p-button-sm" 
+                      pTooltip="Voir les détails" tooltipPosition="top" (click)="viewAccountDetails(account)"></button>
+                    <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-success p-button-sm" 
+                      pTooltip="Approuver" tooltipPosition="top" (click)="approveAccount(account)"></button>
+                    <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-sm" 
+                      pTooltip="Refuser" tooltipPosition="top" (click)="openRejectionDialog(account)"></button>
+                    <button pButton pRipple type="button" icon="pi pi-clock" class="p-button-rounded p-button-warning p-button-sm" 
+                      pTooltip="Marquer en traitement" tooltipPosition="top" (click)="markAsProcessing(account)"></button>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+            
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="5" class="empty-message">
+                  <i class="pi pi-info-circle"></i>
+                  <span>Aucun compte en attente de validation</span>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </p-tabPanel>
+  
+      <!-- Deuxième onglet: Comptes en cours de traitement -->
+      <p-tabPanel header="En traitement ({{processingAccounts.length}})">
+        <div class="panel-content">
+          <p-table 
+            [value]="processingAccounts" 
+            [loading]="loading"
+            [paginator]="true" 
+            [rows]="10" 
+            styleClass="p-datatable-sm p-datatable-striped"
+            [rowHover]="true"
+            responsiveLayout="scroll">
+            
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Société</th>
+                <th>Email</th>
+                <th>Date de création</th>
+                <th pSortableColumn="status">Statut <p-sortIcon field="status"></p-sortIcon></th>
+                <th style="width: 10%">Actions</th>
+              </tr>
+            </ng-template>
+            
+            <ng-template pTemplate="body" let-account>
+              <tr>
+                <td>{{account.companyName}}</td>
+                <td>{{account.email}}</td>
+                <td>{{account.createdAt | date:'dd/MM/yyyy HH:mm'}}</td>
+                <td>
+                  <span class="status-badge status-processing">En traitement</span>
+                </td>
+                <td>
+                  <div class="action-cell">
+                    <button pButton pRipple type="button" icon="pi pi-eye" class="p-button-rounded p-button-info p-button-sm" 
+                      pTooltip="Voir les détails" tooltipPosition="top" (click)="viewAccountDetails(account)"></button>
+                    <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-success p-button-sm" 
+                      pTooltip="Approuver" tooltipPosition="top" (click)="approveAccount(account)"></button>
+                    <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-sm" 
+                      pTooltip="Refuser" tooltipPosition="top" (click)="openRejectionDialog(account)"></button>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+            
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="5" class="empty-message">
+                  <i class="pi pi-info-circle"></i>
+                  <span>Aucun compte en cours de traitement</span>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </p-tabPanel>
+  
+      <!-- Troisième onglet: Comptes refusés -->
+      <p-tabPanel header="Refusés ({{rejectedAccounts.length}})">
+        <div class="panel-content">
+          <p-table 
+            [value]="rejectedAccounts" 
+            [loading]="loading"
+            [paginator]="true" 
+            [rows]="10" 
+            styleClass="p-datatable-sm p-datatable-striped"
+            [rowHover]="true"
+            responsiveLayout="scroll">
+            
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Société</th>
+                <th>Email</th>
+                <th>Date de création</th>
+                <th>Raison du refus</th>
+                <th style="width: 8%">Actions</th>
+              </tr>
+            </ng-template>
+            
+            <ng-template pTemplate="body" let-account>
+              <tr>
+                <td>{{account.companyName}}</td>
+                <td>{{account.email}}</td>
+                <td>{{account.createdAt | date:'dd/MM/yyyy HH:mm'}}</td>
+                <td>
+                  <div class="rejection-reason">{{account.rejectionReason}}</div>
+                </td>
+                <td>
+                  <div class="action-cell">
+                    <button pButton pRipple type="button" icon="pi pi-eye" class="p-button-rounded p-button-info p-button-sm" 
+                      pTooltip="Voir les détails" tooltipPosition="top" (click)="viewAccountDetails(account)"></button>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+            
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="5" class="empty-message">
+                  <i class="pi pi-info-circle"></i>
+                  <span>Aucun compte refusé</span>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+  
+  <!-- Dialog de rejet -->
+  <p-dialog 
+    [(visible)]="rejectionDialogVisible" 
+    [style]="{width: '450px'}" 
+    header="Motif de refus" 
+    [modal]="true"
+    [draggable]="false"
+    [resizable]="false"
+    [showHeader]="true"
+    [closable]="true"
+    (onHide)="closeRejectionDialog()">
+    
+    <p>Veuillez indiquer la raison du refus pour l'entreprise <strong *ngIf="selectedAccount">{{selectedAccount.companyName}}</strong></p>
+    
+    <div class="form-group">
+      <label for="rejectionReason">Raison</label>
+      <textarea id="rejectionReason" rows="4" [(ngModel)]="rejectionReason" 
+        placeholder="Veuillez expliquer pourquoi ce compte est refusé..."></textarea>
+    </div>
+    
+    <ng-template pTemplate="footer">
+      <button pButton pRipple type="button" label="Annuler" class="p-button-text" (click)="closeRejectionDialog()"></button>
+      <button pButton pRipple type="button" label="Confirmer le refus" class="p-button-danger" 
+        (click)="confirmReject()" [disabled]="!rejectionReason.trim()"></button>
+    </ng-template>
+  </p-dialog>
+</div>
+
+<!-- Service de confirmation -->
+<p-confirmDialog [style]="{width: '450px'}" acceptLabel="Oui" rejectLabel="Non" acceptButtonStyleClass="p-button-success" rejectButtonStyleClass="p-button-secondary"></p-confirmDialog>
+
+<!-- Toast pour les messages -->
+<p-toast position="bottom-right"></p-toast> 

@@ -1,17 +1,35 @@
-<div class="header">Users</div>
-
-<p-card>
-  <ng-template pTemplate="content">
-    <div class="filters">
-      <p-inputgroup>
-        <p-inputgroup-addon>
-          <i class="pi pi-search"></i>
-        </p-inputgroup-addon>
-        <input pInputText placeholder="Search..."/>
-      </p-inputgroup>
+<div class="main-container">
+  <div class="page-header">
+    <div class="header-content">
+      <h1>Users</h1>
+      <p class="subtitle">Liste des users actifs</p>
     </div>
-    
-    <p-table #table [value]="users" [paginator]="true" [rows]="10">
+  </div>
+
+  <div class="filters-row">
+    <p-inputgroup>
+      <p-inputgroup-addon>
+        <i class="pi pi-search"></i>
+      </p-inputgroup-addon>
+      <input pInputText placeholder="Search..." />
+    </p-inputgroup>
+  </div>
+
+  <div class="table-container">
+    <p-table
+      #table
+      [value]="users"
+      [paginator]="true"
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} demandes"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      [tableStyle]="{ 'min-width': '60rem' }"
+      [scrollable]="true"
+      [responsiveLayout]="'stack'"
+      [breakpoint]="'960px'"
+      styleClass="modern-table"
+    >
       <ng-template pTemplate="header">
         <tr>
           <th>Id</th>
@@ -28,12 +46,68 @@
           <td>{{ user.email }}</td>
           <td>{{ user.location }}</td>
           <td>
-            <p-button [ngClass]="{'table-btn':true}" severity="secondary"
+            <p-button [ngClass]="{ 'table-btn': true }" severity="secondary" (click)="showUserDetails(user)"
               >Details</p-button
             >
           </td>
         </tr>
       </ng-template>
     </p-table>
-  </ng-template>
-</p-card>
+  </div>
+
+  <!-- Popup de détails de l'utilisateur -->
+  <p-dialog 
+    [(visible)]="displayUserDetails" 
+    [modal]="true" 
+    [style]="{width: '450px'}" 
+    [draggable]="false" 
+    [resizable]="false"
+    header="Détails du profil" 
+    styleClass="user-profile-dialog">
+    
+    <div class="profile-container" *ngIf="selectedUser">
+      <div class="profile-header">
+        <div class="profile-image">
+          <img [src]="selectedUser.avatar || '/picture/man.jpg'" alt="Photo de profil">
+        </div>
+        <h2 class="profile-name">{{ selectedUser.name }}</h2>
+        <div class="profile-function">{{ selectedUser.jobTitle || 'Non spécifié' }}</div>
+      </div>
+      
+      <div class="profile-details">
+        <div class="detail-item">
+          <div class="detail-label">
+            <i class="pi pi-envelope"></i>
+            <span>Email</span>
+          </div>
+          <div class="detail-value">{{ selectedUser.email }}</div>
+        </div>
+        
+        <div class="detail-item">
+          <div class="detail-label">
+            <i class="pi pi-phone"></i>
+            <span>Téléphone</span>
+          </div>
+          <div class="detail-value">{{ selectedUser.phone || 'Non spécifié' }}</div>
+        </div>
+        
+        <div class="detail-item">
+          <div class="detail-label">
+            <i class="pi pi-map-marker"></i>
+            <span>Localisation</span>
+          </div>
+          <div class="detail-value">{{ selectedUser.location }}</div>
+        </div>
+      </div>
+    </div>
+    
+    <ng-template pTemplate="footer">
+      <p-button 
+        icon="pi pi-times" 
+        label="Fermer" 
+        styleClass="p-button-text" 
+        (click)="displayUserDetails=false">
+      </p-button>
+    </ng-template>
+  </p-dialog>
+</div>

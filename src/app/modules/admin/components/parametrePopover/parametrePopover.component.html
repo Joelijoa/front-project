@@ -1,6 +1,10 @@
 <p-button
   icon="pi pi-cog"
   [ngClass]="{'item': true}"
+  (onClick)="op.toggle($event)"
 >
 </p-button>
 
+<p-popover #op>
+  <p-menu [model]="menuItems"></p-menu>
+</p-popover>

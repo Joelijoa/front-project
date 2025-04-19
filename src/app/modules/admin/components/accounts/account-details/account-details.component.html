@@ -1,0 +1,159 @@
+<div class="account-details-container">
+  <div class="loading-spinner" *ngIf="loading">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+
+  <div class="content" *ngIf="!loading && account">
+    <div class="header">
+      <h2>{{account.companyName}}</h2>
+      <span class="status-badge" [ngClass]="'status-' + account.status">
+        {{account.status === 'pending' ? 'En attente' : 
+          account.status === 'processing' ? 'En traitement' : 
+          account.status === 'rejected' ? 'Refusé' : 'Approuvé'}}
+      </span>
+    </div>
+
+    <p-tabView>
+      <!-- Informations générales -->
+      <p-tabPanel header="Informations générales">
+        <div class="info-section">
+          <h3>Coordonnées</h3>
+          <div class="grid">
+            <div class="col-12 md:col-6">
+              <div class="info-item">
+                <label>Contact principal</label>
+                <div>{{account.contactName}}</div>
+              </div>
+            </div>
+            <div class="col-12 md:col-6">
+              <div class="info-item">
+                <label>Email</label>
+                <div>{{account.email}}</div>
+              </div>
+            </div>
+            <div class="col-12 md:col-6">
+              <div class="info-item">
+                <label>Téléphone</label>
+                <div>{{account.phone}}</div>
+              </div>
+            </div>
+            <div class="col-12 md:col-6">
+              <div class="info-item">
+                <label>Date de demande</label>
+                <div>{{account.requestDate | date:'dd/MM/yyyy'}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p-divider></p-divider>
+
+        <div class="info-section">
+          <h3>Informations de l'entreprise</h3>
+          <div class="grid">
+            <div class="col-12 md:col-6">
+              <div class="info-item">
+                <label>N° TVA</label>
+                <div>{{account.companyInfo.vatNumber}}</div>
+              </div>
+            </div>
+            <div class="col-12 md:col-6">
+              <div class="info-item">
+                <label>N° SIRET</label>
+                <div>{{account.companyInfo.registrationNumber}}</div>
+              </div>
+            </div>
+            <div class="col-12 md:col-6">
+              <div class="info-item">
+                <label>Adresse</label>
+                <div>
+                  {{account.companyInfo.addressLine1}}<br>
+                  <span *ngIf="account.companyInfo.addressLine2">{{account.companyInfo.addressLine2}}<br></span>
+                  {{account.companyInfo.zipCode}} {{account.companyInfo.city}}<br>
+                  {{account.companyInfo.country}}
+                </div>
+              </div>
+            </div>
+            <div class="col-12 md:col-6">
+              <div class="info-item">
+                <label>Secteur d'activité</label>
+                <div>{{account.companyInfo.industry}}</div>
+              </div>
+            </div>
+            <div class="col-12 md:col-6">
+              <div class="info-item">
+                <label>Année de création</label>
+                <div>{{account.companyInfo.foundedYear}}</div>
+              </div>
+            </div>
+            <div class="col-12 md:col-6">
+              <div class="info-item">
+                <label>Nombre d'employés</label>
+                <div>{{account.companyInfo.employeeCount}}</div>
+              </div>
+            </div>
+            <div class="col-12 md:col-6" *ngIf="account.companyInfo.website">
+              <div class="info-item">
+                <label>Site Web</label>
+                <div>
+                  <a [href]="account.companyInfo.website" target="_blank">{{account.companyInfo.website}}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-tabPanel>
+
+      <!-- Documents -->
+      <p-tabPanel header="Documents">
+        <p-table [value]="account.documents" styleClass="p-datatable-sm">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Document</th>
+              <th>Type</th>
+              <th>Date d'envoi</th>
+              <th>Statut</th>
+              <th>Actions</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-document>
+            <tr>
+              <td>{{document.name}}</td>
+              <td>{{document.type}}</td>
+              <td>{{document.uploadDate | date:'dd/MM/yyyy'}}</td>
+              <td>
+                <span class="document-status" [ngClass]="'status-' + document.status">
+                  {{document.status === 'valid' ? 'Valide' : 
+                     document.status === 'invalid' ? 'Invalide' : 'En attente'}}
+                </span>
+              </td>
+              <td>
+                <button pButton pRipple type="button" icon="pi pi-download" 
+                  class="p-button-rounded p-button-text p-button-sm"
+                  (click)="downloadDocument(document.id)"></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-tabPanel>
+
+      <!-- Historique des actions -->
+      <p-tabPanel header="Historique">
+        <div class="empty-history">
+          <i class="pi pi-calendar"></i>
+          <p>Aucune action n'a été effectuée sur ce compte.</p>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+
+    <div class="actions">
+      <button pButton pRipple type="button" label="Fermer" class="p-button-text" (click)="closeDialog()"></button>
+    </div>
+  </div>
+
+  <div class="error-message" *ngIf="!loading && !account">
+    <i class="pi pi-exclamation-circle"></i>
+    <p>Impossible de charger les détails du compte.</p>
+    <button pButton pRipple type="button" label="Fermer" (click)="closeDialog()"></button>
+  </div>
+</div> 

@@ -1,17 +1,42 @@
-<div class="header">Society</div>
-
-<p-card>
-  <ng-template pTemplate="content">
-    <div class="filters">
-      <p-inputgroup>
-        <p-inputgroup-addon>
-          <i class="pi pi-search"></i>
-        </p-inputgroup-addon>
-        <input pInputText placeholder="Search..."/>
-      </p-inputgroup>
+<div class="main-container">
+  <div class="page-header">
+    <div class="header-content">
+      <h1>Society</h1>
+      <p class="subtitle">La liste des entreprises partenaires</p>
     </div>
-    
-    <p-table #table [value]="societys" [paginator]="true" [rows]="10">
+  </div>
+
+  <div class="filters-row">
+    <p-inputgroup>
+      <p-inputgroup-addon>
+        <i class="pi pi-search"></i>
+      </p-inputgroup-addon>
+      <input pInputText placeholder="Search..." />
+    </p-inputgroup>
+  </div>
+
+  <div class="results-info">
+    <span class="result-count">
+      <i class="pi pi-list"></i>
+      Liste trouvée
+    </span>
+  </div>
+
+  <div class="table-container">
+    <p-table
+      #table
+      [value]="societys"
+      [paginator]="true"
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} demandes"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      [tableStyle]="{ 'min-width': '60rem' }"
+      [scrollable]="true"
+      [responsiveLayout]="'stack'"
+      [breakpoint]="'960px'"
+      styleClass="modern-table"
+    >
       <ng-template pTemplate="header">
         <tr>
           <th>Id</th>
@@ -28,12 +53,82 @@
           <td>{{ soc.domaine }}</td>
           <td>{{ soc.location }}</td>
           <td>
-            <p-button [ngClass]="{'table-btn':true}" severity="secondary"
+            <p-button [ngClass]="{ 'table-btn': true }" severity="secondary" (click)="showSocietyDetails(soc)"
               >Details</p-button
             >
           </td>
         </tr>
       </ng-template>
     </p-table>
-  </ng-template>
-</p-card>
+  </div>
+  
+  <!-- Popup de détails de la société -->
+  <p-dialog 
+    [(visible)]="displaySocietyDetails" 
+    [modal]="true" 
+    [style]="{width: '500px'}" 
+    [draggable]="false" 
+    [resizable]="false"
+    header="Détails de l'entreprise" 
+    styleClass="society-profile-dialog">
+    
+    <div class="society-container" *ngIf="selectedSociety">
+      <div class="society-header">
+        <div class="society-logo">
+          <img [src]="selectedSociety.logo || '/picture/axa.png'" alt="Logo de l'entreprise">
+        </div>
+        <h2 class="society-name">{{ selectedSociety.name }}</h2>
+        <div class="society-domain">{{ selectedSociety.domaine }}</div>
+      </div>
+      
+      <div class="society-description" *ngIf="selectedSociety.description">
+        <p>{{ selectedSociety.description }}</p>
+      </div>
+      
+      <div class="society-details">
+        <div class="detail-item">
+          <div class="detail-label">
+            <i class="pi pi-envelope"></i>
+            <span>Email</span>
+          </div>
+          <div class="detail-value">{{ selectedSociety.email || 'Non spécifié' }}</div>
+        </div>
+        
+        <div class="detail-item">
+          <div class="detail-label">
+            <i class="pi pi-phone"></i>
+            <span>Téléphone</span>
+          </div>
+          <div class="detail-value">{{ selectedSociety.phone || 'Non spécifié' }}</div>
+        </div>
+        
+        <div class="detail-item">
+          <div class="detail-label">
+            <i class="pi pi-map-marker"></i>
+            <span>Localisation</span>
+          </div>
+          <div class="detail-value">{{ selectedSociety.location }}</div>
+        </div>
+        
+        <div class="detail-item" *ngIf="selectedSociety.website">
+          <div class="detail-label">
+            <i class="pi pi-globe"></i>
+            <span>Site web</span>
+          </div>
+          <div class="detail-value website">
+            <a [href]="'https://' + selectedSociety.website" target="_blank">{{ selectedSociety.website }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <ng-template pTemplate="footer">
+      <p-button 
+        icon="pi pi-times" 
+        label="Fermer" 
+        styleClass="p-button-text" 
+        (click)="displaySocietyDetails=false">
+      </p-button>
+    </ng-template>
+  </p-dialog>
+</div>

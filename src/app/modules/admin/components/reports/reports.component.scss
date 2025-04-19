@@ -1,48 +1,498 @@
+@use "sass:color";
+
+// Variables
+$primary-color: #003366; // Bleu marine comme couleur principale
+$primary-light: #e6f0ff;
+$secondary-color: #f8f9fa;
+$border-color: #e9ecef;
+$text-color: #212529;
+$text-muted: #6c757d;
+$white: #ffffff;
+$danger: #ef476f;
+$warning: #ffd166;
+$info: #118ab2;
+$success: #06d6a0;
+$purple: #7952b3;
+$orange: #fd7e14;
+$teal: #20c997;
+$radius: 8px;
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.07);
+$shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+$shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+$transition: all 0.25s ease;
+
 body {
-  --p-card-background : white;
-  --p-card-color: black;
-  --p-card-border-radius: 20px;
-  --p-card-body-padding: 10px ;
-  --p-card-shadow: 0 .125rem .25rem rgb(0 0 0 / 50%);
+  --p-card-background: $white;
+  --p-card-color: $text-color;
+  --p-card-border-radius: $radius;
+  --p-card-body-padding: 1.5rem;
+  --p-card-shadow: $shadow;
+}
+
+.reports-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 100%;
+  padding: 1.75rem;
+  background-color: $white;
+  border-radius: $radius;
+  box-shadow: $shadow;
+}
+
+.header {
+  font-size: 1.85rem;
+  color: $primary-color;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid $border-color;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: $primary-color;
+    margin-right: 0.75rem;
+    border-radius: 6px;
+    transform: rotate(45deg);
+  }
+}
+
+.subtitle {
+  color: $text-muted;
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .total-card-list {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  padding-bottom: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  
   p-card {
+    height: 100%;
+    transition: $transition;
     
-
-    flex: 1;
-
-    .p-card {
+    &:hover {
+      transform: translateY(-5px);
+    }
+    
+    ::ng-deep .p-card {
+      height: 100%;
+      border-radius: $radius;
+      border: 1px solid $border-color;
+      overflow: hidden;
+      box-shadow: $shadow-sm;
+      transition: $transition;
+      
+      &:hover {
+        box-shadow: $shadow;
+      }
+      
+      .p-card-body {
+        padding: 1.5rem;
+      }
+      
+      .p-card-content {
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        height: 100%;
+      }
+      
       .item {
         display: flex;
-        align-content: center;
-        flex-wrap: wrap;
+        align-items: center;
         justify-content: center;
       }
-
+      
       .label {
-        padding-bottom: 5px;
-        // font-size: 1rem;
+        padding-bottom: 0.75rem;
         font-weight: 600;
+        color: $text-muted;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
       }
-
+      
       .value {
-        font-size: 0.95rem;
+        font-size: 2rem;
+        font-weight: 700;
+        color: $primary-color;
+        margin-bottom: 0.5rem;
       }
+      
+      .trend {
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        justify-content: center;
+        
+        i {
+          font-size: 0.85rem;
+        }
+        
+        .text-success {
+          color: $success;
+        }
+        
+        .text-danger {
+          color: $danger;
+        }
+        
+        .period {
+          color: $text-muted;
+          margin-left: 0.25rem;
+        }
+      }
+    }
+    
+    // Différentes couleurs pour chaque carte
+    &:nth-child(1) ::ng-deep .p-card {
+      border-top: 4px solid $primary-color;
+      .value { color: $primary-color; }
+    }
+    
+    &:nth-child(2) ::ng-deep .p-card {
+      border-top: 4px solid $info;
+      .value { color: $info; }
+    }
+    
+    &:nth-child(3) ::ng-deep .p-card {
+      border-top: 4px solid $purple;
+      .value { color: $purple; }
+    }
+    
+    &:nth-child(4) ::ng-deep .p-card {
+      border-top: 4px solid $success;
+      .value { color: $success; }
     }
   }
 }
 
 .charts-list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr) !important;
-  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  
+  p-card {
+    height: 100%;
+    transition: $transition;
+    
+    &:hover {
+      transform: translateY(-5px);
+    }
+    
+    ::ng-deep .p-card {
+      height: 100%;
+      border-radius: $radius;
+      border: 1px solid $border-color;
+      overflow: hidden;
+      box-shadow: $shadow-sm;
+      transition: $transition;
+      
+      &:hover {
+        box-shadow: $shadow-lg;
+      }
+      
+      .p-card-body {
+        padding: 0;
+      }
+      
+      .p-card-content {
+        padding: 0;
+      }
+      
+      .p-card-header {
+        padding: 1.25rem 1.5rem 0.5rem;
+        border-bottom: 1px solid $border-color;
+      }
+    }
+    
+    .chart-item {
+      height: 350px;
+      width: 100%;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      canvas {
+        max-width: 100%;
+        height: auto !important;
+      }
+    }
+  }
+}
 
-  // .chart-item{
-  //   height: 300px;
-  // }
+// Style pour les en-têtes des graphiques
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: $primary-color;
+    margin: 0;
+  }
+  
+  ::ng-deep .p-dropdown {
+    .p-dropdown-label {
+      padding: 0.4rem 0.75rem;
+      font-size: 0.85rem;
+    }
+    
+    .p-dropdown-trigger {
+      width: 2.5rem;
+    }
+  }
+}
+
+// Style pour les badges de statut
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.75rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  
+  &.status-active {
+    background-color: rgba($success, 0.15);
+    color: $success;
+  }
+  
+  &.status-pourvue {
+    background-color: rgba($info, 0.15);
+    color: $info;
+  }
+  
+  &.status-expirée {
+    background-color: rgba($danger, 0.15);
+    color: $danger;
+  }
+  
+  &.status-en {
+    background-color: rgba($warning, 0.15);
+    color: darken($warning, 15%);
+  }
+}
+
+// Style pour l'en-tête du tableau
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.5rem;
+  
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: $primary-color;
+    margin: 0;
+  }
+}
+
+// Styles pour le tableau modernisé
+::ng-deep {
+  .modern-table {
+    .p-datatable-header {
+      background-color: $white !important;
+      border: none !important;
+      padding: 0;
+    }
+    
+    .p-datatable-thead > tr > th {
+      background-color: $primary-light !important;
+      color: $primary-color !important;
+      border: none !important;
+      border-bottom: 1px solid rgba($primary-color, 0.15) !important;
+      padding: 1.25rem 1rem;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: $transition;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      
+      &:first-child {
+        border-top-left-radius: $radius;
+      }
+      
+      &:last-child {
+        border-top-right-radius: $radius;
+      }
+      
+      .p-sortable-column-icon {
+        color: rgba($primary-color, 0.6) !important;
+        font-size: 0.8rem;
+        margin-left: 0.5rem;
+      }
+      
+      &.p-highlight {
+        background-color: rgba($primary-color, 0.2) !important;
+        
+        .p-sortable-column-icon {
+          color: $primary-color !important;
+        }
+      }
+      
+      &:hover {
+        background-color: rgba($primary-color, 0.25) !important;
+      }
+    }
+    
+    .p-datatable-tbody > tr {
+      border-bottom: 1px solid $border-color !important;
+      transition: $transition;
+      
+      &:hover {
+        background-color: $primary-light !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        z-index: 1;
+        position: relative;
+      }
+      
+      > td {
+        padding: 1.1rem 1rem !important;
+        border: none !important;
+        color: $text-color !important;
+        transition: $transition;
+        vertical-align: middle;
+      }
+      
+      &:last-child {
+        border-bottom: none !important;
+      }
+    }
+    
+    // Style pour les contrôles de pagination
+    .p-paginator {
+      background-color: $white !important;
+      border-top: 1px solid $border-color !important;
+      padding: 1rem !important;
+      
+      .p-paginator-element {
+        color: $text-muted !important;
+        border-radius: $radius !important;
+        transition: $transition;
+        
+        &.p-highlight {
+          background-color: $primary-color !important;
+          color: $white !important;
+          font-weight: 600;
+          box-shadow: 0 2px 6px rgba($primary-color, 0.3);
+        }
+        
+        &:not(.p-highlight):hover {
+          background-color: $primary-light !important;
+          color: $primary-color !important;
+          transform: translateY(-2px);
+        }
+      }
+      
+      .p-paginator-current {
+        font-weight: 500;
+        color: $text-muted;
+      }
+    }
+  }
+  
+  // Style pour les légendes des graphiques
+  .p-chart {
+    width: 100% !important;
+    
+    canvas {
+      max-width: 100%;
+    }
+  }
+  
+  .p-chart-legend {
+    margin-top: 1rem;
+    
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      padding: 0;
+      margin: 0;
+      
+      li {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        padding: 0.25rem 0.75rem;
+        border-radius: 50px;
+        background-color: $secondary-color;
+        color: $text-color;
+        font-weight: 500;
+        
+        span {
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 992px) {
+  .charts-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .total-card-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .header {
+    font-size: 1.5rem;
+  }
+  
+  .total-card-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .charts-list p-card ::ng-deep .p-card {
+    .p-card-body {
+      padding: 0;
+    }
+  }
+  
+  .chart-item {
+    height: 300px !important;
+    padding: 1rem !important;
+  }
+  
+  .chart-header, .table-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    
+    h3 {
+      margin-bottom: 0.5rem;
+    }
+  }
 }
