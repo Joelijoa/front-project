@@ -2,8 +2,8 @@
 
 body {
   --border-color: rgb(206, 201, 201);
-  --background-color: white;
-  --text-color: black;
+  // --background-color: white;
+  // --text-color: black;
   // --p-card-background : var(--background-color);
   // --p-card-color: var(--text-color);
   // --p-card-border-radius: 10px;
@@ -48,11 +48,16 @@ body {
       justify-content: end;
       gap: 10px;
 
-      .item {
-        width: 50px;
+      p-button.item button {
+        width: 50px ;
         height: 50px;
         border-radius: 50%;
-        background-color: aquamarine;
+        background-color: var(--color-primary);
+
+        .p-button-icon {
+          color: #fff;
+          font-size: 15px;
+        }
       }
     }
 

@@ -2,7 +2,7 @@ import { ReportsComponent } from './components/reports/reports.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminLayoutComponent } from './layout/adminLayout/adminLayout.component';
-import { OffersComponent } from './components/offers/offers.component';
+import { OffersComponent } from './layout/offers/offers.component';
 import { RequestsComponent } from './components/requests/requests.component';
 import { SocietyComponent } from './components/society/society.component';
 import { UsersComponent } from './components/users/users.component';

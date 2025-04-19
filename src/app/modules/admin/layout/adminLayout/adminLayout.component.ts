@@ -3,6 +3,7 @@ import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button';
+import { ParametrePopoverComponent } from '../../components/parametrePopover/parametrePopover.component';
 
 @Component({
   selector: 'app-adminLayout',
@@ -11,6 +12,7 @@ import { ButtonModule } from 'primeng/button';
   encapsulation: ViewEncapsulation.None,
   imports: [
     SidebarComponent,
+    ParametrePopoverComponent,
     RouterModule,
     BreadcrumbModule,
     ButtonModule
