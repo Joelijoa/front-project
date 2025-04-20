@@ -1,0 +1,257 @@
+// @import "../../../../shared/styles/variables";
+
+// Variables
+$primary-color: #003366; // Bleu marine
+$primary-light: lighten($primary-color, 10%);
+$primary-dark: darken($primary-color, 10%);
+$border-radius: 8px;
+$box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+$transition: all 0.3s ease;
+
+// Status colors
+$status-pending: #FFB74D;
+$status-processing: #64B5F6;
+$status-approved: #66BB6A;
+$status-rejected: #EF5350;
+$status-valid: #66BB6A;
+$status-invalid: #EF5350;
+
+.account-details-container {
+  padding: 1rem;
+  
+  .loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+  }
+  
+  .error-message {
+    text-align: center;
+    padding: 2rem;
+    
+    i {
+      font-size: 2rem;
+      color: #EF5350;
+      margin-bottom: 1rem;
+    }
+    
+    p {
+      margin-bottom: 1.5rem;
+      color: #495057;
+    }
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    
+    h2 {
+      font-size: 1.5rem;
+      color: $primary-color;
+      margin: 0;
+      margin-right: 1rem;
+    }
+    
+    .status-badge {
+      display: inline-block;
+      padding: 0.3rem 0.6rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      
+      &.status-pending {
+        background-color: rgba($status-pending, 0.15);
+        color: darken($status-pending, 25%);
+      }
+      
+      &.status-processing {
+        background-color: rgba($status-processing, 0.15);
+        color: darken($status-processing, 25%);
+      }
+      
+      &.status-approved {
+        background-color: rgba($status-approved, 0.15);
+        color: darken($status-approved, 20%);
+      }
+      
+      &.status-rejected {
+        background-color: rgba($status-rejected, 0.15);
+        color: darken($status-rejected, 20%);
+      }
+    }
+  }
+  
+  ::ng-deep {
+    .p-tabview {
+      .p-tabview-nav {
+        border-color: #e9ecef;
+        
+        li {
+          .p-tabview-nav-link {
+            color: #495057;
+            border-radius: $border-radius $border-radius 0 0;
+            transition: $transition;
+            
+            &:not(.p-disabled):focus {
+              box-shadow: none;
+            }
+            
+            &:hover {
+              background-color: rgba($primary-color, 0.05);
+              color: $primary-color;
+            }
+          }
+          
+          &.p-highlight .p-tabview-nav-link {
+            background-color: #fff;
+            color: $primary-color;
+            border-color: #e9ecef;
+            border-bottom-color: #fff;
+            
+            &:before {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              height: 3px;
+              background-color: $primary-color;
+              border-radius: $border-radius $border-radius 0 0;
+            }
+          }
+        }
+      }
+      
+      .p-tabview-panels {
+        padding: 1.5rem;
+        background-color: #fff;
+        border: 1px solid #e9ecef;
+        border-top: 0;
+        border-radius: 0 0 $border-radius $border-radius;
+      }
+    }
+    
+    .p-divider {
+      margin: 1.5rem 0;
+    }
+    
+    .p-datatable {
+      box-shadow: $box-shadow;
+      border-radius: $border-radius;
+      overflow: hidden;
+      
+      .p-datatable-thead > tr > th {
+        background-color: #f8f9fa;
+        color: $primary-color;
+        font-weight: 600;
+        padding: 0.75rem 1rem;
+      }
+      
+      .p-datatable-tbody > tr > td {
+        padding: 0.75rem 1rem;
+      }
+    }
+  }
+  
+  .info-section {
+    margin-bottom: 2rem;
+    
+    h3 {
+      font-size: 1.1rem;
+      color: $primary-color;
+      margin-bottom: 1.2rem;
+    }
+    
+    .info-item {
+      margin-bottom: 1rem;
+      
+      label {
+        display: block;
+        color: #6c757d;
+        font-size: 0.875rem;
+        margin-bottom: 0.3rem;
+      }
+      
+      div {
+        color: #212529;
+        
+        a {
+          color: $primary-color;
+          text-decoration: none;
+          
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+  
+  .document-status {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+    
+    &.status-valid {
+      background-color: rgba($status-valid, 0.15);
+      color: darken($status-valid, 20%);
+    }
+    
+    &.status-invalid {
+      background-color: rgba($status-invalid, 0.15);
+      color: darken($status-invalid, 20%);
+    }
+    
+    &.status-pending {
+      background-color: rgba($status-pending, 0.15);
+      color: darken($status-pending, 25%);
+    }
+  }
+  
+  .empty-history {
+    text-align: center;
+    padding: 2rem;
+    color: #6c757d;
+    
+    i {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #adb5bd;
+    }
+    
+    p {
+      margin: 0;
+    }
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2rem;
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .account-details-container {
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+      
+      h2 {
+        margin-bottom: 0.5rem;
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+ 

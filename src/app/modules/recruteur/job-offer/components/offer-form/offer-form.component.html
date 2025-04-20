@@ -181,6 +181,15 @@
       pButton
       pRipple
       type="button"
+      label="Brouillon"
+      class="p-button-primary"
+      (click)="onSubmit()"
+      [disabled]="!offerForm.valid"
+    ></button>
+    <button
+      pButton
+      pRipple
+      type="button"
       label="Enregistrer"
       class="p-button-primary"
       (click)="onSubmit()"

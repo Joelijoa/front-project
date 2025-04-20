@@ -2,7 +2,7 @@
   <div class="page-header">
     <div class="header-content">
       <h1>Society</h1>
-      <p class="subtitle">ty tsy aiko oe inona ataoko eto</p>
+      <p class="subtitle">La liste des entreprises partenaires</p>
     </div>
   </div>
 
@@ -18,7 +18,7 @@
   <div class="results-info">
     <span class="result-count">
       <i class="pi pi-list"></i>
-      ATAO demandes trouvées
+      Liste trouvée
     </span>
   </div>
 
@@ -53,7 +53,7 @@
           <td>{{ soc.domaine }}</td>
           <td>{{ soc.location }}</td>
           <td>
-            <p-button [ngClass]="{ 'table-btn': true }" severity="secondary"
+            <p-button [ngClass]="{ 'table-btn': true }" severity="secondary" (click)="showSocietyDetails(soc)"
               >Details</p-button
             >
           </td>
@@ -61,4 +61,74 @@
       </ng-template>
     </p-table>
   </div>
+  
+  <!-- Popup de détails de la société -->
+  <p-dialog 
+    [(visible)]="displaySocietyDetails" 
+    [modal]="true" 
+    [style]="{width: '500px'}" 
+    [draggable]="false" 
+    [resizable]="false"
+    header="Détails de l'entreprise" 
+    styleClass="society-profile-dialog">
+    
+    <div class="society-container" *ngIf="selectedSociety">
+      <div class="society-header">
+        <div class="society-logo">
+          <img [src]="selectedSociety.logo || '/picture/axa.png'" alt="Logo de l'entreprise">
+        </div>
+        <h2 class="society-name">{{ selectedSociety.name }}</h2>
+        <div class="society-domain">{{ selectedSociety.domaine }}</div>
+      </div>
+      
+      <div class="society-description" *ngIf="selectedSociety.description">
+        <p>{{ selectedSociety.description }}</p>
+      </div>
+      
+      <div class="society-details">
+        <div class="detail-item">
+          <div class="detail-label">
+            <i class="pi pi-envelope"></i>
+            <span>Email</span>
+          </div>
+          <div class="detail-value">{{ selectedSociety.email || 'Non spécifié' }}</div>
+        </div>
+        
+        <div class="detail-item">
+          <div class="detail-label">
+            <i class="pi pi-phone"></i>
+            <span>Téléphone</span>
+          </div>
+          <div class="detail-value">{{ selectedSociety.phone || 'Non spécifié' }}</div>
+        </div>
+        
+        <div class="detail-item">
+          <div class="detail-label">
+            <i class="pi pi-map-marker"></i>
+            <span>Localisation</span>
+          </div>
+          <div class="detail-value">{{ selectedSociety.location }}</div>
+        </div>
+        
+        <div class="detail-item" *ngIf="selectedSociety.website">
+          <div class="detail-label">
+            <i class="pi pi-globe"></i>
+            <span>Site web</span>
+          </div>
+          <div class="detail-value website">
+            <a [href]="'https://' + selectedSociety.website" target="_blank">{{ selectedSociety.website }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <ng-template pTemplate="footer">
+      <p-button 
+        icon="pi pi-times" 
+        label="Fermer" 
+        styleClass="p-button-text" 
+        (click)="displaySocietyDetails=false">
+      </p-button>
+    </ng-template>
+  </p-dialog>
 </div>

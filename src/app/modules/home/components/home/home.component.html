@@ -21,7 +21,7 @@
 
                     <h1 class="main-title">{{titre_1}}</h1>
                     <p class="subtitle">{{Sous_titre_1}}</p>
-                    <p-button label="Découvrir nos offres" (onClick)="goToOffres()" [rounded]="true" class="cta-button animate-fade-in"
+                    <p-button label="Découvrir nos offres" routerLink="/offers" (onClick)="goToOffres()" [rounded]="true" class="cta-button animate-fade-in"
                         [style]="{'color': '#FFFFFF','background-color': '#4361EE', 'border-color': '#4361EE'}" />
                 </div>
 
@@ -44,7 +44,7 @@
                                 <div class="accent-dot"></div>
                                 <div class="accent-line"></div>
                             </div>
-                            <img src="picture/man.jpg" alt="Professional man" />
+                            <img src="/picture/man.jpg" alt="Professional man" />
                             <div class="accent-square blue"></div>
                         </div>
                         <div class="photo-wrapper photo-2 animate-scale-in">

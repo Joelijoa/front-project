@@ -56,18 +56,6 @@ body {
       padding: 5px 10px;
     }
   }
-
-  
-
-  .filters {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-    
-    > * {
-      flex: 1;
-    }
-  }
 }
 
 button.p-ripple.p-button.p-component.table-btn{
@@ -143,17 +131,13 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     align-items: center;
     gap: 1rem;
     flex-wrap: wrap;
-    padding: 1rem 0;
-    
-    .filter-calendar, 
-    .filter-dropdown {
-      min-width: 180px;
+
+    > * {
       flex: 1;
     }
-    
+
     .search-container {
       position: relative;
-      flex: 2;
       
       i {
         position: absolute;
@@ -168,7 +152,7 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         width: 100%;
         padding: 0.75rem 0.75rem 0.75rem 2.5rem;
         border-radius: $radius;
-        border: 1px solid $border-color;
+        border: 1px solid var(--p-form-field-border-color);
         background-color: $white;
         color: $text-color;
         transition: border-color 0.2s;

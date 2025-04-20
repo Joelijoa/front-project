@@ -1,0 +1,453 @@
+// Variables
+$color-primary: #003366; // Bleu marine
+$color-primary-light: #004d99; // Version plus claire
+$color-primary-dark: #002244; // Version plus foncée
+$color-secondary: #ff6b6b; // Rouge saumon
+$color-tertiary: #feca57; // Jaune moutarde
+$color-success: #1dd1a1; // Vert menthe
+$color-info: #54a0ff; // Bleu ciel
+$color-warning: #ff9f43; // Orange
+$color-danger: #ee5253; // Rouge
+
+$color-text-primary: #2d3748;
+$color-text-secondary: #4a5568;
+$color-text-muted: #718096;
+$color-text-light: #f7fafc;
+
+$color-card-bg: #ffffff;
+$color-bg: #f5f7fa;
+$color-border: #e2e8f0;
+
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+
+$spacing-xs: 0.5rem;
+$spacing-sm: 0.75rem;
+$spacing-md: 1.25rem;
+$spacing-lg: 2rem;
+$spacing-xl: 3rem;
+
+$font-size-xs: 0.75rem;
+$font-size-sm: 0.875rem;
+$font-size-md: 1rem;
+$font-size-lg: 1.25rem;
+$font-size-xl: 1.5rem;
+$font-size-2xl: 2rem;
+
+$box-shadow: 0 4px 20px rgba(0, 51, 102, 0.08);
+$box-shadow-hover: 0 8px 25px rgba(0, 51, 102, 0.12);
+$transition: all 0.3s ease;
+
+// Styles généraux
+.customer-statistics-container {
+  font-family: 'Inter', 'Roboto', sans-serif;
+  background-color: $color-bg;
+  padding: $spacing-xl;
+  min-height: 100%;
+  color: $color-text-primary;
+
+  // En-tête avec titre et sélecteur de période
+  .statistics-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-lg;
+    
+    .header-title {
+      h1 {
+        font-size: $font-size-2xl;
+        font-weight: 700;
+        margin: 0;
+        color: $color-primary;
+        letter-spacing: -0.02em;
+      }
+      
+      .subtitle {
+        font-size: $font-size-md;
+        color: $color-text-secondary;
+        margin-top: $spacing-xs;
+      }
+    }
+    
+    .period-selector {
+      display: flex;
+      gap: $spacing-sm;
+      align-items: center;
+      
+      .label {
+        font-size: $font-size-sm;
+        font-weight: 500;
+        color: $color-text-secondary;
+      }
+      
+      ::ng-deep {
+        .p-calendar {
+          .p-inputtext {
+            border-radius: $border-radius-md;
+            border-color: $color-border;
+            transition: $transition;
+            
+            &:hover {
+              border-color: $color-primary-light;
+            }
+            
+            &:focus {
+              border-color: $color-primary;
+              box-shadow: 0 0 0 2px rgba(0, 51, 102, 0.1);
+            }
+          }
+          
+          .p-button {
+            background-color: $color-primary;
+            border-color: $color-primary;
+            
+            &:hover {
+              background-color: $color-primary-light;
+              border-color: $color-primary-light;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  // Cartes KPI
+  .kpi-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $spacing-md;
+    margin-bottom: $spacing-lg;
+    
+    .kpi-card {
+      background-color: $color-card-bg;
+      border-radius: $border-radius-lg;
+      padding: $spacing-md;
+      box-shadow: $box-shadow;
+      transition: $transition;
+      
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: $box-shadow-hover;
+      }
+      
+      .kpi-title {
+        font-size: $font-size-sm;
+        font-weight: 500;
+        color: $color-text-secondary;
+        margin-bottom: $spacing-sm;
+      }
+      
+      .kpi-value {
+        font-size: $font-size-xl;
+        font-weight: 700;
+        color: $color-primary;
+        margin-bottom: $spacing-xs;
+      }
+      
+      .kpi-trend {
+        display: flex;
+        align-items: center;
+        font-size: $font-size-sm;
+        
+        &.positive {
+          color: $color-success;
+        }
+        
+        &.negative {
+          color: $color-danger;
+        }
+        
+        i {
+          margin-right: $spacing-xs;
+        }
+      }
+    }
+  }
+  
+  // Section graphiques
+  .charts-section {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: $spacing-md;
+    margin-bottom: $spacing-lg;
+    
+    .growth-chart, .segmentation-chart {
+      background-color: $color-card-bg;
+      border-radius: $border-radius-lg;
+      padding: $spacing-md;
+      box-shadow: $box-shadow;
+      transition: $transition;
+      
+      &:hover {
+        box-shadow: $box-shadow-hover;
+      }
+      
+      h2 {
+        font-size: $font-size-lg;
+        font-weight: 600;
+        margin: 0 0 $spacing-md 0;
+        color: $color-primary;
+      }
+      
+      .chart-wrapper {
+        height: 300px;
+        
+        ::ng-deep {
+          canvas {
+            border-radius: $border-radius-md;
+          }
+        }
+      }
+    }
+  }
+  
+  // Répartition régionale
+  .regional-section {
+    background-color: $color-card-bg;
+    border-radius: $border-radius-lg;
+    padding: $spacing-md;
+    box-shadow: $box-shadow;
+    transition: $transition;
+    
+    &:hover {
+      box-shadow: $box-shadow-hover;
+    }
+    
+    h2 {
+      font-size: $font-size-lg;
+      font-weight: 600;
+      margin: 0 0 $spacing-md 0;
+      color: $color-primary;
+    }
+    
+    .region-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $spacing-md;
+      
+      .region-item {
+        flex: 1 1 calc(25% - #{$spacing-md});
+        min-width: 180px;
+        background-color: $color-bg;
+        border-radius: $border-radius-md;
+        padding: $spacing-sm;
+        
+        .region-name {
+          font-size: $font-size-sm;
+          font-weight: 500;
+          color: $color-text-secondary;
+          margin-bottom: $spacing-xs;
+        }
+        
+        .region-value {
+          font-size: $font-size-lg;
+          font-weight: 600;
+          color: $color-primary;
+          margin-bottom: $spacing-xs;
+        }
+        
+        .region-percentage {
+          font-size: $font-size-sm;
+          color: $color-text-muted;
+        }
+      }
+    }
+  }
+  
+  // Liste des clients
+  .clients-section {
+    background-color: $color-card-bg;
+    border-radius: $border-radius-lg;
+    padding: $spacing-md;
+    box-shadow: $box-shadow;
+    margin-bottom: $spacing-lg;
+    transition: $transition;
+    
+    &:hover {
+      box-shadow: $box-shadow-hover;
+    }
+    
+    h2 {
+      font-size: $font-size-lg;
+      font-weight: 600;
+      margin: 0 0 $spacing-md 0;
+      color: $color-primary;
+    }
+    
+    ::ng-deep {
+      .p-datatable {
+        .p-datatable-header {
+          background-color: $color-bg;
+          border-radius: $border-radius-md $border-radius-md 0 0;
+          border: none;
+          padding: $spacing-md;
+        }
+        
+        .p-datatable-thead > tr > th {
+          background-color: $color-bg;
+          color: $color-text-secondary;
+          border-color: $color-border;
+          font-weight: 600;
+          padding: $spacing-sm $spacing-md;
+          transition: $transition;
+          
+          &:hover {
+            background-color: rgba($color-primary, 0.05);
+          }
+          
+          &.p-sortable-column:hover {
+            background-color: rgba($color-primary, 0.08);
+          }
+          
+          &.p-sortable-column.p-highlight {
+            background-color: rgba($color-primary, 0.08);
+            color: $color-primary;
+            
+            .p-sortable-column-icon {
+              color: $color-primary;
+            }
+          }
+        }
+        
+        .p-datatable-tbody > tr {
+          transition: $transition;
+          
+          &:hover {
+            background-color: rgba($color-primary, 0.03);
+          }
+          
+          > td {
+            padding: $spacing-sm $spacing-md;
+            border-color: $color-border;
+            
+            .client-avatar {
+              width: 36px;
+              height: 36px;
+              border-radius: 50%;
+              background-color: $color-primary;
+              color: white;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-weight: 500;
+              font-size: $font-size-sm;
+            }
+            
+            .client-status {
+              display: inline-flex;
+              align-items: center;
+              padding: $spacing-xs $spacing-sm;
+              border-radius: $border-radius-sm;
+              font-size: $font-size-xs;
+              font-weight: 500;
+              
+              &.active {
+                background-color: rgba($color-success, 0.1);
+                color: $color-success;
+              }
+              
+              &.inactive {
+                background-color: rgba($color-text-muted, 0.1);
+                color: $color-text-muted;
+              }
+              
+              &.suspended {
+                background-color: rgba($color-warning, 0.1);
+                color: $color-warning;
+              }
+              
+              &.pending {
+                background-color: rgba($color-info, 0.1);
+                color: $color-info;
+              }
+              
+              i {
+                margin-right: $spacing-xs;
+              }
+            }
+          }
+        }
+        
+        .p-paginator {
+          background-color: $color-bg;
+          border-radius: 0 0 $border-radius-md $border-radius-md;
+          border: none;
+          padding: $spacing-sm;
+          
+          .p-paginator-element {
+            border-radius: $border-radius-sm;
+            transition: $transition;
+            
+            &.p-highlight {
+              background-color: $color-primary;
+              border-color: $color-primary;
+            }
+            
+            &:not(.p-highlight):hover {
+              background-color: rgba($color-primary, 0.1);
+              color: $color-primary;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  // Message vide
+  .empty-message {
+    background-color: $color-card-bg;
+    border-radius: $border-radius-lg;
+    padding: $spacing-lg;
+    color: $color-text-muted;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    
+    i {
+      font-size: $font-size-2xl;
+      margin-bottom: $spacing-sm;
+      color: $color-primary-light;
+    }
+  }
+}
+
+// Media queries pour responsivité
+@media (max-width: 1200px) {
+  .customer-statistics-container {
+    padding: $spacing-md;
+    
+    .kpi-cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .charts-section {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .customer-statistics-container {
+    .statistics-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $spacing-md;
+    }
+    
+    .kpi-cards {
+      grid-template-columns: 1fr;
+    }
+    
+    .region-list {
+      .region-item {
+        flex: 1 1 100%;
+      }
+    }
+  }
+}
+
+

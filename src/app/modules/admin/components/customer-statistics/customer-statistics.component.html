@@ -1,0 +1,265 @@
+<div class="customer-statistics-container">
+  <!-- En-tête avec titre et sélecteur de période -->
+  <div class="statistics-header">
+    <div class="header-title">
+      <h1>Statistiques Clients</h1>
+      <div class="subtitle">
+        Analysez et suivez l'évolution de votre base client
+      </div>
+    </div>
+    <div class="period-selector">
+      <label for="periode">Période:</label>
+      <p-dropdown
+        id="periode"
+        [options]="periodes"
+        [(ngModel)]="periodeSelectionnee"
+        optionLabel="label"
+        optionValue="value"
+        (onChange)="chargerStatistiques()"
+      >
+      </p-dropdown>
+    </div>
+  </div>
+
+  <!-- Indicateur de chargement -->
+  <div class="loading-container" *ngIf="chargement">
+    <p-progressSpinner
+      [style]="{ width: '50px', height: '50px' }"
+    ></p-progressSpinner>
+    <span>Chargement des statistiques...</span>
+  </div>
+
+  <!-- Message d'erreur -->
+  <div class="error-container" *ngIf="!chargement && !statistiques">
+    <i class="pi pi-exclamation-triangle"></i>
+    <h3>Erreur de chargement</h3>
+    <p>
+      Impossible de récupérer les statistiques clients. Veuillez réessayer
+      ultérieurement.
+    </p>
+    <button
+      pButton
+      label="Réessayer"
+      icon="pi pi-refresh"
+      (click)="chargerStatistiques()"
+    ></button>
+  </div>
+
+  <!-- Contenu principal -->
+  <ng-container *ngIf="!chargement && statistiques">
+    <!-- Cartes KPI -->
+    <div class="kpi-cards">
+      <!-- Total clients -->
+      <div class="kpi-card total-clients">
+        <div class="kpi-icon">
+          <i class="pi pi-users"></i>
+        </div>
+        <div class="kpi-content">
+          <div class="kpi-title">Total Clients</div>
+          <div class="kpi-value">{{ statistiques.totalClients | number }}</div>
+          <div
+            class="kpi-trend"
+            [ngClass]="
+              statistiques.croissanceClients >= 0 ? 'positive' : 'negative'
+            "
+          >
+            <i
+              [ngClass]="
+                statistiques.croissanceClients >= 0
+                  ? 'pi pi-arrow-up'
+                  : 'pi pi-arrow-down'
+              "
+            ></i>
+            {{ statistiques.croissanceClients >= 0 ? "+" : ""
+            }}{{ statistiques.croissanceClients }}% depuis 30 jours
+          </div>
+        </div>
+      </div>
+
+      <!-- Clients particuliers -->
+      <div class="kpi-card individual-clients">
+        <div class="kpi-icon">
+          <i class="pi pi-user"></i>
+        </div>
+        <div class="kpi-content">
+          <div class="kpi-title">Clients Particuliers</div>
+          <div class="kpi-value">
+            {{ statistiques.clientsParticuliers | number }}
+          </div>
+          <div class="kpi-info">
+            {{ statistiques.pourcentageParticuliers }}% du total
+          </div>
+        </div>
+      </div>
+
+      <!-- Clients entreprises -->
+      <div class="kpi-card company-clients">
+        <div class="kpi-icon">
+          <i class="pi pi-building"></i>
+        </div>
+        <div class="kpi-content">
+          <div class="kpi-title">Clients Entreprises</div>
+          <div class="kpi-value">
+            {{ statistiques.clientsEntreprises | number }}
+          </div>
+          <div class="kpi-info">
+            {{ statistiques.pourcentageEntreprises }}% du total
+          </div>
+        </div>
+      </div>
+
+      <!-- Taux d'activité -->
+      <div class="kpi-card activity-rate">
+        <div class="kpi-icon">
+          <i class="pi pi-chart-line"></i>
+        </div>
+        <div class="kpi-content">
+          <div class="kpi-title">Taux d'Activité</div>
+          <div class="kpi-value">{{ statistiques.tauxActivite }}%</div>
+          <div
+            class="kpi-trend"
+            [ngClass]="
+              statistiques.evolutionActivite >= 0 ? 'positive' : 'negative'
+            "
+          >
+            <i
+              [ngClass]="
+                statistiques.evolutionActivite >= 0
+                  ? 'pi pi-arrow-up'
+                  : 'pi pi-arrow-down'
+              "
+            ></i>
+            {{ statistiques.evolutionActivite >= 0 ? "+" : ""
+            }}{{ statistiques.evolutionActivite }}% depuis 30 jours
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Graphiques -->
+    <div class="charts-section">
+      <!-- Évolution du nombre de clients -->
+      <div class="chart-container">
+        <h2>Évolution & Croissance</h2>
+        <div class="chart-wrapper">
+          <p-chart
+            type="line"
+            [data]="graphiqueEvolution"
+            [options]="optionsGraphiqueEvolution"
+          ></p-chart>
+        </div>
+      </div>
+
+      <!-- Répartition des clients -->
+      <div class="section graphique-repartition">
+        <h2>Répartition des clients</h2>
+        <div class="graphique-container">
+          <p-chart
+            type="doughnut"
+            [data]="graphiqueRepartition"
+            [options]="optionsGraphiqueRepartition"
+          >
+          </p-chart>
+        </div>
+      </div>
+    </div>
+
+    <!-- Répartition régionale -->
+    <div class="regional-section">
+      <h2>Répartition Régionale</h2>
+      <div class="region-list">
+        <div class="region-item" *ngFor="let region of statistiques.topRegions">
+          <div class="region-info">
+            <div class="region-name">{{ region.nom }}</div>
+            <div class="region-count">{{ region.nombre }} clients</div>
+          </div>
+          <div class="region-bar-container">
+            <div class="region-bar" [style.width.%]="region.pourcentage"></div>
+            <div class="region-percentage">{{ region.pourcentage }}%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clients les plus actifs -->
+    <div class="active-clients-section">
+      <h2>Clients les Plus Actifs</h2>
+
+      <p-table
+        [value]="statistiques.clientsActifs"
+        [paginator]="true" 
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} offres"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [tableStyle]="{ 'min-width': '60rem' }"
+        [scrollable]="true"
+        [responsiveLayout]="'stack'"
+        [breakpoint]="'960px'"
+        styleClass="modern-table"
+        *ngIf="statistiques.clientsActifs?.length; else emptyClients"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Client</th>
+            <th>Type</th>
+            <th>Statut</th>
+            <th>Date d'inscription</th>
+            <th>Niveau d'activité</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-client>
+          <tr>
+            <td>
+              <div class="client-info">
+                <div class="client-name">{{ client.nom }}</div>
+                <div class="client-email">{{ client.email }}</div>
+              </div>
+            </td>
+            <td>
+              <div class="client-type-badge" [ngClass]="client.type">
+                {{
+                  client.type === "individual" ? "Particulier" : "Entreprise"
+                }}
+              </div>
+            </td>
+            <td>
+              <div class="client-status" [ngClass]="client.statut">
+                {{
+                  client.statut === "active"
+                    ? "Actif"
+                    : client.statut === "inactive"
+                    ? "Inactif"
+                    : client.statut === "pending"
+                    ? "En attente"
+                    : "Bloqué"
+                }}
+              </div>
+            </td>
+            <td>{{ client.dateCreation | date : "dd/MM/yyyy" }}</td>
+            <td>
+              <div class="activity-gauge-container">
+                <div
+                  class="activity-gauge"
+                  [style.width.%]="client.activite"
+                ></div>
+                <div class="activity-value">{{ client.activite }}%</div>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+      <ng-template #emptyClients>
+        <div class="empty-message">
+          <i class="pi pi-info-circle"></i>
+          <span
+            >Aucune donnée d'activité client disponible pour la période
+            sélectionnée</span
+          >
+        </div>
+      </ng-template>
+    </div>
+  </ng-container>
+</div>

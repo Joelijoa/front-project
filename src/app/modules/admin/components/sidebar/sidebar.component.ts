@@ -44,7 +44,10 @@ export class SidebarComponent {
             icon: 'pi pi-chart-bar',
             command: () => this.router.navigate(['/admin/reports']),
           },
-          { label: 'Customers statistics', icon: 'pi pi-chart-bar' },
+          { label: 'Customers statistics', 
+            icon: 'pi pi-chart-bar',
+            command: () => this.router.navigate(['/admin/customer-statistics']),
+          },
         ],
       },
       {
@@ -60,7 +63,11 @@ export class SidebarComponent {
             icon: 'pi pi-users',
             command: () => this.router.navigate(['/admin/users']),
           },
-          { label: 'Accounts', icon: 'pi pi-id-card' },
+          {
+             label: 'Accounts',
+            icon: 'pi pi-id-card',
+            command: ()=> this.router.navigate(['/admin/accounts'])
+           },
         ],
       },
     ];

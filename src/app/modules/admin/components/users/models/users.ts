@@ -10,6 +10,9 @@ export class Users {
     public id: number,
     public name: string,
     public email: string,
-    public location: string
+    public location: string,
+    public phone?: string,
+    public jobTitle?: string,
+    public avatar?: string
   ) {}
 }

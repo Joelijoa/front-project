@@ -16,6 +16,10 @@
   .p-menu {
     background-color: transparent;
     border: none;
+
+    .p-menu-item-label {
+      color: #fff;
+    }
   }
 
   .collapse-btn {

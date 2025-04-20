@@ -1,26 +1,174 @@
-<div class="header">Reports</div>
-<div class="total-card-list">
-  <p-card *ngFor="let total of totals" >
-    <ng-template pTemplate="content">
-      <div class="item label">{{ total.label }}</div>
-      <div class="item value">{{ total.value }}</div>
-    </ng-template>
-  </p-card>
-</div>
+<div class="reports-container">
+  <div class="header">Tableau de bord</div>
+  <p class="subtitle">
+    Visualisez et analysez les performances de votre plateforme de recrutement.
+  </p>
 
-<div class="charts-list">
+  <div class="total-card-list">
+    <p-card *ngFor="let total of totals">
+      <ng-template pTemplate="content">
+        <div class="item label">{{ total.label }}</div>
+        <div class="item value">{{ total.value | number }}</div>
+        <div class="item trend" *ngIf="total.trend">
+          <i
+            [class]="
+              total.trend > 0
+                ? 'pi pi-arrow-up text-success'
+                : 'pi pi-arrow-down text-danger'
+            "
+          ></i>
+          <span [class]="total.trend > 0 ? 'text-success' : 'text-danger'"
+            >{{ total.trend }}%</span
+          >
+          <span class="period">vs mois dernier</span>
+        </div>
+      </ng-template>
+    </p-card>
+  </div>
+
+  <div class="charts-list">
+    <!-- Graphique en camembert pour la répartition des offres -->
+    <p-card>
+      <ng-template pTemplate="header">
+        <div class="chart-header">
+          <h3>Répartition des offres</h3>
+          <p-dropdown
+            [options]="periodOptions"
+            [(ngModel)]="selectedPeriod"
+            optionLabel="label"
+          ></p-dropdown>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="content">
+        <div class="chart-item">
+          <p-chart type="pie" [data]="pieData" [options]="pieOptions"></p-chart>
+        </div>
+      </ng-template>
+    </p-card>
+
+    <!-- Graphique en barres pour les candidats par domaine -->
+    <p-card>
+      <ng-template pTemplate="header">
+        <div class="chart-header">
+          <h3>Candidats par domaine</h3>
+          <p-dropdown
+            [options]="periodOptions"
+            [(ngModel)]="selectedPeriod"
+            optionLabel="label"
+          ></p-dropdown>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="content">
+        <div class="chart-item">
+          <p-chart type="bar" [data]="barData" [options]="barOptions"></p-chart>
+        </div>
+      </ng-template>
+    </p-card>
+
+    <!-- Graphique en ligne pour les tendances -->
+    <p-card>
+      <ng-template pTemplate="header">
+        <div class="chart-header">
+          <h3>Évolution des recrutements</h3>
+          <p-dropdown
+            [options]="periodOptions"
+            [(ngModel)]="selectedPeriod"
+            optionLabel="label"
+          ></p-dropdown>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="content">
+        <div class="chart-item">
+          <p-chart
+            type="line"
+            [data]="lineData"
+            [options]="lineOptions"
+          ></p-chart>
+        </div>
+      </ng-template>
+    </p-card>
+
+    <!-- Graphique radar pour les compétences demandées -->
+    <p-card>
+      <ng-template pTemplate="header">
+        <div class="chart-header">
+          <h3>Compétences les plus demandées</h3>
+          <p-dropdown
+            [options]="periodOptions"
+            [(ngModel)]="selectedPeriod"
+            optionLabel="label"
+          ></p-dropdown>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="content">
+        <div class="chart-item">
+          <p-chart
+            type="radar"
+            [data]="radarData"
+            [options]="radarOptions"
+          ></p-chart>
+        </div>
+      </ng-template>
+    </p-card>
+  </div>
+
+  <!-- Table des offres récentes -->
   <p-card>
-    <ng-template pTemplate="content">
-      <div class="chart-item">
-        <p-chart type="pie" [data]="pieData" [options]="pieOptions"></p-chart>
+    <ng-template pTemplate="header">
+      <div class="table-header">
+        <h3>Offres récentes</h3>
+        <button
+          pButton
+          label="Voir toutes les offres"
+          icon="pi pi-external-link"
+          class="p-button-text"
+        ></button>
       </div>
     </ng-template>
-  </p-card>
-  <p-card>
     <ng-template pTemplate="content">
-      <div class="chart-item">
-        <p-chart type="pie" ></p-chart>
-      </div>
+      <p-table
+        [value]="recentOffers"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [paginator]="true"
+        [rows]="5"
+        styleClass="modern-table"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="title">
+              Titre <p-sortIcon field="title"></p-sortIcon>
+            </th>
+            <th pSortableColumn="client">
+              Client <p-sortIcon field="client"></p-sortIcon>
+            </th>
+            <th pSortableColumn="applications">
+              Candidatures <p-sortIcon field="applications"></p-sortIcon>
+            </th>
+            <th pSortableColumn="status">
+              Statut <p-sortIcon field="status"></p-sortIcon>
+            </th>
+            <th pSortableColumn="date">
+              Date <p-sortIcon field="date"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-offer>
+          <tr>
+            <td>{{ offer.title }}</td>
+            <td>{{ offer.client }}</td>
+            <td>{{ offer.applications }}</td>
+            <td>
+              <span
+                class="status-badge"
+                [ngClass]="'status-' + offer.status.toLowerCase()"
+              >
+                {{ offer.status }}
+              </span>
+            </td>
+            <td>{{ offer.date }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
     </ng-template>
   </p-card>
 </div>

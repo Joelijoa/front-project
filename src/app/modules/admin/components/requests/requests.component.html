@@ -82,27 +82,22 @@
       <ng-template pTemplate="body" let-request>
         <tr>
           <td>
-            <span class="p-column-title">Date</span>
             <span class="cell-content">{{ request.date }}</span>
           </td>
           
           <td>
-            <span class="p-column-title">Client</span>
             <span class="customer-chip">{{ request.customer }}</span>
           </td>
           
           <td>
-            <span class="p-column-title">Poste</span>
             <span class="cell-content position-title">{{ request.poste }}</span>
           </td>
           
           <td>
-            <span class="p-column-title">Date de clôture</span>
             <span class="cell-content">{{ request.closingDate }}</span>
           </td>
           
           <td>
-            <span class="p-column-title">Actions</span>
             <div class="action-buttons">
               <button pButton pRipple type="button" icon="pi pi-eye" 
                 class="p-button-rounded p-button-text view-btn"

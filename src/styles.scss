@@ -18,7 +18,7 @@ html {
     overflow-y: scroll;
     margin-right: 0;
 }
-  
+
 body {
     background: var(--surface-ground);
     color: #696969;
@@ -31,85 +31,93 @@ body {
     width: 100%;
     // font-size: 160px;
     overflow-x: hidden;
-    --p-radiobutton-background: transparent;
-    --p-radiobutton-icon-checked-color: transparent;
-    --p-radiobutton-icon-checked-hover-color: transparent;
-    --p-paginator-background: transparent;
-    --p-paginator-nav-button-selected-background: var(--p-primary-color);
-    --p-paginator-nav-button-color: #090000;
-    --p-inputtext-color: #000000;
-    --p-dialog-background: #ffffff;
-    --p-select-background: #ffffff;
-    --p-inputtext-background: #ffffff;
-    --p-textarea-background: #ffffff;
-    --p-dialog-color: #000000;
-    --p-select-option-color: #000000;
-    --p-select-color: #000000;
-    --p-content-background: #ffffff;
-    --p-datatable-row-color: #ffffff;
-    --p-datatable-row-color: #000000;
-    --p-datatable-header-cell-background: #010327 ;
+    // --p-radiobutton-background: transparent;
+    // --p-radiobutton-icon-checked-color: transparent;
+    // --p-radiobutton-icon-checked-hover-color: transparent;
+    // --p-paginator-background: transparent;
+    // --p-paginator-nav-button-selected-background: var(--p-primary-color);
+    // --p-paginator-nav-button-color: #090000;
+    // --p-inputtext-color: #000000;
+    // --p-dialog-background: #ffffff;
+    // --p-select-background: #ffffff;
+    // --p-inputtext-background: #ffffff;
+    // --p-textarea-background: #ffffff;
+    // --p-dialog-color: #000000;
+    // --p-select-option-color: #000000;
+    // --p-select-color: #000000;
+    // --p-content-background: #ffffff;
+    // --p-datatable-row-color: #ffffff;
+    // --p-datatable-row-color: #000000;
+    // --p-datatable-header-cell-background: #010327 ;
 
-    --p-select-option-focus-background: white;
-    --p-select-option-selected-color: #000000;
-    --p-select-option-selected-focus-color	: #000000;
-    --p-select-option-focus-color	: #000000;
+    // --p-select-option-focus-background: white;
+    // --p-select-option-selected-color: #000000;
+    // --p-select-option-selected-focus-color	: #000000;
+    // --p-select-option-focus-color	: #000000;
     
-    --p-datepicker-panel-background	: #ffffff;
-    --p-datepicker-panel-color	: #000000;
-    --p-datepicker-header-background	: #010327;
-    --p-datepicker-header-color	: #000000;
-    --p-datepicker-date-color	: #000000;
-    --p-datepicker-week-day-color: #000000;
-    --p-datepicker-header-color: white;
-    --p-datepicker-header-padding: 0.25rem 0.5rem;
-    // --p-inputgroup-addon-border-color: var(--border-color);
-    --p-popover-content-padding: 0;
+    // --p-datepicker-panel-background	: #ffffff;
+    // --p-datepicker-panel-color	: #000000;
+    // --p-datepicker-header-background	: #010327;
+    // --p-datepicker-header-color	: #000000;
+    // --p-datepicker-date-color	: #000000;
+    // --p-datepicker-week-day-color: #000000;
+    // --p-datepicker-header-color: white;
+    // --p-datepicker-header-padding: 0.25rem 0.5rem;
+    // // --p-inputgroup-addon-border-color: var(--border-color);
+    // --p-popover-content-padding: 0;
     
-    --p-menubar-mobile-button-hover-background	: #010327;
-    .p-select-overlay {
-      --p-text-color:#000000;
-      --p-inputtext-background: transparent;
-      --p-text-color: #000000;
-      --p-list-option-color: #000000;
-      --p-list-option-selected-color: #000000;
+    // --p-menubar-mobile-button-hover-background	: #010327;
+
+    // --p-popover-color	: #000000;
+    // // --p-popover-background	: #ffffff;
+    // --p-menu-color: #000000;
+    // --p-menu-background: #ffffff;
+
+    // .p-select-overlay {
+    //   --p-text-color:#000000;
+    //   --p-inputtext-background: transparent;
+    //   --p-text-color: #000000;
+    //   --p-list-option-color: #000000;
+    //   --p-list-option-selected-color: #000000;
       
-      background-color: #fff;
-    }
-    .p-button {
-      padding: 0.5rem 1rem !important;
-    }
-    .p-dialog-close-button {
-      background-color: #f70505 !important;
-    }
+    //   background-color: #fff;
+    // }
+    // .p-button {
+    //   padding: 0.5rem 1rem !important;
+    // }
+    // .p-dialog-close-button {
+    //   background-color: #f70505 !important;
+    // }
 
-    .p-datatable-tbody > tr {
-      background-color: #ffffff !important;
-    }
-    .p-textarea {
-      // background-color: #ffffff !important;
-      width: 100% !important;
-    }
-    .p-datatable-table {
-      border-radius: 8px !important;
-    }
-    .p-popover{
-      background-color: #ffffff !important;
-    }
-    --p-editor-toolbar-background	: white;
-    --p-editor-content-background	: white;
-    --p-editor-toolbar-item-color	: #000000;
-    --p-editor-content-color	: #000000;
-    --p-multiselect-option-color	: #000000;
-    --p-multiselect-overlay-background:	white;
-    --p-multiselect-color	: #000000;
-    --p-multiselect-background	: white;
-    --p-checkbox-background	: white;
-    --p-multiselect-option-selected-color	: #000000;
-    --p-multiselect-option-selected-color	: #000000;
-    --p-multiselect-option-focus-color	: #000000;
-    --p-multiselect-option-focus-background	: white;
-    --p-multiselect-option-selected-focus-color	: #000000;
+    // .p-datatable-tbody > tr {
+    //   background-color: #ffffff !important;
+    // }
+    // .p-textarea {
+    //   // background-color: #ffffff !important;
+    //   width: 100% !important;
+    // }
+    // .p-datatable-table {
+    //   border-radius: 8px !important;
+    // }
+    // .p-popover{
+    //   background-color: #ffffff !important;
+    // }
+    // --p-editor-toolbar-background	: white;
+    // --p-editor-content-background	: white;
+    // --p-editor-toolbar-item-color	: #000000;
+    // --p-editor-content-color	: #000000;
+    // --p-multiselect-option-color	: #000000;
+    // --p-multiselect-overlay-background:	white;
+    // --p-multiselect-color	: #000000;
+    // --p-multiselect-background	: white;
+    // --p-checkbox-background	: white;
+    // --p-multiselect-option-selected-color	: #000000;
+    // --p-multiselect-option-selected-color	: #000000;
+    // --p-multiselect-option-focus-color	: #000000;
+    // --p-multiselect-option-focus-background	: white;
+    // --p-multiselect-option-selected-focus-color	: #000000;
+    --p-menubar-submenu-background: #010327;
+    --p-inputgroup-addon-background: #fff;
     ::-webkit-scrollbar {
       width: 12px;
     }

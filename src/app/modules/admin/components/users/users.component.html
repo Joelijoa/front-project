@@ -2,7 +2,7 @@
   <div class="page-header">
     <div class="header-content">
       <h1>Users</h1>
-      <p class="subtitle">ataovy</p>
+      <p class="subtitle">Liste des users actifs</p>
     </div>
   </div>
 
@@ -46,7 +46,7 @@
           <td>{{ user.email }}</td>
           <td>{{ user.location }}</td>
           <td>
-            <p-button [ngClass]="{ 'table-btn': true }" severity="secondary"
+            <p-button [ngClass]="{ 'table-btn': true }" severity="secondary" (click)="showUserDetails(user)"
               >Details</p-button
             >
           </td>
@@ -54,4 +54,60 @@
       </ng-template>
     </p-table>
   </div>
+
+  <!-- Popup de détails de l'utilisateur -->
+  <p-dialog 
+    [(visible)]="displayUserDetails" 
+    [modal]="true" 
+    [style]="{width: '450px'}" 
+    [draggable]="false" 
+    [resizable]="false"
+    header="Détails du profil" 
+    styleClass="user-profile-dialog">
+    
+    <div class="profile-container" *ngIf="selectedUser">
+      <div class="profile-header">
+        <div class="profile-image">
+          <img [src]="selectedUser.avatar || '/picture/man.jpg'" alt="Photo de profil">
+        </div>
+        <h2 class="profile-name">{{ selectedUser.name }}</h2>
+        <div class="profile-function">{{ selectedUser.jobTitle || 'Non spécifié' }}</div>
+      </div>
+      
+      <div class="profile-details">
+        <div class="detail-item">
+          <div class="detail-label">
+            <i class="pi pi-envelope"></i>
+            <span>Email</span>
+          </div>
+          <div class="detail-value">{{ selectedUser.email }}</div>
+        </div>
+        
+        <div class="detail-item">
+          <div class="detail-label">
+            <i class="pi pi-phone"></i>
+            <span>Téléphone</span>
+          </div>
+          <div class="detail-value">{{ selectedUser.phone || 'Non spécifié' }}</div>
+        </div>
+        
+        <div class="detail-item">
+          <div class="detail-label">
+            <i class="pi pi-map-marker"></i>
+            <span>Localisation</span>
+          </div>
+          <div class="detail-value">{{ selectedUser.location }}</div>
+        </div>
+      </div>
+    </div>
+    
+    <ng-template pTemplate="footer">
+      <p-button 
+        icon="pi pi-times" 
+        label="Fermer" 
+        styleClass="p-button-text" 
+        (click)="displayUserDetails=false">
+      </p-button>
+    </ng-template>
+  </p-dialog>
 </div>
