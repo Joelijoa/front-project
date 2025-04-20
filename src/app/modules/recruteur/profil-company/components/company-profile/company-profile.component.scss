@@ -613,9 +613,12 @@ button[label="Fermer"] {
   padding: 0.5rem;
   min-width: 200px;
   
+  
   .p-menuitem {
     border-radius: 8px;
     margin: 0.25rem 0;
+    color:#000;
+
     
     .p-menuitem-link {
       padding: 0.75rem 1rem;
@@ -625,13 +628,19 @@ button[label="Fermer"] {
       &:hover {
         background: #f8f9fa;
       }
-      
+      .p-menu-item-label {
+        color:#000;
+      }
+    
       .p-menuitem-icon {
         color: #010327;
       }
       
       .p-menuitem-text {
         color: #2d3436;
+      }
+      .p-menuitem-label{
+        color: #000;
       }
     }
   }

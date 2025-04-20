@@ -9,13 +9,17 @@
   position: fixed;
   height: 100%;
   background-color: var(--sidebar-color);
-  color: #fff;
+  // color: #fff;
   transition: width 0.3s;
   overflow: hidden;
 
   .p-menu {
     background-color: transparent;
     border: none;
+
+    .p-menu-item-label {
+      color: #fff;
+    }
   }
 
   .collapse-btn {
@@ -37,7 +41,7 @@
       width: 70px;
       height: 50px;
       color: #fff;
-      background-color: #fff;
+      // background-color: #fff;
     }
   }
 }

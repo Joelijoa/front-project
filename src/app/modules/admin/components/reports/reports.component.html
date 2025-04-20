@@ -1,6 +1,8 @@
 <div class="reports-container">
   <div class="header">Tableau de bord</div>
-  <p class="subtitle">Visualisez et analysez les performances de votre plateforme de recrutement.</p>
+  <p class="subtitle">
+    Visualisez et analysez les performances de votre plateforme de recrutement.
+  </p>
 
   <div class="total-card-list">
     <p-card *ngFor="let total of totals">
@@ -8,8 +10,16 @@
         <div class="item label">{{ total.label }}</div>
         <div class="item value">{{ total.value | number }}</div>
         <div class="item trend" *ngIf="total.trend">
-          <i [class]="total.trend > 0 ? 'pi pi-arrow-up text-success' : 'pi pi-arrow-down text-danger'"></i>
-          <span [class]="total.trend > 0 ? 'text-success' : 'text-danger'">{{ total.trend }}%</span>
+          <i
+            [class]="
+              total.trend > 0
+                ? 'pi pi-arrow-up text-success'
+                : 'pi pi-arrow-down text-danger'
+            "
+          ></i>
+          <span [class]="total.trend > 0 ? 'text-success' : 'text-danger'"
+            >{{ total.trend }}%</span
+          >
           <span class="period">vs mois dernier</span>
         </div>
       </ng-template>
@@ -22,7 +32,11 @@
       <ng-template pTemplate="header">
         <div class="chart-header">
           <h3>Répartition des offres</h3>
-          <p-dropdown [options]="periodOptions" [(ngModel)]="selectedPeriod" optionLabel="label"></p-dropdown>
+          <p-dropdown
+            [options]="periodOptions"
+            [(ngModel)]="selectedPeriod"
+            optionLabel="label"
+          ></p-dropdown>
         </div>
       </ng-template>
       <ng-template pTemplate="content">
@@ -37,7 +51,11 @@
       <ng-template pTemplate="header">
         <div class="chart-header">
           <h3>Candidats par domaine</h3>
-          <p-dropdown [options]="periodOptions" [(ngModel)]="selectedPeriod" optionLabel="label"></p-dropdown>
+          <p-dropdown
+            [options]="periodOptions"
+            [(ngModel)]="selectedPeriod"
+            optionLabel="label"
+          ></p-dropdown>
         </div>
       </ng-template>
       <ng-template pTemplate="content">
@@ -52,12 +70,20 @@
       <ng-template pTemplate="header">
         <div class="chart-header">
           <h3>Évolution des recrutements</h3>
-          <p-dropdown [options]="periodOptions" [(ngModel)]="selectedPeriod" optionLabel="label"></p-dropdown>
+          <p-dropdown
+            [options]="periodOptions"
+            [(ngModel)]="selectedPeriod"
+            optionLabel="label"
+          ></p-dropdown>
         </div>
       </ng-template>
       <ng-template pTemplate="content">
         <div class="chart-item">
-          <p-chart type="line" [data]="lineData" [options]="lineOptions"></p-chart>
+          <p-chart
+            type="line"
+            [data]="lineData"
+            [options]="lineOptions"
+          ></p-chart>
         </div>
       </ng-template>
     </p-card>
@@ -67,12 +93,20 @@
       <ng-template pTemplate="header">
         <div class="chart-header">
           <h3>Compétences les plus demandées</h3>
-          <p-dropdown [options]="periodOptions" [(ngModel)]="selectedPeriod" optionLabel="label"></p-dropdown>
+          <p-dropdown
+            [options]="periodOptions"
+            [(ngModel)]="selectedPeriod"
+            optionLabel="label"
+          ></p-dropdown>
         </div>
       </ng-template>
       <ng-template pTemplate="content">
         <div class="chart-item">
-          <p-chart type="radar" [data]="radarData" [options]="radarOptions"></p-chart>
+          <p-chart
+            type="radar"
+            [data]="radarData"
+            [options]="radarOptions"
+          ></p-chart>
         </div>
       </ng-template>
     </p-card>
@@ -83,18 +117,39 @@
     <ng-template pTemplate="header">
       <div class="table-header">
         <h3>Offres récentes</h3>
-        <button pButton label="Voir toutes les offres" icon="pi pi-external-link" class="p-button-text"></button>
+        <button
+          pButton
+          label="Voir toutes les offres"
+          icon="pi pi-external-link"
+          class="p-button-text"
+        ></button>
       </div>
     </ng-template>
     <ng-template pTemplate="content">
-      <p-table [value]="recentOffers" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5" styleClass="modern-table">
+      <p-table
+        [value]="recentOffers"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [paginator]="true"
+        [rows]="5"
+        styleClass="modern-table"
+      >
         <ng-template pTemplate="header">
           <tr>
-            <th pSortableColumn="title">Titre <p-sortIcon field="title"></p-sortIcon></th>
-            <th pSortableColumn="client">Client <p-sortIcon field="client"></p-sortIcon></th>
-            <th pSortableColumn="applications">Candidatures <p-sortIcon field="applications"></p-sortIcon></th>
-            <th pSortableColumn="status">Statut <p-sortIcon field="status"></p-sortIcon></th>
-            <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon></th>
+            <th pSortableColumn="title">
+              Titre <p-sortIcon field="title"></p-sortIcon>
+            </th>
+            <th pSortableColumn="client">
+              Client <p-sortIcon field="client"></p-sortIcon>
+            </th>
+            <th pSortableColumn="applications">
+              Candidatures <p-sortIcon field="applications"></p-sortIcon>
+            </th>
+            <th pSortableColumn="status">
+              Statut <p-sortIcon field="status"></p-sortIcon>
+            </th>
+            <th pSortableColumn="date">
+              Date <p-sortIcon field="date"></p-sortIcon>
+            </th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-offer>
@@ -103,7 +158,10 @@
             <td>{{ offer.client }}</td>
             <td>{{ offer.applications }}</td>
             <td>
-              <span class="status-badge" [ngClass]="'status-' + offer.status.toLowerCase()">
+              <span
+                class="status-badge"
+                [ngClass]="'status-' + offer.status.toLowerCase()"
+              >
                 {{ offer.status }}
               </span>
             </td>

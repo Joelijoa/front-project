@@ -17,6 +17,7 @@ import { PopoverModule } from 'primeng/popover';
     MenuModule
   ],
 })
+
 export class ParametrePopoverComponent implements OnInit {
   menuItems : MenuItem[] = [
     {
@@ -36,7 +37,18 @@ export class ParametrePopoverComponent implements OnInit {
   ]
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
+  // popoverMenu = {
+  //   colorScheme : {
+  //     dark: {
+  //       root: {
+  //         color: '{neutral-950}',
+  //       },
+  //       item : {
+  //         color: '{neutral-950}',
+  //       }
+  //     }
+  //   }
+  // }
 }

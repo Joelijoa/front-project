@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AccountService } from '../../services/account.service';
@@ -58,6 +58,7 @@ interface Account {
     ProgressSpinnerModule,
     ToastModule
   ],
+  encapsulation: ViewEncapsulation.None,
   providers: [DialogService, ConfirmationService, MessageService]
 })
 export class AccountsComponent implements OnInit {

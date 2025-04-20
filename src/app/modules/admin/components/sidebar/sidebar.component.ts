@@ -14,18 +14,20 @@ import { MenuModule } from 'primeng/menu';
 export class SidebarComponent {
   isCollapsed = false;
   menuItem: any[] = [];
+  imgLogo ! : String;
   @Output() onCollapseChange = new EventEmitter<boolean>();
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
+    this.imgLogo = 'picture/logo.png'
     this.menuItem = [
       {
-        label: 'Application',
+        label: 'APPLICATIONS',
         items: [
           {
             label: 'Offers',
-            icon: 'pi pi-file',
+            icon: 'pi pi-briefcase',
             command: () => this.router.navigate(['/admin/offers']),
           },
           {
@@ -37,7 +39,7 @@ export class SidebarComponent {
         ],
       },
       {
-        label: 'Reports',
+        label: 'REPORTS',
         items: [
           {
             label: 'Reports',
@@ -45,13 +47,13 @@ export class SidebarComponent {
             command: () => this.router.navigate(['/admin/reports']),
           },
           { label: 'Customers statistics', 
-            icon: 'pi pi-chart-bar',
+            icon: 'pi pi-chart-pie',
             command: () => this.router.navigate(['/admin/customer-statistics']),
           },
         ],
       },
       {
-        label: 'Backoffice',
+        label: 'BACKOFFICE',
         items: [
           {
             label: 'Society',

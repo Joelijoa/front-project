@@ -1,4 +1,4 @@
-// Variables
+// // Variables
 $primary-color: #003366;
 $primary-light: #1a4d80;
 $primary-dark: #00264d;
@@ -8,421 +8,467 @@ $border-radius: 8px;
 $box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 $transition: all 0.3s ease;
 
-// Status colors
-$status-pending: #FFB74D;
-$status-processing: #64B5F6;
-$status-approved: #66BB6A;
-$status-rejected: #EF5350;
+.action-cell {
+  display: flex;
+  gap: 5px;
 
-:host {
-  .content-container {
-    max-width: 100%;
-  }
-  
-  .page-header {
-    margin-bottom: 1.5rem;
-    
-    h1 {
-      color: $primary-color;
-      font-size: 1.75rem;
-      margin-bottom: 0.25rem;
-    }
-    
-    .subtitle {
-      color: #6c757d;
-      font-size: 1rem;
-    }
-  }
-  
-  .content-card {
-    background-color: #fff;
-    border-radius: $border-radius;
-    box-shadow: $box-shadow;
-    overflow: hidden;
-  }
-  
-  .panel-content {
-    min-height: 200px;
-    padding: 0 0.5rem;
-  }
-  
-  // Styles pour les tableaux
-  .p-datatable {
-    .p-datatable-header {
-      background-color: #fff;
-      border-color: #e9ecef;
-      padding: 1rem;
-    }
-    
-    .p-datatable-thead > tr > th {
-      background-color: #f8f9fa;
-      color: $primary-color;
-      padding: 0.75rem 1rem;
-      font-weight: 600;
-      border-color: #e9ecef;
-    }
-    
-    .p-datatable-tbody > tr {
-      transition: $transition;
-      
-      > td {
-        padding: 0.75rem 1rem;
-        border-color: #e9ecef;
-        color: #495057;
-      }
-      
-      &:hover {
-        background-color: rgba($primary-color, 0.02);
-        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.03);
-        
-        > td {
-          color: #212529;
-        }
-      }
-    }
-    
-    .p-paginator {
-      background-color: #fff;
-      padding: 0.75rem;
-      border-color: #e9ecef;
-      
-      .p-paginator-element {
-        color: $primary-color;
-        
-        &.p-highlight {
-          background-color: $primary-light;
-          color: #fff;
-        }
-      }
-    }
-  }
-  
-  // Styles pour les badges de statut
-  .status-badge {
-    display: inline-block;
-    padding: 0.3rem 0.6rem;
-    border-radius: 50px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    
-    &.status-pending {
-      background-color: rgba($status-pending, 0.15);
-      color: $status-pending;
-    }
-    
-    &.status-processing {
-      background-color: rgba($status-processing, 0.15);
-      color: $status-processing;
-    }
-    
-    &.status-approved {
-      background-color: rgba($status-approved, 0.15);
-      color: $status-approved;
-    }
-    
-    &.status-rejected {
-      background-color: rgba($status-rejected, 0.15);
-      color: $status-rejected;
-    }
-  }
-  
-  // Cellule d'actions
-  .action-cell {
-    display: flex;
-    justify-content: flex-start;
-    gap: 0.25rem;
-    
-    .p-button.p-button-sm {
-      width: 1.75rem !important;
-      height: 1.75rem !important;
-      font-size: 0.65rem !important;
-      
-      &.p-button-rounded {
-        border-radius: 50%;
-      }
-      
-      .p-button-icon {
-        font-size: 0.65rem !important;
-      }
-    }
-  }
-  
-  // Message vide
-  .empty-message {
-    text-align: center;
-    padding: 2rem !important;
-    color: #6c757d;
-    
-    i {
-      margin-right: 0.5rem;
-      font-size: 1.25rem;
-    }
-  }
-  
-  // Raison de rejet tronquée
-  .rejection-reason {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 300px;
-  }
-}
+  > button {
+    padding: 0.25rem !important;
+    width: 1.75rem !important;
+    height: 1.75rem !important;
+    font-size: 0.65rem !important;
 
-// Styles pour les dialogues
-:host ::ng-deep {
-  .p-dialog {
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    border-radius: $border-radius;
-    overflow: hidden;
-    
-    .p-dialog-header {
-      padding: 1.25rem 1.5rem 0.75rem;
-      background-color: #fff;
-      color: $primary-color;
-      border-bottom: 1px solid #f0f0f0;
-      
-      .p-dialog-title {
-        font-weight: 600;
-        font-size: 1.25rem;
-      }
-      
-      .p-dialog-header-icon {
-        width: 2rem;
-        height: 2rem;
-        color: #6c757d;
-        border: 0;
-        background: transparent;
-        border-radius: 50%;
-        transition: background-color 0.2s;
-        
-        &:hover {
-          background-color: #f2f2f2;
-          color: #495057;
-        }
-        
-        &:focus {
-          box-shadow: none;
-        }
-      }
-    }
-    
-    .p-dialog-content {
-      padding: 1.5rem;
-      background-color: #fff;
-      
-      p {
-        margin-top: 0;
-        color: #495057;
-      }
-      
-      .form-group {
-        margin-bottom: 1.5rem;
-        
-        label {
-          display: block;
-          margin-bottom: 0.5rem;
-          color: #495057;
-          font-weight: 500;
-        }
-        
-        textarea {
-          width: 100%;
-          padding: 0.75rem;
-          border: 1px solid #ced4da;
-          border-radius: $border-radius;
-          resize: vertical;
-          font-family: inherit;
-          line-height: 1.5;
-          transition: $transition;
-          
-          &:focus {
-            outline: 0;
-            border-color: $primary-color;
-            box-shadow: 0 0 0 2px rgba($primary-color, 0.25);
-          }
-          
-          &::placeholder {
-            color: #adb5bd;
-          }
-        }
-      }
-    }
-  }
-  
-  .p-confirm-dialog {
-    .p-dialog-content {
-      padding: 1.5rem 1.5rem 0;
-      
-      .p-confirm-dialog-icon {
-        color: $accent-color;
-        font-size: 1.5rem;
-        margin-right: 0.75rem;
-      }
-      
-      .p-confirm-dialog-message {
-        color: #495057;
-        font-size: 1rem;
-        line-height: 1.5;
-      }
-    }
-  }
-  
-  .p-tabview {
-    .p-tabview-nav {
-      border-bottom-color: #e9ecef;
-      background-color: #f8f9fa;
-      
-      li {
-        margin-right: 2px;
-        
-        .p-tabview-nav-link {
-          padding: 1rem 1.25rem;
-          color: #495057;
-          background-color: #f8f9fa;
-          border-color: #e9ecef;
-          border-bottom-color: #e9ecef;
-          transition: $transition;
-          
-          &:not(.p-disabled):focus {
-            box-shadow: none;
-          }
-          
-          &:hover {
-            background-color: #ffffff;
-            color: $primary-color;
-            border-color: #e9ecef;
-          }
-        }
-        
-        &.p-highlight .p-tabview-nav-link {
-          background-color: #fff;
-          color: $primary-color;
-          border-color: #e9ecef;
-          border-bottom-color: #fff;
-          position: relative;
-          
-          &:before {
-            content: '';
-            position: absolute;
-            top: -1px;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background-color: $primary-color;
-            border-radius: 3px 3px 0 0;
-          }
-        }
-      }
-    }
-    
-    .p-tabview-panels {
-      padding: 1.5rem 0 0;
-      background-color: #fff;
-    }
-  }
-  
-  .p-toast {
-    .p-toast-message {
-      border-radius: $border-radius;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      
-      &.p-toast-message-success {
-        background-color: #f2faf4;
-        border-left: 6px solid $status-approved;
-        color: #2c6c37;
-        
-        .p-toast-icon-close {
-          color: #2c6c37;
-        }
-      }
-      
-      &.p-toast-message-error {
-        background-color: #fff6f6;
-        border-left: 6px solid $status-rejected;
-        color: #9f2f2f;
-        
-        .p-toast-icon-close {
-          color: #9f2f2f;
-        }
-      }
-      
-      &.p-toast-message-info {
-        background-color: #f4f9fd;
-        border-left: 6px solid $status-processing;
-        color: #1a68a3;
-        
-        .p-toast-icon-close {
-          color: #1a68a3;
-        }
-      }
-      
-      .p-toast-message-content {
-        padding: 1rem;
-        display: flex;
-        align-items: flex-start;
-        
-        .p-toast-message-icon {
-          font-size: 1.25rem;
-          margin-right: 0.75rem;
-        }
-        
-        .p-toast-message-text {
-          .p-toast-summary {
-            font-weight: 600;
-            font-size: 1rem;
-          }
-          
-          .p-toast-detail {
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
-          }
-        }
-      }
-      
-      .p-toast-icon-close {
-        width: 1.5rem;
-        height: 1.5rem;
-        border-radius: 50%;
-        background-color: transparent;
-        transition: background-color 0.2s;
-        
-        &:hover {
-          background-color: rgba(0, 0, 0, 0.05);
-        }
-      }
-    }
-  }
-  
-  // Styles pour les boutons plus petits
-  .action-cell {
-    .p-button.p-button-sm {
-      padding: 0.25rem !important;
-      width: 1.75rem !important;
-      height: 1.75rem !important;
+    .p-button-icon {
       font-size: 0.65rem !important;
-      
-      .p-button-icon {
-        font-size: 0.65rem !important;
-        margin: 0 !important;
-      }
+      color: $secondary-color;
+      margin: 0 !important;
     }
   }
 }
 
-// Responsive
-@media (max-width: 768px) {
-  :host {
-    .action-cell {
-      flex-wrap: wrap;
-      gap: 0.25rem;
-      justify-content: center;
-    }
+.p-tablist-tab-list {
+  background: $secondary-color;
+}
+
+.p-tabpanels {
+  background: $secondary-color;
+  padding: none;
+}
+
+.p-tab {
+  background: $secondary-color;
+  color: black;
+  border: none;
+}
+
+.p-tab:not(.p-tab-active):not(.p-disabled):hover {
+  background: $secondary-color;
+  color: black;
+  border: none;
+}
+
+.p-tab-active {
+  background: $secondary-color;
+  color: black;
+  border: none;
+  border-top: 3px solid var(--p-primary-color);
+}
+
+// // Status colors
+// $status-pending: #FFB74D;
+// $status-processing: #64B5F6;
+// $status-approved: #66BB6A;
+// $status-rejected: #EF5350;
+
+// :host {
+//   .content-container {
+//     max-width: 100%;
+//   }
+  
+//   .page-header {
+//     margin-bottom: 1.5rem;
     
-    .rejection-reason {
-      max-width: 200px;
-    }
-  }
-} 
+//     h1 {
+//       color: $primary-color;
+//       font-size: 1.75rem;
+//       margin-bottom: 0.25rem;
+//     }
+    
+//     .subtitle {
+//       color: #6c757d;
+//       font-size: 1rem;
+//     }
+//   }
+  
+//   .content-card {
+//     background-color: #fff;
+//     border-radius: $border-radius;
+//     box-shadow: $box-shadow;
+//     overflow: hidden;
+//   }
+  
+//   .panel-content {
+//     min-height: 200px;
+//     padding: 0 0.5rem;
+//   }
+  
+//   // Styles pour les tableaux
+//   .p-datatable {
+//     .p-datatable-header {
+//       background-color: #fff;
+//       border-color: #e9ecef;
+//       padding: 1rem;
+//     }
+    
+//     .p-datatable-thead > tr > th {
+//       background-color: #f8f9fa;
+//       color: $primary-color;
+//       padding: 0.75rem 1rem;
+//       font-weight: 600;
+//       border-color: #e9ecef;
+//     }
+    
+//     .p-datatable-tbody > tr {
+//       transition: $transition;
+      
+//       > td {
+//         padding: 0.75rem 1rem;
+//         border-color: #e9ecef;
+//         color: #495057;
+//       }
+      
+//       &:hover {
+//         background-color: rgba($primary-color, 0.02);
+//         box-shadow: 0 3px 8px rgba(0, 0, 0, 0.03);
+        
+//         > td {
+//           color: #212529;
+//         }
+//       }
+//     }
+    
+//     .p-paginator {
+//       background-color: #fff;
+//       padding: 0.75rem;
+//       border-color: #e9ecef;
+      
+//       .p-paginator-element {
+//         color: $primary-color;
+        
+//         &.p-highlight {
+//           background-color: $primary-light;
+//           color: #fff;
+//         }
+//       }
+//     }
+//   }
+  
+//   // Styles pour les badges de statut
+//   .status-badge {
+//     display: inline-block;
+//     padding: 0.3rem 0.6rem;
+//     border-radius: 50px;
+//     font-size: 0.75rem;
+//     font-weight: 600;
+//     text-align: center;
+//     text-transform: uppercase;
+//     letter-spacing: 0.5px;
+    
+//     &.status-pending {
+//       background-color: rgba($status-pending, 0.15);
+//       color: $status-pending;
+//     }
+    
+//     &.status-processing {
+//       background-color: rgba($status-processing, 0.15);
+//       color: $status-processing;
+//     }
+    
+//     &.status-approved {
+//       background-color: rgba($status-approved, 0.15);
+//       color: $status-approved;
+//     }
+    
+//     &.status-rejected {
+//       background-color: rgba($status-rejected, 0.15);
+//       color: $status-rejected;
+//     }
+//   }
+  
+//   // Cellule d'actions
+//   .action-cell {
+//     display: flex;
+//     justify-content: flex-start;
+//     gap: 0.25rem;
+    
+//     .p-button.p-button-sm {
+//       width: 1.75rem !important;
+//       height: 1.75rem !important;
+//       font-size: 0.65rem !important;
+      
+//       &.p-button-rounded {
+//         border-radius: 50%;
+//       }
+      
+//       .p-button-icon {
+//         font-size: 0.65rem !important;
+//       }
+//     }
+//   }
+  
+//   // Message vide
+//   .empty-message {
+//     text-align: center;
+//     padding: 2rem !important;
+//     color: #6c757d;
+    
+//     i {
+//       margin-right: 0.5rem;
+//       font-size: 1.25rem;
+//     }
+//   }
+  
+//   // Raison de rejet tronquée
+//   .rejection-reason {
+//     white-space: nowrap;
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//     max-width: 300px;
+//   }
+// }
+
+// // Styles pour les dialogues
+// :host ::ng-deep {
+//   .p-dialog {
+//     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+//     border-radius: $border-radius;
+//     overflow: hidden;
+    
+//     .p-dialog-header {
+//       padding: 1.25rem 1.5rem 0.75rem;
+//       background-color: #fff;
+//       color: $primary-color;
+//       border-bottom: 1px solid #f0f0f0;
+      
+//       .p-dialog-title {
+//         font-weight: 600;
+//         font-size: 1.25rem;
+//       }
+      
+//       .p-dialog-header-icon {
+//         width: 2rem;
+//         height: 2rem;
+//         color: #6c757d;
+//         border: 0;
+//         background: transparent;
+//         border-radius: 50%;
+//         transition: background-color 0.2s;
+        
+//         &:hover {
+//           background-color: #f2f2f2;
+//           color: #495057;
+//         }
+        
+//         &:focus {
+//           box-shadow: none;
+//         }
+//       }
+//     }
+    
+//     .p-dialog-content {
+//       padding: 1.5rem;
+//       background-color: #fff;
+      
+//       p {
+//         margin-top: 0;
+//         color: #495057;
+//       }
+      
+//       .form-group {
+//         margin-bottom: 1.5rem;
+        
+//         label {
+//           display: block;
+//           margin-bottom: 0.5rem;
+//           color: #495057;
+//           font-weight: 500;
+//         }
+        
+//         textarea {
+//           width: 100%;
+//           padding: 0.75rem;
+//           border: 1px solid #ced4da;
+//           border-radius: $border-radius;
+//           resize: vertical;
+//           font-family: inherit;
+//           line-height: 1.5;
+//           transition: $transition;
+          
+//           &:focus {
+//             outline: 0;
+//             border-color: $primary-color;
+//             box-shadow: 0 0 0 2px rgba($primary-color, 0.25);
+//           }
+          
+//           &::placeholder {
+//             color: #adb5bd;
+//           }
+//         }
+//       }
+//     }
+//   }
+  
+//   .p-confirm-dialog {
+//     .p-dialog-content {
+//       padding: 1.5rem 1.5rem 0;
+      
+//       .p-confirm-dialog-icon {
+//         color: $accent-color;
+//         font-size: 1.5rem;
+//         margin-right: 0.75rem;
+//       }
+      
+//       .p-confirm-dialog-message {
+//         color: #495057;
+//         font-size: 1rem;
+//         line-height: 1.5;
+//       }
+//     }
+//   }
+  
+//   .p-tabview {
+//     .p-tabview-nav {
+//       border-bottom-color: #e9ecef;
+//       background-color: #f8f9fa;
+      
+//       li {
+//         margin-right: 2px;
+        
+//         .p-tabview-nav-link {
+//           padding: 1rem 1.25rem;
+//           color: #495057;
+//           background-color: #f8f9fa;
+//           border-color: #e9ecef;
+//           border-bottom-color: #e9ecef;
+//           transition: $transition;
+          
+//           &:not(.p-disabled):focus {
+//             box-shadow: none;
+//           }
+          
+//           &:hover {
+//             background-color: #ffffff;
+//             color: $primary-color;
+//             border-color: #e9ecef;
+//           }
+//         }
+        
+//         &.p-highlight .p-tabview-nav-link {
+//           background-color: #fff;
+//           color: $primary-color;
+//           border-color: #e9ecef;
+//           border-bottom-color: #fff;
+//           position: relative;
+          
+//           &:before {
+//             content: '';
+//             position: absolute;
+//             top: -1px;
+//             left: 0;
+//             right: 0;
+//             height: 3px;
+//             background-color: $primary-color;
+//             border-radius: 3px 3px 0 0;
+//           }
+//         }
+//       }
+//     }
+    
+//     .p-tabview-panels {
+//       padding: 1.5rem 0 0;
+//       background-color: #fff;
+//     }
+//   }
+  
+//   .p-toast {
+//     .p-toast-message {
+//       border-radius: $border-radius;
+//       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      
+//       &.p-toast-message-success {
+//         background-color: #f2faf4;
+//         border-left: 6px solid $status-approved;
+//         color: #2c6c37;
+        
+//         .p-toast-icon-close {
+//           color: #2c6c37;
+//         }
+//       }
+      
+//       &.p-toast-message-error {
+//         background-color: #fff6f6;
+//         border-left: 6px solid $status-rejected;
+//         color: #9f2f2f;
+        
+//         .p-toast-icon-close {
+//           color: #9f2f2f;
+//         }
+//       }
+      
+//       &.p-toast-message-info {
+//         background-color: #f4f9fd;
+//         border-left: 6px solid $status-processing;
+//         color: #1a68a3;
+        
+//         .p-toast-icon-close {
+//           color: #1a68a3;
+//         }
+//       }
+      
+//       .p-toast-message-content {
+//         padding: 1rem;
+//         display: flex;
+//         align-items: flex-start;
+        
+//         .p-toast-message-icon {
+//           font-size: 1.25rem;
+//           margin-right: 0.75rem;
+//         }
+        
+//         .p-toast-message-text {
+//           .p-toast-summary {
+//             font-weight: 600;
+//             font-size: 1rem;
+//           }
+          
+//           .p-toast-detail {
+//             font-size: 0.875rem;
+//             margin-top: 0.25rem;
+//           }
+//         }
+//       }
+      
+//       .p-toast-icon-close {
+//         width: 1.5rem;
+//         height: 1.5rem;
+//         border-radius: 50%;
+//         background-color: transparent;
+//         transition: background-color 0.2s;
+        
+//         &:hover {
+//           background-color: rgba(0, 0, 0, 0.05);
+//         }
+//       }
+//     }
+//   }
+  
+//   // Styles pour les boutons plus petits
+//   .action-cell {
+//     .p-button.p-button-sm {
+//       padding: 0.25rem !important;
+//       width: 1.75rem !important;
+//       height: 1.75rem !important;
+//       font-size: 0.65rem !important;
+      
+//       .p-button-icon {
+//         font-size: 0.65rem !important;
+//         margin: 0 !important;
+//       }
+//     }
+//   }
+// }
+
+// // Responsive
+// @media (max-width: 768px) {
+//   :host {
+//     .action-cell {
+//       flex-wrap: wrap;
+//       gap: 0.25rem;
+//       justify-content: center;
+//     }
+    
+//     .rejection-reason {
+//       max-width: 200px;
+//     }
+//   }
+// } 
